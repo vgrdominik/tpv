@@ -3,10 +3,10 @@
 
     <!-- Color Palette -->
     <v-row dense>
-      <v-col cols="12" sm="8" class="body-2 justify-center">
+      <v-col cols="12" lg="8" class="body-2 justify-center">
         <CtBtn type="text" @click="show_color_palette = ! show_color_palette">Paleta de colores</CtBtn> (Click para mostrar/ocultar)
       </v-col>
-      <v-col cols="12" sm="4" v-if="show_color_palette">
+      <v-col cols="12" lg="4" v-if="show_color_palette">
         <v-row dense class="body-1">
           <v-spacer />
           Primario
@@ -20,7 +20,7 @@
       </v-col>
     </v-row>
     <v-row dense v-if="show_color_palette">
-      <v-col cols="12" sm="4">
+      <v-col cols="12" lg="4">
         <v-row dense class="body-1">
           <v-spacer />
           Secundario
@@ -32,7 +32,7 @@
           <v-spacer />
         </v-row>
       </v-col>
-      <v-col cols="12" sm="4">
+      <v-col cols="12" lg="4">
         <v-row dense class="body-1">
           <v-spacer />
           Destacado
@@ -44,7 +44,7 @@
           <v-spacer />
         </v-row>
       </v-col>
-      <v-col cols="12" sm="4">
+      <v-col cols="12" lg="4">
         <v-row dense class="body-1">
           <v-spacer />
           Información
@@ -58,7 +58,7 @@
       </v-col>
     </v-row>
     <v-row dense v-if="show_color_palette">
-      <v-col cols="12" sm="4">
+      <v-col cols="12" lg="4">
         <v-row dense class="body-1">
           <v-spacer />
           Validación
@@ -70,7 +70,7 @@
           <v-spacer />
         </v-row>
       </v-col>
-      <v-col cols="12" sm="4">
+      <v-col cols="12" lg="4">
         <v-row dense class="body-1">
           <v-spacer />
           Error
@@ -82,7 +82,7 @@
           <v-spacer />
         </v-row>
       </v-col>
-      <v-col cols="12" sm="4">
+      <v-col cols="12" lg="4">
         <v-row dense class="body-1">
           <v-spacer />
           Alerta
@@ -402,10 +402,8 @@
 </template>
 
 <script type="application/javascript">
-import CtBtn from "../globalComponents/CtBtn";
 export default {
   name: "Branding",
-  components: {CtBtn},
   props: {
     'model': {
       type: Object,
