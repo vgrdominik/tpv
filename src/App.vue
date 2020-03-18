@@ -1,3 +1,4 @@
+import {ipcRenderer} from "electron";
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
@@ -108,6 +109,19 @@
       </v-container>
     </v-content>
 
+    <CtBtn
+            fab
+            dark
+            type="rounded"
+            :color="stateColor"
+            bottom
+            right
+            fixed
+            @click="synchronization()"
+    >
+      <v-icon>mdi-cached</v-icon>
+    </CtBtn>
+
     <v-footer padless>
       <CtCard type="empty" flat tile width="100%" class="primary white--text text-center">
         <v-card-text>
@@ -130,18 +144,29 @@
 </template>
 
 <script>
+import { ipcRenderer } from 'electron'
 import { mapMutations, mapActions } from 'vuex'
+import CtBtn from "./globalComponents/CtBtn";
 
 export default {
+  components: {CtBtn},
   props: {
     source: String,
   },
 
   data: () => ({
+    // CONFIG SETTINGS
+    // Get config event to listen main process state
+    get_config_main_event: null,
+    // END CONFIG SETTINGS
+
+
     dialog: false,
     drawer: false,
+    stateColor: 'primary', // primary = synchronized, secondary = not_synchronized, error = synchronized_error
+    state: 'synchronized', // not_synchronized, synchronized_error
     items: [
-      { icon: ['fas', 'asterisk'], text: 'Día a día', path: '/dia-a-dia' },
+      { icon: ['fas', 'asterisk'], text: 'Configuración', path: '/configuracion' },
     ],
     footerItems: [
       {
@@ -179,7 +204,49 @@ export default {
 
     user () {
       return this.$store.state.user.user
+    },
+
+    stored_config () {
+      return this.$store.state.global.config
     }
+  },
+
+  watch: {
+    state(newValue) {
+      // primary = synchronized, secondary = not_synchronized, error = synchronized_error
+      if (newValue === 'synchronized') {
+        this.stateColor = 'primary'
+      }
+      if (newValue === 'not_synchronized') {
+        this.stateColor = 'secondary'
+      }
+      if (newValue === 'synchronized_error') {
+        this.stateColor = 'error'
+      }
+    },
+  },
+
+  mounted() {
+    // Get current config
+    this.get_config_main_event = (event, configData) => {
+      this.setConfig({ path: 'initialized', value: false })
+      this.setConfigComplete(configData)
+      this.$vuetify.theme.themes.light.primary = configData.branding.color_palette.primary
+      this.$vuetify.theme.themes.light.secondary = configData.branding.color_palette.secondary
+      this.$vuetify.theme.themes.light.accent = configData.branding.color_palette.accent
+      this.$vuetify.theme.themes.light.success = configData.branding.color_palette.success
+      this.$vuetify.theme.themes.light.error = configData.branding.color_palette.error
+      this.$vuetify.theme.themes.light.warning = configData.branding.color_palette.warning
+      this.$vuetify.theme.themes.light.info = configData.branding.color_palette.info
+      this.setConfig({ path: 'initialized', value: true })
+    }
+    ipcRenderer.on('get_config', this.get_config_main_event)
+    ipcRenderer.send('get_config')
+  },
+
+  beforeDestroy() {
+    // Destroy listener to get_config event from main process
+    ipcRenderer.removeListener('get_config', this.get_config_main_event)
   },
 
   methods: {
@@ -192,13 +259,21 @@ export default {
     logout () {
       this.$axios.post('/api/logout', {},{
         headers: { Authorization: 'Bearer ' + this.$store.state.user.token }
-      })
-              .then(() => this.afterLogout())
+      }).then(() => this.afterLogout())
+    },
+
+    synchronization () {
+      console.log(this.$store.state.global.config)
     },
 
     ...mapActions({
       setToken: 'user/setToken',
     }),
+
+    ...mapActions('global', [
+      'setConfig',
+      'setConfigComplete',
+    ]),
 
     ...mapMutations({
       removeUser: 'user/removeUser',

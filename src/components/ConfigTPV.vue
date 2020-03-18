@@ -3,7 +3,7 @@
     <!-- Config TPV -->
     <v-row dense>
       <v-col cols="12" sm="8" class="body-2 justify-center">
-        <CtBtn type="text" @click="show_config_tpv = ! show_config_tpv">Configuración TPV</CtBtn> (Click para mostrar/ocultar)
+        <CtBtn :type="stored_config.branding.style.button" color="secondary" @click="show_config_tpv = ! show_config_tpv">Configuración TPV</CtBtn> (Click para mostrar/ocultar)
       </v-col>
     </v-row>
 
@@ -28,8 +28,8 @@
           <v-col cols="12" lg="3">
             <v-row dense>
               <v-spacer v-if="$vuetify.breakpoint.mdAndDown" />
-              <CtTextField v-model="config.value" class="ma-4" :label="config.label" type="number" v-if="config.type === 'number'" />
-              <v-select v-model="config.value" outlined class="ma-4" :items="config.options" :label="config.label" type="number" v-else-if="config.type === 'select'" />
+              <CtTextField v-model="config.value" :ctType="stored_config.branding.style.form" class="ma-4" :label="config.label" type="number" v-if="config.type === 'number'" />
+              <CtSelect v-model="config.value" :ctType="stored_config.branding.style.form" class="ma-4" :items="config.options" :label="config.label" v-else-if="config.type === 'select'" />
               <v-switch v-model="config.value" class="ma-4" :label="config.label" v-else />
               <v-spacer v-if="$vuetify.breakpoint.mdAndDown" />
             </v-row>
@@ -48,10 +48,8 @@
 </template>
 
 <script type="application/javascript">
-import CtTextField from "../globalComponents/CtTextField";
 export default {
   name: "ConfigTPV",
-  components: {CtTextField},
   props: {
     'model': {
       type: Object,
@@ -62,6 +60,12 @@ export default {
   data: () => {
     return {
       show_config_tpv: false,
+    }
+  },
+
+  computed: {
+    stored_config () {
+      return this.$store.state.global.config
     }
   },
 }

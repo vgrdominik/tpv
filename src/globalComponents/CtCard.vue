@@ -1,5 +1,5 @@
 <template>
-  <v-card v-if="type !== 'empty'" :shaped="type === 'shaped'" :rounded="type === 'rounded'" :tile="type === 'tile'" v-on="$listeners" v-bind="$attrs">
+  <v-card v-if="type !== 'empty'" :shaped="type === 'shaped'" :rounded="type === 'rounded'" :tile="type === 'box'" v-on="$listeners" v-bind="$attrs">
     <v-toolbar flat :color="titleColor">
       <slot name="leftTitleContent" />
 
@@ -31,7 +31,7 @@ export default {
       default: 'shaped',
       validator: function (value) {
         // The value must match one of these strings
-        return ['shaped', 'rounded', 'tile', 'empty'].indexOf(value) !== -1
+        return ['shaped', 'rounded', 'box', 'empty', '', null].indexOf(value) !== -1
       }
     },
     'title': {

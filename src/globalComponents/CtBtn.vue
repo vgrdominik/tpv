@@ -35,7 +35,7 @@ export default {
       default: 'outlined',
       validator: function (value) {
         // The value must match one of these strings
-        return ['text', 'outlined', 'rounded', 'primary', 'accent', 'icon', 'empty'].indexOf(value) !== -1
+        return ['text', 'outlined', 'rounded', 'primary', 'accent', 'icon', 'empty', '', null].indexOf(value) !== -1
       }
     },
     'icon': {

@@ -1,4 +1,4 @@
-import DiaADia from '../pages/dia-a-dia'
+import Configuracion from '../pages/configuracion'
 import Index from '../pages/index'
 import Login from '../pages/login'
 import Notificaciones from '../pages/notificaciones'
@@ -9,7 +9,7 @@ import Registro from '../pages/registro'
 import SalaDeEspera from '../pages/sala-de-espera'
 
 let routes = [
-    { path: '/dia-a-dia', component: DiaADia },
+    { path: '/configuracion', component: Configuracion },
     { path: '/', component: Index },
     { path: '/login', component: Login },
     { path: '/notificaciones', component: Notificaciones },

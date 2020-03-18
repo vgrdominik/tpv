@@ -4,7 +4,7 @@
     <v-radio-group v-model="distribution">
       <v-row dense>
         <v-col cols="12" lg="8" class="body-2 justify-center">
-          <CtBtn type="text" @click="show_layout_tpv = ! show_layout_tpv">Distribución TPV</CtBtn> (Click para mostrar/ocultar)
+          <CtBtn :type="stored_config.branding.style.button" color="secondary" @click="show_layout_tpv = ! show_layout_tpv">Distribución TPV</CtBtn> (Click para mostrar/ocultar)
         </v-col>
         <v-col cols="12" lg="4" v-if="show_layout_tpv">
           <v-row dense class="body-2">
@@ -211,6 +211,12 @@ export default {
     return {
       show_layout_tpv: false,
       distribution: null,
+    }
+  },
+
+  computed: {
+    stored_config () {
+      return this.$store.state.global.config
     }
   },
 

@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import {app, protocol, BrowserWindow, ipcMain} from 'electron'
 import {
   createProtocol,
   /* installVueDevtools */
@@ -16,9 +16,10 @@ protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: { secure: true
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({ width: 800, height: 600, webPreferences: {
+  win = new BrowserWindow({ width: 800, height: 600, frame: false, webPreferences: {
     nodeIntegration: true
   } })
+  win.setMenu(null)
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -91,3 +92,54 @@ if (isDevelopment) {
 }
 
 // OWN CODE
+
+const fs = require('fs')
+const directoriesPath = app.getAppPath() +'/data/directories.json'
+const configFilename = '/config.json'
+let directories = {}
+
+let getDirectoriesPath = function () {
+  fs.readFile(directoriesPath, function read(err, data) {
+    if (err) {
+      throw err
+    }
+    directories = JSON.parse(data)
+  })
+}
+getDirectoriesPath()
+
+// Save config event
+ipcMain.on('save_config', function (event, config) {
+  let isDone = false
+  try {
+    // Save directories to app data directories file and global variable
+    directories = { "data_dir": config.data_dir, "import_dir": config.import_dir }
+    fs.writeFileSync(directoriesPath, JSON.stringify(directories), 'utf-8')
+
+    // Save config file to data_dir path
+    let pathData = config.data_dir.path.replace('app://', app.getAppPath() + '/')
+    fs.writeFileSync(pathData + configFilename, JSON.stringify(config), 'utf-8')
+    isDone = true
+  } catch(e) { alert('Fallo al guardar la configuración!') }
+
+  win.webContents.send('save_config', isDone)
+})
+
+// Get config event
+ipcMain.on('get_config', function () {
+  let configToReturn = {}
+  try {
+    // Get config path from data dir in directories variable
+    let pathData = directories.data_dir.path.replace('app://', app.getAppPath() + '/')
+
+    // Get config data from file config
+    let rawData = fs.readFileSync(pathData + configFilename, function read(err, data) {
+      if (err) {
+        throw err
+      }
+    })
+    configToReturn = JSON.parse(rawData)
+  } catch(e) { alert('Fallo al guardar la configuración!') }
+
+  win.webContents.send('get_config', configToReturn)
+})

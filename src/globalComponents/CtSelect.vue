@@ -1,18 +1,18 @@
 <template>
-  <v-text-field v-if="ctType==='outlined'" :dense="! withoutDense" outlined v-on="$listeners" v-bind="$attrs">
+  <v-select v-if="ctType==='outlined'" :dense="! withoutDense" outlined v-on="$listeners" v-bind="$attrs">
     <slot />
-  </v-text-field>
-  <v-text-field v-else-if="ctType==='box'" :dense="! withoutDense" filled v-on="$listeners" v-bind="$attrs">
+  </v-select>
+  <v-select v-else-if="ctType==='box'" :dense="! withoutDense" filled v-on="$listeners" v-bind="$attrs">
     <slot />
-  </v-text-field>
-  <v-text-field v-else v-on="$listeners" v-bind="$attrs">
+  </v-select>
+  <v-select v-else v-on="$listeners" v-bind="$attrs">
     <slot />
-  </v-text-field>
+  </v-select>
 </template>
 
 <script type="application/javascript">
 export default {
-  name: "CtTextField",
+  name: "CtSelect",
 
   props: {
     'ctType': {

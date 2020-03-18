@@ -2,9 +2,9 @@
   <div>
 
     <!-- Color Palette -->
-    <v-row dense>
+    <v-row dense :class="{ 'mt-1': $vuetify.breakpoint.smAndUp }">
       <v-col cols="12" lg="8" class="body-2 justify-center">
-        <CtBtn type="text" @click="show_color_palette = ! show_color_palette">Paleta de colores</CtBtn> (Click para mostrar/ocultar)
+        <CtBtn :type="stored_config.branding.style.button" color="secondary" @click="show_color_palette = ! show_color_palette">Paleta de colores</CtBtn> (Click para mostrar/ocultar)
       </v-col>
       <v-col cols="12" lg="4" v-if="show_color_palette">
         <v-row dense class="body-1">
@@ -97,9 +97,9 @@
     </v-row>
 
     <!-- Styles -->
-    <v-row dense>
+    <v-row dense :class="{ 'mt-5': $vuetify.breakpoint.smAndUp }">
       <v-col cols="12" sm="8" class="body-2 justify-center">
-        <CtBtn type="text" @click="show_style = ! show_style">Estilos</CtBtn> (Click para mostrar/ocultar)
+        <CtBtn :type="stored_config.branding.style.button" color="secondary" @click="show_style = ! show_style">Estilos</CtBtn> (Click para mostrar/ocultar)
       </v-col>
     </v-row>
 
@@ -226,14 +226,14 @@
       <v-col cols="12" sm="3">
         <v-row dense>
           <v-spacer />
-          <CtTextField ctType="filled" color="primary" label="Primario" />
+          <CtTextField ctType="box" color="primary" label="Primario" />
           <v-spacer />
         </v-row>
       </v-col>
       <v-col cols="12" sm="3">
         <v-row dense>
           <v-spacer />
-          <CtTextField ctType="filled" color="secondary" label="Secundario" />
+          <CtTextField ctType="box" color="secondary" label="Secundario" />
           <v-spacer />
         </v-row>
       </v-col>
@@ -282,14 +282,14 @@
       <v-col cols="12" sm="3">
         <v-row dense>
           <v-spacer />
-          <CtCard type="tile" title-color="primary" title="Primario" />
+          <CtCard type="box" title-color="primary" title="Primario" />
           <v-spacer />
         </v-row>
       </v-col>
       <v-col cols="12" sm="3">
         <v-row dense>
           <v-spacer />
-          <CtCard type="tile" title-color="secondary" title="Secundario" />
+          <CtCard type="box" title-color="secondary" title="Secundario" />
           <v-spacer />
         </v-row>
       </v-col>
@@ -362,14 +362,14 @@
       <v-col cols="12" sm="3">
         <v-row dense>
           <v-spacer />
-          <CtCard type="tile" title-color="primary" title="Primario" />
+          <CtCard type="box" title-color="primary" title="Primario" />
           <v-spacer />
         </v-row>
       </v-col>
       <v-col cols="12" sm="3">
         <v-row dense>
           <v-spacer />
-          <CtCard type="tile" title-color="secondary" title="Secundario" />
+          <CtCard type="box" title-color="secondary" title="Secundario" />
           <v-spacer />
         </v-row>
       </v-col>
@@ -433,6 +433,12 @@ export default {
     }
   },
 
+  computed: {
+    stored_config () {
+      return this.$store.state.global.config
+    }
+  },
+
   watch: {
     styleButtonRounded(newValue) {
       if (newValue === true) {
@@ -473,21 +479,21 @@ export default {
       if (newValue === true) {
         this.styleCardBox = false
         this.styleCardShaped = false
-        this.model.style.form = 'rounded'
+        this.model.style.card = 'rounded'
       }
     },
     styleCardBox(newValue) {
       if (newValue === true) {
         this.styleCardShaped = false
         this.styleCardRounded = false
-        this.model.style.form = 'box'
+        this.model.style.card = 'box'
       }
     },
     styleCardShaped(newValue) {
       if (newValue === true) {
         this.styleCardRounded = false
         this.styleCardBox = false
-        this.model.style.form = 'shaped'
+        this.model.style.card = 'shaped'
       }
     },
 
