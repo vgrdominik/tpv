@@ -1,6 +1,6 @@
 <template>
   <v-card v-if="type !== 'empty'" :shaped="type === 'shaped'" :rounded="type === 'rounded'" :tile="type === 'box'" v-on="$listeners" v-bind="$attrs">
-    <v-toolbar flat :color="titleColor">
+    <v-toolbar flat :dense="dense" :color="titleColor">
       <slot name="leftTitleContent" />
 
       <v-spacer />
@@ -11,10 +11,13 @@
 
       <slot name="rightTitleContent" />
     </v-toolbar>
-    <slot v-if="fluid" />
-    <v-container v-else>
-      <slot />
-    </v-container>
+    <v-content class="ct-card-content">
+      <slot v-if="fluid" />
+      <v-container v-else>
+        <slot />
+      </v-container>
+    </v-content>
+    <slot name="actions"/>
   </v-card>
   <v-card v-else v-on="$listeners" v-bind="$attrs">
     <slot />
@@ -46,6 +49,20 @@ export default {
       type: Boolean,
       default: false,
     },
+    'dense': {
+      type: Boolean,
+      default: false,
+    },
   },
 }
 </script>
+<style>
+  /*.ct-content::-webkit-scrollbar {
+    display: block;
+  }*/
+  .ct-card-content {
+    padding: 0 0 0 0 !important;
+    overflow: auto;
+    max-height: 73vh;
+  }
+</style>

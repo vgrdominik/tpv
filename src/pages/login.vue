@@ -1,15 +1,15 @@
 <template>
-    <CtCard title="Login" width="300" class="mx-auto">
+    <CtCard :type="stored_config.branding.style.card" dense title="Login" width="300" class="mx-auto">
       <v-row dense>
         <v-col cols="12" class="mt-5">
-          <CtTextField append-icon="mdi-email" label="Email" v-model="signInData.email"/>
+          <CtTextField :ctType="stored_config.branding.style.form" append-icon="mdi-email" label="Email" v-model="signInData.email"/>
         </v-col>
         <v-col cols="12">
-          <CtTextField type="password" append-icon="mdi-lock" label="Password" v-model="signInData.password"/>
+          <CtTextField type="password" :ctType="stored_config.branding.style.form" append-icon="mdi-lock" label="Password" v-model="signInData.password"/>
         </v-col>
         <v-col cols="12" v-if="serverMessage" v-html="serverMessage" class="error--text" />
         <v-col cols="12">
-          <CtBtn @click="login()" type="primary" block>
+          <CtBtn @click="login()" :type="stored_config.branding.style.button" color="primary" block>
             Entrar
           </CtBtn>
         </v-col>
@@ -23,7 +23,7 @@
           </v-row>
         </v-col>
         <v-col cols="12" class="my-5">
-          <CtBtn to="/registro" type="accent" block>
+          <CtBtn to="/registro" :type="stored_config.branding.style.button" color="secondary" block>
             Registro
           </CtBtn>
         </v-col>
@@ -48,7 +48,10 @@ export default {
   computed: {
     serverMessage () {
       return this.$store.state.serverMessage.serverMessage
-    }
+    },
+    stored_config () {
+      return this.$store.state.global.config
+    },
   },
 
   mounted() {

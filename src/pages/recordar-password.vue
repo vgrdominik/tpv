@@ -1,17 +1,17 @@
 <template>
-    <CtCard title="Recordar password" width="300" class="mx-auto">
+    <CtCard :type="stored_config.branding.style.card" dense title="Recordar password" width="300" class="mx-auto">
       <v-row dense>
         <v-col cols="12" class="mt-5">
-          <CtTextField append-icon="mdi-email" label="Email" v-model="forgotData.email"/>
+          <CtTextField :ctType="stored_config.branding.style.form" append-icon="mdi-email" label="Email" v-model="forgotData.email"/>
         </v-col>
         <v-col cols="12" v-if="serverMessage" v-html="serverMessage" class="error--text" />
         <v-col cols="12">
-          <CtBtn @click="forgot()" type="primary" block>
+          <CtBtn @click="forgot()" :type="stored_config.branding.style.button" color="primary" block>
             Enviar
           </CtBtn>
         </v-col>
         <v-col cols="12" class="my-5">
-          <CtBtn to="/login" type="accent" block>
+          <CtBtn to="/login" :type="stored_config.branding.style.button" color="secondary" block>
             Volver
           </CtBtn>
         </v-col>
@@ -34,7 +34,10 @@ export default {
   computed: {
     serverMessage () {
       return this.$store.state.serverMessage.serverMessage
-    }
+    },
+    stored_config () {
+      return this.$store.state.global.config
+    },
   },
 
   mounted() {

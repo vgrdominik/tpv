@@ -39,6 +39,7 @@ export const state = () => ({
       distribution: '1-2x2',
     },
 
+    // Default config data. Updated by stored file config
     config_tpv: {
       // Actions
       action: {
@@ -152,8 +153,8 @@ export const state = () => ({
         host: '',
         user: '',
         password: '',
-        port: '',
-        type_encryption: '',
+        port: '587',
+        type_encryption: 'TLS',
         email_equal_user: true,
         email: '',
         email_password_equal_user: true,
@@ -163,6 +164,123 @@ export const state = () => ({
     // Directories
     data_dir: { name: 'data', path: 'app://data' }, // default -> { name: 'data', path: 'app://./data' }
     import_dir: { name: 'import_data', path: 'app://import_data' }, // default -> { name: 'import_data', path: 'app://./import_data' }
+
+    // Import
+    import: {
+      type: 'csv', // Currently only support csv. Api support soon.
+
+      domain: {
+        product: {
+          fields: [
+            {
+              name: 'id',
+              type: 'int',
+            },
+            {
+              name: 'id_taxonomy',
+              type: 'int',
+            },
+            {
+              name: 'iva',
+              type: 'float',
+            },
+            {
+              name: 'ids_send_to',
+              type: 'array',
+            },
+            {
+              name: 'name',
+              type: 'string',
+            },
+            {
+              name: 'cost',
+              type: 'float',
+            },
+            {
+              name: 'base',
+              type: 'float',
+            },
+            {
+              name: 'total',
+              type: 'float',
+            },
+            {
+              name: 'reference',
+              type: 'string',
+            },
+            {
+              name: 'img',
+              type: 'string',
+            },
+            {
+              name: 'text_tpv',
+              type: 'string',
+            },
+          ],
+
+          columns: [
+            {
+              name: 'Codigo',
+              type: 'int',
+            },
+            {
+              name: 'Codigo familia',
+              type: 'int',
+            },
+            {
+              name: 'IVA',
+              type: 'float',
+            },
+            {
+              name: 'Enviar a',
+              type: 'string',
+            },
+            {
+              name: 'Nombre',
+              type: 'string',
+            },
+            {
+              name: 'Coste',
+              type: 'float',
+            },
+            {
+              name: 'Base',
+              type: 'float',
+            },
+            {
+              name: 'PVP',
+              type: 'float',
+            },
+            {
+              name: 'Referencia',
+              type: 'string',
+            },
+            {
+              name: 'Imagen',
+              type: 'string',
+            },
+            {
+              name: 'Texto boton TPV',
+              type: 'string',
+            },
+          ],
+
+          fields_columns: {
+            id: 'Codigo',
+            id_taxonomy: 'Codigo familia',
+            iva: 'IVA',
+            ids_send_to: 'Enviar a',
+            name: 'Nombre',
+            cost: 'Coste',
+            base: 'Base',
+            total: 'PVP',
+            reference: 'Referencia',
+            img: 'Imagen',
+            text_tpv: 'Texto boton TPV',
+          },
+        },
+      },
+    },
   }
 })
 

@@ -11,7 +11,7 @@
     <template v-if="show_config_tpv">
       <template v-for="element in model">
         <v-row dense :key="element.title">
-          <v-row dense v-if="show_config_tpv">
+          <v-row dense>
             <v-spacer />
             <v-col cols="12" lg="3">
               <v-row dense class="body-1 text-uppercase">

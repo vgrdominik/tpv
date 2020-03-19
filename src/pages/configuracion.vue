@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <CtCard :type="stored_config.branding.style.card" title="Configuración inicial">
+        <CtCard :type="stored_config.branding.style.card" dense title="Configuración inicial">
             <template v-slot:rightTitleContent>
                 <CtTooltip left btn btn-type="icon" btn-color="white" :btn-icon="['fas', is_saved_icon]">
                     <span v-if="is_saved">Guardado</span>
@@ -105,6 +105,15 @@
                         <v-spacer />
                     </v-row>
 
+                    <!-- ConfigSmtp -->
+                    <v-row dense class="mt-5">
+                        <v-spacer />
+                        <v-col cols="12" sm="10">
+                            <ConfigSmtp :model="model.smtp" />
+                        </v-col>
+                        <v-spacer />
+                    </v-row>
+
                     <!-- Directories -->
                     <v-row dense class="mt-9">
                         <v-spacer />
@@ -126,17 +135,28 @@
                         </v-col>
                         <v-spacer />
                     </v-row>
-                </template>
 
+                    <!-- ConfigImportation -->
+                    <v-row dense class="mt-5">
+                        <v-spacer />
+                        <v-col cols="12" sm="10">
+                            <ConfigImportation :model="model.import" />
+                        </v-col>
+                        <v-spacer />
+                    </v-row>
+                </template>
+            </v-card-text>
+            <template v-slot:actions>
+                <v-divider />
                 <!-- Start TPV -->
-                <v-row dense class="body-2 mt-7">
+                <v-row dense class="body-2">
                     <v-spacer />
                     <v-col cols="6" class="body-2 text-center justify-center">
-                        <CtBtn type="text" color="primary" class="body-1 text-uppercase text-center" @click="initTPV()">Iniciar TPV</CtBtn>
+                        <CtBtn color="primary" :type="stored_config.branding.style.button" class="body-1 text-uppercase text-center" @click="initTPV()">Iniciar TPV</CtBtn>
                     </v-col>
                     <v-spacer />
                 </v-row>
-            </v-card-text>
+            </template>
         </CtCard>
     </v-container>
 </template>
@@ -149,10 +169,12 @@ import Branding from "../components/Branding";
 import LayoutTPV from "../components/LayoutTPV";
 import ConfigTPV from "../components/ConfigTPV";
 import ConfigTurns from "../components/ConfigTurns";
+import ConfigSmtp from "../components/ConfigSmtp";
+import ConfigImportation from "../components/ConfigImportation";
 
 export default {
 
-    components: {ConfigTurns, ConfigTPV, Branding, TaxIdentification, LayoutTPV},
+    components: {ConfigImportation, ConfigSmtp, ConfigTurns, ConfigTPV, Branding, TaxIdentification, LayoutTPV},
 
     data() {
         return {
@@ -171,7 +193,7 @@ export default {
 
             advanced_option: false,
 
-            // Model values are determined by store
+            // Model values are determined by store. It's used to explain and samples.
             model: {
                 tax_identification: {
                     tax_name: null,
@@ -353,19 +375,159 @@ export default {
                 smtp: {
                     title: 'SMTP',
                     values: {
-                        host: { value: '', label: 'Servidor', description: 'Url del servidor de correo' },
-                        user: { value: '', label: 'Usuario', description: 'Usuario del servidor' },
-                        password: { value: '', label: 'Password', description: 'Password del usuario del servidor' },
-                        port: { value: '', label: 'Puerto', description: '' },
-                        type_encryption: { value: '', label: 'Encriptación', description: '' },
+                        host: { value: '', type: 'text-field', label: 'Servidor', description: 'Url del servidor de correo' },
+                        user: { value: '', type: 'text-field', label: 'Usuario', description: 'Usuario del servidor' },
+                        password: { value: '', type: 'password', label: 'Password', description: 'Password del usuario del servidor' },
+                        port: { value: '587', type: 'number', label: 'Puerto', description: '' },
+                        type_encryption: { value: 'TLS', type: 'select', options: ['TLS', 'SSL', 'STARTTLS'], label: 'Encriptación', description: '' },
                         email_equal_user: { value: true, label: 'Correo igual a usuario', description: 'El correo tiene el mismo usuario que el del servidor.' },
-                        email: { value: '', label: 'Correo electrónico', description: '' },
+                        email: { value: '', type: 'text-field', label: 'Correo electrónico', description: '' },
                         email_password_equal_user: { value: true, label: 'Password del correo igual al password', description: 'El password del correo es igual que el del servidor.' },
-                        email_password: { value: '', label: 'Password correo', description: '' },
+                        email_password: { value: '', type: 'text-field', label: 'Password correo', description: '' },
                     },
                 },
                 data_dir: { name: 'data', path: 'app://data' }, // default -> { name: 'data', path: 'app://data' }
                 import_dir: { name: 'import_data', path: 'app://import_data' }, // default -> { name: 'import_data', path: 'app://import_data' }
+
+                // Import
+                import: {
+                    type: 'csv', // Currently only support csv. Api support soon.
+
+                    domain: {
+                        product: {
+                            title: 'Productos',
+                            fields: [
+                                {
+                                    label: 'Codigo',
+                                    description: 'Identificador único',
+                                    name: 'id',
+                                    type: 'int',
+                                },
+                                {
+                                    label: 'Codigo familia',
+                                    description: 'Identificador único de la familia',
+                                    name: 'id_taxonomy',
+                                    type: 'int',
+                                },
+                                {
+                                    label: 'IVA',
+                                    description: 'Impuesto sobre el valor añadido',
+                                    name: 'iva',
+                                    type: 'int',
+                                },
+                                {
+                                    label: 'Enviar a',
+                                    description: 'Dispositivo al que va a ser enviado al añadirse a un tíquet',
+                                    name: 'ids_send_to',
+                                    type: 'select',
+                                },
+                                {
+                                    label: 'Nombre',
+                                    description: 'Nombre',
+                                    name: 'name',
+                                    type: 'string',
+                                },
+                                {
+                                    label: 'Coste',
+                                    description: 'Coste para la empresa',
+                                    name: 'cost',
+                                    type: 'float',
+                                },
+                                {
+                                    label: 'Base',
+                                    description: 'Total sin IVA',
+                                    name: 'base',
+                                    type: 'float',
+                                },
+                                {
+                                    label: 'PVP',
+                                    description: 'Precio de venta al público',
+                                    name: 'total',
+                                    type: 'float',
+                                },
+                                {
+                                    label: 'Referencia',
+                                    description: 'Identificador de la empresa para el producto',
+                                    name: 'reference',
+                                    type: 'string',
+                                },
+                                {
+                                    label: 'Imagen',
+                                    description: 'Imagen. Como más pequeñas sean más rápido irá.',
+                                    name: 'img',
+                                    type: 'string',
+                                },
+                                {
+                                    label: 'Texto boton TPV',
+                                    description: 'Nombre acortado',
+                                    name: 'text_tpv',
+                                    type: 'string',
+                                },
+                            ],
+
+                            columns: [
+                                {
+                                    name: 'Codigo',
+                                    type: 'int',
+                                },
+                                {
+                                    name: 'Codigo familia',
+                                    type: 'int',
+                                },
+                                {
+                                    name: 'IVA',
+                                    type: 'float',
+                                },
+                                {
+                                    name: 'Enviar a',
+                                    type: 'string',
+                                },
+                                {
+                                    name: 'Nombre',
+                                    type: 'string',
+                                },
+                                {
+                                    name: 'Coste',
+                                    type: 'float',
+                                },
+                                {
+                                    name: 'Base',
+                                    type: 'float',
+                                },
+                                {
+                                    name: 'PVP',
+                                    type: 'float',
+                                },
+                                {
+                                    name: 'Referencia',
+                                    type: 'string',
+                                },
+                                {
+                                    name: 'Imagen',
+                                    type: 'string',
+                                },
+                                {
+                                    name: 'Texto boton TPV',
+                                    type: 'string',
+                                },
+                            ],
+
+                            fields_columns: {
+                                id: 'Codigo',
+                                id_taxonomy: 'Codigo familia',
+                                iva: 'IVA',
+                                ids_send_to: 'Enviar a',
+                                name: 'Nombre',
+                                cost: 'Coste',
+                                base: 'Base',
+                                total: 'PVP',
+                                reference: 'Referencia',
+                                img: 'Imagen',
+                                text_tpv: 'Texto boton TPV',
+                            },
+                        },
+                    },
+                },
             },
         }
     },
@@ -448,6 +610,7 @@ export default {
                 Object.entries(this.model.smtp.values).forEach(([key, element]) => this.setConfig({ path: 'smtp>'+key, value:  element.value }))
                 this.setConfig({ path: 'data_dir', value: this.model.data_dir })
                 this.setConfig({ path: 'import_dir', value: this.model.import_dir })
+                Object.entries(this.model.import.domain.product.fields_columns).forEach(([key, element]) => this.setConfig({ path: 'import>domain>product>fields_columns>'+key, value:  element }))
 
                 // Set event to save config to file
                 this.$nextTick(() => {
@@ -495,6 +658,7 @@ export default {
     methods: {
         initTPV() {
             ipcRenderer.send('save_config', this.$store.state.global.config)
+            this.$router.push('/')
         },
 
         // Set global config to local (Transformer input)
@@ -521,7 +685,8 @@ export default {
             Object.entries(config.config_turns).forEach(([key, element]) => this.model.config_turns.values[key].value = element )
             Object.entries(config.smtp).forEach(([key, element]) => this.model.smtp.values[key].value = element )
             this.model.data_dir = config.data_dir
-            this.model.mport_dir = config.import_dir
+            this.model.import_dir = config.import_dir
+            Object.entries(config.import.domain.product.fields_columns).forEach(([key, element]) => this.model.import.domain.product.fields_columns[key] = element )
         },
 
         ...mapActions('global', [

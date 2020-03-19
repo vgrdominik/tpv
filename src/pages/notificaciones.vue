@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <CtCard title="Notificaciones" width="500" class="mx-auto" v-if="user">
+    <CtCard :type="stored_config.branding.style.card" dense title="Notificaciones" width="500" class="mx-auto" v-if="user">
       <v-row dense>
         <v-col cols="12" class="mt-5" v-for="calendarEvent in events" :key="calendarEvent.id">
           <v-card color="primary" dark>
@@ -13,10 +13,10 @@
         </v-col>
       </v-row>
     </CtCard>
-    <CtCard title="No estás autenticado" width="500" class="mx-auto" v-else>
+    <CtCard title="No estás autenticado" dense width="500" class="mx-auto" v-else>
       <v-row dense>
         <v-spacer />
-        <CtBtn to="/login" class="mx-auto">
+        <CtBtn to="/login" :type="stored_config.branding.style.button" class="mx-auto">
           Login
         </CtBtn>
         <v-spacer />
@@ -44,6 +44,9 @@ export default {
     },
     serverMessage () {
       return this.$store.state.serverMessage.serverMessage
+    },
+    stored_config () {
+      return this.$store.state.global.config
     },
   },
 

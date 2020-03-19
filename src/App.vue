@@ -98,7 +98,7 @@ import {ipcRenderer} from "electron";
       </template>
       <CtBtn type="icon" :icon="['fas', 'bell']" to="/notificaciones" />
     </v-app-bar>
-    <v-content>
+    <v-content id="maincontent">
       <router-view v-if="! isContainerNeeded" />
       <v-container
               class="fill-height"
@@ -122,21 +122,21 @@ import {ipcRenderer} from "electron";
       <v-icon>mdi-cached</v-icon>
     </CtBtn>
 
-    <v-footer padless>
-      <CtCard type="empty" flat tile width="100%" class="primary white--text text-center">
+    <v-footer padless fixed>
+      <CtCard type="empty" flat tile width="100%" class="primary text-center">
         <v-card-text>
-          <CtBtn v-for="footerItem in footerItems" :key="footerItem.title" type="icon" target="_blank" :title="footerItem.title" :href="footerItem.href" :icon="footerItem.icon" class="mx-4 white--text" />
-        </v-card-text>
-
-        <v-card-text class="white--text pt-0">
-          Recuerda pensar en tu producto y tus clientes!
-        </v-card-text>
-
-        <v-divider></v-divider>
-
-        <v-card-text class="white--text">
-          <CtBtn type="text" color="white">Condiciones</CtBtn>
-          <CtBtn type="text" color="white">{{ new Date().getFullYear() }} — Ryu</CtBtn>
+          <v-row dense>
+            <v-col cols="12" sm="4">
+              <CtBtn v-for="footerItem in footerItems" :key="footerItem.title" type="icon" target="_blank" :title="footerItem.title" :href="footerItem.href" :icon="footerItem.icon" class="mx-4 white--text" />
+            </v-col>
+            <v-col cols="12" sm="4" class="white--text pt-3">
+              Recuerda pensar en tu producto y tus clientes!
+            </v-col>
+            <v-col cols="12" sm="4">
+              <CtBtn type="text" color="white">Condiciones</CtBtn>
+              <CtBtn type="text" color="white">{{ new Date().getFullYear() }} — Ryu</CtBtn>
+            </v-col>
+          </v-row>
         </v-card-text>
       </CtCard>
     </v-footer>
@@ -166,7 +166,7 @@ export default {
     stateColor: 'primary', // primary = synchronized, secondary = not_synchronized, error = synchronized_error
     state: 'synchronized', // not_synchronized, synchronized_error
     items: [
-      { icon: ['fas', 'asterisk'], text: 'Configuración', path: '/configuracion' },
+      { icon: ['fas', 'cogs'], text: 'Configuración', path: '/configuracion' },
     ],
     footerItems: [
       {
@@ -281,3 +281,43 @@ export default {
   },
 }
 </script>
+<style>
+  body{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    height: 100%;
+    max-height: 100%;
+  }
+
+  /* SCROLL THEME */
+
+  /* Added to body */
+  .ct-scroll_none::-webkit-scrollbar {
+    display: none
+  }
+
+  ::-webkit-scrollbar {
+     width: 12px;
+   }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #6C8894;
+  }
+
+  /* END SCROLL THEME */
+
+  #maincontent{
+    position: fixed;
+    top: 0px; /*Set top value to HeightOfTopFrameDiv*/
+    bottom: 90px; /*Set bottom value to HeightOfBottomFrameDiv*/
+    overflow: hidden;
+    width: 100%;
+  }
+</style>

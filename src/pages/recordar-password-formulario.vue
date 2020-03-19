@@ -1,18 +1,18 @@
 <template>
-    <CtCard title="Modificar password" width="300" class="mx-auto">
+    <CtCard :type="stored_config.branding.style.card" dense title="Modificar password" width="300" class="mx-auto">
       <v-row dense>
         <v-col cols="12" class="mt-5">
-          <CtTextField append-icon="mdi-email" label="Email" v-model="forgotData.email"/>
+          <CtTextField :ctType="stored_config.branding.style.form" append-icon="mdi-email" label="Email" v-model="forgotData.email"/>
         </v-col>
         <v-col cols="12">
-          <CtTextField type="password" append-icon="mdi-lock" label="Password" v-model="forgotData.password"/>
+          <CtTextField :ctType="stored_config.branding.style.form" type="password" append-icon="mdi-lock" label="Password" v-model="forgotData.password"/>
         </v-col>
         <v-col cols="12">
-          <CtTextField type="password" append-icon="mdi-lock" label="Confirmación password" v-model="forgotData.password_confirmation"/>
+          <CtTextField :ctType="stored_config.branding.style.form" type="password" append-icon="mdi-lock" label="Confirmación password" v-model="forgotData.password_confirmation"/>
         </v-col>
         <v-col cols="12" v-if="serverMessage" v-html="serverMessage" class="error--text" />
         <v-col cols="12">
-          <CtBtn @click="forgot()" type="primary" block>
+          <CtBtn @click="forgot()" :type="stored_config.branding.style.button" color="primary" block>
             Enviar
           </CtBtn>
         </v-col>
@@ -38,7 +38,10 @@ export default {
   computed: {
     serverMessage () {
       return this.$store.state.serverMessage.serverMessage
-    }
+    },
+    stored_config () {
+      return this.$store.state.global.config
+    },
   },
 
   mounted() {

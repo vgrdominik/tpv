@@ -1,5 +1,5 @@
 <template>
-    <CtCard title="Sala de espera" width="300" class="mx-auto">
+    <CtCard :type="stored_config.branding.style.card" dense title="Sala de espera" width="300" class="mx-auto">
       <v-row dense>
         <v-col cols="12" class="mt-5">
           En breves momentos serás redirigido hacia la página de notificaciones.
@@ -12,7 +12,7 @@
           </v-row>
         </v-col>
         <v-col cols="12" class="my-5">
-          <CtBtn to="/notificaciones" type="accent" block>
+          <CtBtn to="/notificaciones" :type="stored_config.branding.style.button" color="secondary" block>
             Ir a notificaciones
           </CtBtn>
         </v-col>
@@ -28,6 +28,12 @@ export default {
   mounted() {
     this.setIsContainerNeeded(true)
     setTimeout(() => this.$router.push({ path: '/notificaciones' }), 3000)
+  },
+
+  computed: {
+    stored_config () {
+      return this.$store.state.global.config
+    },
   },
 
   methods: {
