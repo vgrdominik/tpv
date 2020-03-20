@@ -1,4 +1,3 @@
-import {ipcRenderer} from "electron";
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
@@ -126,10 +125,10 @@ import {ipcRenderer} from "electron";
       <CtCard type="empty" flat tile width="100%" class="primary text-center">
         <v-card-text>
           <v-row dense>
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="4" v-if="$vuetify.breakpoint.smAndUp">
               <CtBtn v-for="footerItem in footerItems" :key="footerItem.title" type="icon" target="_blank" :title="footerItem.title" :href="footerItem.href" :icon="footerItem.icon" class="mx-4 white--text" />
             </v-col>
-            <v-col cols="12" sm="4" class="white--text pt-3">
+            <v-col cols="12" sm="4" class="white--text pt-3" v-if="$vuetify.breakpoint.smAndUp">
               Recuerda pensar en tu producto y tus clientes!
             </v-col>
             <v-col cols="12" sm="4">
@@ -146,10 +145,9 @@ import {ipcRenderer} from "electron";
 <script>
 import { ipcRenderer } from 'electron'
 import { mapMutations, mapActions } from 'vuex'
-import CtBtn from "./globalComponents/CtBtn";
+import _ from "underscore"
 
 export default {
-  components: {CtBtn},
   props: {
     source: String,
   },
@@ -160,12 +158,17 @@ export default {
     get_config_main_event: null,
     // END CONFIG SETTINGS
 
+    // DOMAIN CONTENT
+    get_content_main_event: null,
+    // END CONTENT
+
 
     dialog: false,
     drawer: false,
     stateColor: 'primary', // primary = synchronized, secondary = not_synchronized, error = synchronized_error
     state: 'synchronized', // not_synchronized, synchronized_error
     items: [
+      { icon: ['fas', 'heart'], text: 'TPV', path: '/' },
       { icon: ['fas', 'cogs'], text: 'Configuración', path: '/configuracion' },
     ],
     footerItems: [
@@ -227,6 +230,8 @@ export default {
   },
 
   mounted() {
+    // console.log(this.stored_config)
+    // console.log(JSON.stringify(this.stored_config))
     // Get current config
     this.get_config_main_event = (event, configData) => {
       this.setConfig({ path: 'initialized', value: false })
@@ -239,14 +244,69 @@ export default {
       this.$vuetify.theme.themes.light.warning = configData.branding.color_palette.warning
       this.$vuetify.theme.themes.light.info = configData.branding.color_palette.info
       this.setConfig({ path: 'initialized', value: true })
+
+      ipcRenderer.send('get_content', 'product', this.stored_config.import.type)
+      ipcRenderer.send('get_content', 'family', this.stored_config.import.type)
+      // ipcRenderer.send('get_content', 'ticket', this.stored_config.import.type) TODO
     }
     ipcRenderer.on('get_config', this.get_config_main_event)
     ipcRenderer.send('get_config')
+
+    // Get and transform content from domain file to import
+    this.get_content_main_event = (event, domain, content) => {
+      // Transform domain content to app structure defined at global config
+      let contentTransformed = []
+
+      for (let i = 0; i < content.length; i++) {
+        // Convert columns to fields
+        let rowContentTransformed = content[i].map((contentToTransform) => {
+          let contentTransformed = {}
+
+          // contentToTransform[z] is { column: 'example', content: 'example' } ====> column = Column/Field of type, csv by default
+          // (_.invert(this.stored_config.import.domain[domain].fields_columns))[contentToTransform.column] ====> get key (domain field) from column content (domain column in type, csv by default) ====> gets domain field
+          let domainField = (_.invert(this.stored_config.import.domain[domain].fields_columns))[contentToTransform.column]
+          if (domainField === undefined) {
+            // To columns not defined in global config
+            contentTransformed.control = null
+            return contentTransformed
+          }
+          contentTransformed[domainField] = contentToTransform.content
+
+          return contentTransformed
+        })
+
+        // Convert array to unique object
+        let normalizedContentTransformed = {}
+        for (let z = 0; z < rowContentTransformed.length; z++) {
+          let contentKey = Object.keys(rowContentTransformed[z])[0]
+          // To columns defined in global config
+          if (contentKey !== 'control') {
+            // Insert content to normalized object with domain key field
+            normalizedContentTransformed[contentKey] = rowContentTransformed[z][contentKey]
+          }
+        }
+
+        contentTransformed.push(normalizedContentTransformed)
+      }
+
+      // Set transformed content to use globally
+      if (domain === 'product') {
+        this.setProducts(contentTransformed)
+      }
+      if (domain === 'family') {
+        this.setFamilies(contentTransformed)
+      }
+      if (domain === 'ticket') {
+        this.setTickets(contentTransformed)
+      }
+    }
+    ipcRenderer.on('get_content', this.get_content_main_event)
   },
 
   beforeDestroy() {
-    // Destroy listener to get_config event from main process
+    // Destroy listener to get_config and get_content event from main process
     ipcRenderer.removeListener('get_config', this.get_config_main_event)
+    ipcRenderer.removeListener('get_content', this.get_content_main_event)
   },
 
   methods: {
@@ -263,7 +323,9 @@ export default {
     },
 
     synchronization () {
-      console.log(this.$store.state.global.config)
+      ipcRenderer.send('get_content', 'product', this.stored_config.import.type)
+      ipcRenderer.send('get_content', 'family', this.stored_config.import.type)
+      // ipcRenderer.send('get_content', 'ticket', this.stored_config.import.type) TODO
     },
 
     ...mapActions({
@@ -273,6 +335,18 @@ export default {
     ...mapActions('global', [
       'setConfig',
       'setConfigComplete',
+    ]),
+
+    ...mapActions('product', [
+      'setProducts',
+    ]),
+
+    ...mapActions('family', [
+      'setFamilies',
+    ]),
+
+    ...mapActions('ticket', [
+      'setTickets',
     ]),
 
     ...mapMutations({

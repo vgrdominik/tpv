@@ -219,50 +219,17 @@ export const state = () => ({
           ],
 
           columns: [
-            {
-              name: 'Codigo',
-              type: 'int',
-            },
-            {
-              name: 'Codigo familia',
-              type: 'int',
-            },
-            {
-              name: 'IVA',
-              type: 'float',
-            },
-            {
-              name: 'Enviar a',
-              type: 'string',
-            },
-            {
-              name: 'Nombre',
-              type: 'string',
-            },
-            {
-              name: 'Coste',
-              type: 'float',
-            },
-            {
-              name: 'Base',
-              type: 'float',
-            },
-            {
-              name: 'PVP',
-              type: 'float',
-            },
-            {
-              name: 'Referencia',
-              type: 'string',
-            },
-            {
-              name: 'Imagen',
-              type: 'string',
-            },
-            {
-              name: 'Texto boton TPV',
-              type: 'string',
-            },
+            'Codigo',
+            'Codigo familia',
+            'IVA',
+            'Enviar a',
+            'Descripcion',
+            'Coste',
+            'Base',
+            'PVP',
+            'Referencia',
+            'Imagen',
+            'Texto boton TPV',
           ],
 
           fields_columns: {
@@ -270,13 +237,52 @@ export const state = () => ({
             id_taxonomy: 'Codigo familia',
             iva: 'IVA',
             ids_send_to: 'Enviar a',
-            name: 'Nombre',
+            name: 'Descripcion',
             cost: 'Coste',
             base: 'Base',
             total: 'PVP',
             reference: 'Referencia',
             img: 'Imagen',
             text_tpv: 'Texto boton TPV',
+          },
+        },
+
+        family: {
+          fields: [
+            {
+              name: 'id',
+              type: 'int',
+            },
+            {
+              name: 'img',
+              type: 'string',
+            },
+            {
+              name: 'text_tpv',
+              type: 'string',
+            },
+          ],
+
+          columns: [
+            'id_familia',
+            'descripcio',
+            'de',
+            'foto',
+            'mostrar_text',
+            'cos',
+            'orden',
+            'color_fons',
+            'color_lletra',
+            'borde_gruix',
+            'borde_tipus',
+            'border_color',
+            'borde_radius',
+          ],
+
+          fields_columns: {
+            id: 'id_familia',
+            img: 'foto',
+            text_tpv: 'descripcio',
           },
         },
       },

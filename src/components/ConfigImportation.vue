@@ -1,3 +1,4 @@
+import {ipcRenderer} from "electron";
 <template>
   <div>
     <!-- Config TPV -->
@@ -9,14 +10,14 @@
 
     <v-row dense v-if="show_config_tpv">
       <v-col cols="12">
-        La carpeta seleccionada en el anterior apartado, "Directorio de importación", determina donde se deben poner los ficheros a importar. Estos son products.csv, families.csv y tickets.csv (Productos, familias y tíquets respectivamente).<br>
+        La carpeta seleccionada en el anterior apartado, "Directorio de importación", determina donde se deben poner los ficheros a importar. Estos son product.csv, family.csv y ticket.csv (Productos, familias y tíquets respectivamente).<br>
         Al poner los ficheros a importar en dicha carpeta se recopilan sus cabeceras y se exponen en el siguiente apartado para que especifiques a qué campos corresponden.
       </v-col>
     </v-row>
 
     <!-- Config TPV Actions -->
     <template v-if="show_config_tpv">
-      <template v-for="domain in model.domain">
+      <template v-for="(domain, domain_name) in model.domain">
         <v-row dense :key="domain.title">
           <v-row dense>
             <v-spacer />
@@ -32,7 +33,7 @@
         </v-row>
         <v-row dense :key="domain.title + '-refresh'">
           <v-col cols="12" class="text-center">
-            <CtBtn :type="stored_config.branding.style.button" color="primary">
+            <CtBtn :type="stored_config.branding.style.button" color="primary" @click="headersSync(domain_name)">
               <font-awesome-icon :icon="['fas', 'sync-alt']"/>
               <span class="ml-3">Actualizar cabeceras</span>
             </CtBtn>
@@ -60,7 +61,7 @@
           <v-col cols="12" lg="4">
             <v-row dense>
               <v-spacer v-if="$vuetify.breakpoint.mdAndDown" />
-              <CtSelect v-model="domain.fields_columns[field.name]" :ctType="stored_config.branding.style.form" class="ma-4" :items="domain.columns" item-value="name" item-text="name" label="Columna del fichero" />
+              <CtSelect v-model="domain.fields_columns[field.name]" :ctType="stored_config.branding.style.form" class="ma-4" :items="domain.columns" label="Columna del fichero" />
               <v-spacer v-if="$vuetify.breakpoint.mdAndDown" />
             </v-row>
           </v-col>
@@ -78,10 +79,10 @@
 </template>
 
 <script type="application/javascript">
-import CtTextField from "../globalComponents/CtTextField";
+import { ipcRenderer } from 'electron'
+import { mapActions } from 'vuex'
 export default {
   name: "ConfigImportation",
-  components: {CtTextField},
   props: {
     'model': {
       type: Object,
@@ -92,6 +93,8 @@ export default {
   data: () => {
     return {
       show_config_tpv: false,
+
+      get_headers_main_event: null,
     }
   },
 
@@ -100,5 +103,35 @@ export default {
       return this.$store.state.global.config
     }
   },
+
+  mounted() {
+    // Get headers from domain file to import
+    this.get_headers_main_event = (event, domain, headers) => {
+      // Set global config value used in config importation only
+      this.setConfig({ path: 'import>domain>' + domain + '>columns', value:  headers })
+
+      // Set model used in current component
+      this.model.domain[domain].columns = headers
+    }
+    ipcRenderer.on('get_headers', this.get_headers_main_event)
+    this.headersSync('product')
+    this.headersSync('family')
+  },
+
+  beforeDestroy() {
+    // Destroy listener to get_headers event from main process
+    ipcRenderer.removeListener('get_headers', this.get_headers_main_event)
+  },
+
+  methods: {
+    headersSync(domain) {
+      // this.stored_config.import.domain[domain]
+      ipcRenderer.send('get_headers', domain, this.stored_config.import.type)
+    },
+
+    ...mapActions('global', [
+      'setConfig',
+    ]),
+  }
 }
 </script>

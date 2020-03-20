@@ -1,0 +1,12 @@
+id_familia,descripcio,de,foto,mostrar_text,cos,orden,color_fons,color_lletra,borde_gruix,borde_tipus,border_color,borde_radius
+1,REFRESC,0,granini.png,1,10,200,#ffffff,#000000,0,,#000000,0
+2,LICOR,0,licors.png,1,10,120,#ffffff,#000000,0,,#000000,0
+3,CAFETERA,0,capuccino.png,1,10,100,#ffffff,#000000,0,,#000000,0
+4,ENTREPANS,0,entrepans.png,1,10,320,#ffffff,#000000,0,,#000000,0
+9,AMANIDES,0,amanides.png,1,10,610,#000000,#000000,0,,#000000,0
+11,POSTRES,0,postres.png,1,10,620,#000000,#000000,0,,#000000,0
+12,MENU,0,menus.png,1,10,500,#000000,#000000,0,,#000000,0
+13,TAPES,0,tapes.png,1,10,310,#ffffff,#000000,0,,#000000,0
+14,ABONAMENTS,0,abonaments.png,1,8,1000,#ffffff,#000000,2,solid,#ff0000,5
+15,Serveis,0,serveis.png,1,12,2100,#000000,#ffffff,0,solid,#80ff00,0
+16,Conceptes,0,,1,12,2000,#000000,#ffffff,0,solid,#ff0000,0

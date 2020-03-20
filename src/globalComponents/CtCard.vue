@@ -57,9 +57,6 @@ export default {
 }
 </script>
 <style>
-  /*.ct-content::-webkit-scrollbar {
-    display: block;
-  }*/
   .ct-card-content {
     padding: 0 0 0 0 !important;
     overflow: auto;

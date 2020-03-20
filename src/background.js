@@ -94,6 +94,7 @@ if (isDevelopment) {
 // OWN CODE
 
 const fs = require('fs')
+const csv = require('csv')
 const directoriesPath = app.getAppPath() +'/data/directories.json'
 const configFilename = '/config.json'
 let directories = {}
@@ -108,6 +109,11 @@ let getDirectoriesPath = function () {
 }
 getDirectoriesPath()
 
+let convertPath = function(path) {
+  let pathToReturn = path.replace('app://', app.getAppPath() + '/')
+  return pathToReturn
+}
+
 // Save config event
 ipcMain.on('save_config', function (event, config) {
   let isDone = false
@@ -117,10 +123,10 @@ ipcMain.on('save_config', function (event, config) {
     fs.writeFileSync(directoriesPath, JSON.stringify(directories), 'utf-8')
 
     // Save config file to data_dir path
-    let pathData = config.data_dir.path.replace('app://', app.getAppPath() + '/')
+    let pathData = convertPath(directories.data_dir.path)
     fs.writeFileSync(pathData + configFilename, JSON.stringify(config), 'utf-8')
     isDone = true
-  } catch(e) { alert('Fallo al guardar la configuración!') }
+  } catch(e) { console.log('stdout', 'Fallo al guardar la configuración: ' + e.message) }
 
   win.webContents.send('save_config', isDone)
 })
@@ -130,16 +136,95 @@ ipcMain.on('get_config', function () {
   let configToReturn = {}
   try {
     // Get config path from data dir in directories variable
-    let pathData = directories.data_dir.path.replace('app://', app.getAppPath() + '/')
+    let pathData = convertPath(directories.data_dir.path)
 
     // Get config data from file config
-    let rawData = fs.readFileSync(pathData + configFilename, function read(err, data) {
+    let rawData = fs.readFileSync(pathData + configFilename, function read(err) {
       if (err) {
         throw err
       }
     })
     configToReturn = JSON.parse(rawData)
-  } catch(e) { alert('Fallo al guardar la configuración!') }
+  } catch(e) { console.log('stdout', 'Fallo al recuperar la configuración: ' + e.message) }
 
   win.webContents.send('get_config', configToReturn)
+})
+
+// Get domain headers event
+ipcMain.on('get_headers', function (event, domain, format) {
+  let headersToReturn = []
+  try {
+    if (format === 'csv') {
+      let importPath = convertPath(directories.import_dir.path)
+
+      csv()
+        .from(importPath + '/' + domain + '.' + format)
+        .on('data', (data) => {
+          if (headersToReturn.length <= 0) {
+            headersToReturn = data.split(',')
+          }
+        })
+        .on('end',function(){ // count
+          win.webContents.send('get_headers', domain, headersToReturn)
+        })
+        .on('error',function(error){
+          console.log('stdout', error.message)
+          headersToReturn = false
+        })
+    }
+  } catch(e) {
+    console.log('stdout', 'Fallo al recuperar las cabeceras: ' + e.message)
+    headersToReturn = false
+  }
+})
+
+// Get domain content event
+ipcMain.on('get_content', function (event, domain, format) {
+  let contentToReturn = []
+  let headers = {}
+  let counterLines = 0
+  try {
+    if (format === 'csv') {
+      let importPath = convertPath(directories.import_dir.path)
+
+      csv()
+        .from(importPath + '/' + domain + '.' + format)
+        .on('data', (dataString) => {
+          if (counterLines <= 0) {
+            csv()
+              .from.string(dataString, {comment: '#'})
+              .to.array(function (data) {
+                for (let i = 0; i < data[0].length; i++) {
+                  headers['element' + i] = data[0][i]
+                }
+              })
+          }
+          if (counterLines > 0) {
+            csv()
+              .from.string(dataString, {comment: '#'})
+              .to.array(function (data) {
+                let elementToPush = []
+                for (let i = 0; i < data[0].length; i++) {
+                  elementToPush.push({
+                    column: headers['element' + i],
+                    content: data[0][i],
+                  })
+                }
+                contentToReturn.push(elementToPush)
+              })
+          }
+          counterLines++
+        })
+        .on('end',function(){ // count
+          win.webContents.send('get_content', domain, contentToReturn)
+        })
+        .on('error',function(error){
+          console.log('stdout', error.message)
+          contentToReturn = false
+        })
+    }
+  } catch(e) {
+    console.log('stdout', 'Fallo al recuperar las cabeceras: ' + e.message)
+    contentToReturn = false
+  }
 })

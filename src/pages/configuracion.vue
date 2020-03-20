@@ -466,50 +466,17 @@ export default {
                             ],
 
                             columns: [
-                                {
-                                    name: 'Codigo',
-                                    type: 'int',
-                                },
-                                {
-                                    name: 'Codigo familia',
-                                    type: 'int',
-                                },
-                                {
-                                    name: 'IVA',
-                                    type: 'float',
-                                },
-                                {
-                                    name: 'Enviar a',
-                                    type: 'string',
-                                },
-                                {
-                                    name: 'Nombre',
-                                    type: 'string',
-                                },
-                                {
-                                    name: 'Coste',
-                                    type: 'float',
-                                },
-                                {
-                                    name: 'Base',
-                                    type: 'float',
-                                },
-                                {
-                                    name: 'PVP',
-                                    type: 'float',
-                                },
-                                {
-                                    name: 'Referencia',
-                                    type: 'string',
-                                },
-                                {
-                                    name: 'Imagen',
-                                    type: 'string',
-                                },
-                                {
-                                    name: 'Texto boton TPV',
-                                    type: 'string',
-                                },
+                                'Codigo',
+                                'Codigo familia',
+                                'IVA',
+                                'Enviar a',
+                                'Descripcion',
+                                'Coste',
+                                'Base',
+                                'PVP',
+                                'Referencia',
+                                'Imagen',
+                                'Texto boton TPV',
                             ],
 
                             fields_columns: {
@@ -517,13 +484,59 @@ export default {
                                 id_taxonomy: 'Codigo familia',
                                 iva: 'IVA',
                                 ids_send_to: 'Enviar a',
-                                name: 'Nombre',
+                                name: 'Descripcion',
                                 cost: 'Coste',
                                 base: 'Base',
                                 total: 'PVP',
                                 reference: 'Referencia',
                                 img: 'Imagen',
                                 text_tpv: 'Texto boton TPV',
+                            },
+                        },
+
+                        family: {
+                            title: 'Familias',
+                            fields: [
+                                {
+                                    label: 'Codigo',
+                                    description: 'Identificador único',
+                                    name: 'id',
+                                    type: 'int',
+                                },
+                                {
+                                    label: 'Imagen',
+                                    description: 'Imagen. Como más pequeñas sean más rápido irá.',
+                                    name: 'img',
+                                    type: 'string',
+                                },
+                                {
+                                    label: 'Texto boton TPV',
+                                    description: 'Nombre acortado',
+                                    name: 'text_tpv',
+                                    type: 'string',
+                                },
+                            ],
+
+                            columns: [
+                                'id_familia',
+                                'descripcio',
+                                'de',
+                                'foto',
+                                'mostrar_text',
+                                'cos',
+                                'orden',
+                                'color_fons',
+                                'color_lletra',
+                                'borde_gruix',
+                                'borde_tipus',
+                                'border_color',
+                                'borde_radius',
+                            ],
+
+                            fields_columns: {
+                                id: 'id_familia',
+                                img: 'foto',
+                                text_tpv: 'descripcio',
                             },
                         },
                     },
@@ -580,6 +593,7 @@ export default {
                 }
                 this.is_saved = false
 
+                // Set config values used globally
                 this.$vuetify.theme.themes.light.primary = this.model.branding.color_palette.primary
                 this.$vuetify.theme.themes.light.secondary = this.model.branding.color_palette.secondary
                 this.$vuetify.theme.themes.light.accent = this.model.branding.color_palette.accent
@@ -611,6 +625,7 @@ export default {
                 this.setConfig({ path: 'data_dir', value: this.model.data_dir })
                 this.setConfig({ path: 'import_dir', value: this.model.import_dir })
                 Object.entries(this.model.import.domain.product.fields_columns).forEach(([key, element]) => this.setConfig({ path: 'import>domain>product>fields_columns>'+key, value:  element }))
+                Object.entries(this.model.import.domain.family.fields_columns).forEach(([key, element]) => this.setConfig({ path: 'import>domain>family>fields_columns>'+key, value:  element }))
 
                 // Set event to save config to file
                 this.$nextTick(() => {
@@ -687,6 +702,7 @@ export default {
             this.model.data_dir = config.data_dir
             this.model.import_dir = config.import_dir
             Object.entries(config.import.domain.product.fields_columns).forEach(([key, element]) => this.model.import.domain.product.fields_columns[key] = element )
+            Object.entries(config.import.domain.family.fields_columns).forEach(([key, element]) => this.model.import.domain.family.fields_columns[key] = element )
         },
 
         ...mapActions('global', [
