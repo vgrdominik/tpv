@@ -9,7 +9,7 @@
             sm="3"
             md="1"
             lg="1"
-            class="text-center"
+            class="text-center pt-0 pb-0"
             @click="currentNumber = number"
     >
       <v-card class="pa-2" :elevation="currentNumber === number ? 5 : 1" style="cursor: pointer">

@@ -11,6 +11,11 @@
               :sort-desc="sortDesc"
               hide-default-footer
       >
+        <template v-slot:no-data>
+          <v-col cols="12" class="text-center">
+            <span class="primary--text body-2">No hay familias</span>
+          </v-col>
+        </template>
         <template v-slot:default="props">
           <v-row>
             <v-col
@@ -27,17 +32,20 @@
                       @click="$store.state.family.current_family === item.id ? $store.state.family.current_family = 0 : $store.state.family.current_family = item.id">
                 <v-row class="pt-4">
                   <v-spacer />
-                  <v-avatar v-if="item.img" width="5vh" height="5vh">
+                  <v-avatar v-if="item.img" :width="$vuetify.breakpoint.smAndDown? 50 : '7vh'" :height="$vuetify.breakpoint.smAndDown? 50 : '7vh'">
                     <v-img
                             :src="require('../../assets/family/barRestaurant/' + item.img)"
                             class="my-3"
                     />
                   </v-avatar>
+                  <v-avatar v-else color="secondary" :width="$vuetify.breakpoint.smAndDown? 50 : '7vh'" :height="$vuetify.breakpoint.smAndDown? 50 : '7vh'">
+                    <span class="white--text headline" v-html="item.text_tpv ? item.text_tpv.charAt(0).toUpperCase() + item.text_tpv.charAt(1) : 'Ar'" />
+                  </v-avatar>
                   <v-spacer />
                 </v-row>
                 <v-row dense class="pb-4">
                   <v-spacer />
-                  <span class="body-2 text-uppercase" v-html="item.text_tpv" />
+                  <span class="body-2 text-uppercase primary--text" v-html="item.text_tpv" />
                   <v-spacer />
                 </v-row>
               </v-card>
@@ -46,13 +54,13 @@
         </template>
       </v-data-iterator>
     </v-col>
-    <v-col cols="12" sm="3" md="3" lg="2" :class="{ 'mt-10': $vuetify.breakpoint.mdAndUp }">
+    <v-col cols="12" sm="3" md="3" lg="2" :class="{ 'mt-6': $vuetify.breakpoint.mdAndUp }">
       <v-row dense>
         <v-spacer v-if="$vuetify.breakpoint.smAndDown" />
         <v-btn
                 fab
                 dark
-                color="primary"
+                color="secondary"
                 class="mr-1"
                 @click="formerPage"
         >
@@ -61,7 +69,7 @@
         <v-btn
                 fab
                 dark
-                color="primary"
+                color="secondary"
                 class="ml-1"
                 @click="nextPage"
         >

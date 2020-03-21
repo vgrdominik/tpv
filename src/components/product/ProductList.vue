@@ -4,41 +4,18 @@
       <v-col dense class="body-1 text-uppercase pb-0 pt-2" v-if="$vuetify.breakpoint.smAndUp">
         <UnitList />
       </v-col>
-
-      <div :class="{ 'mt-2': $vuetify.breakpoint.smAndDown }">
-        <span class="mr-4 grey--text" v-if="$vuetify.breakpoint.lgAndUp">
-          Página {{ page }} de {{ numberOfPages }}
-        </span>
-        <v-btn
-                fab
-                dark
-                color="primary"
-                class="mr-1"
-                @click="formerPage"
-        >
-          <v-icon>mdi-chevron-left</v-icon>
-        </v-btn>
-        <v-btn
-                fab
-                dark
-                color="primary"
-                class="ml-1"
-                @click="nextPage"
-        >
-          <v-icon>mdi-chevron-right</v-icon>
-        </v-btn>
-      </div>
     </v-row>
     <CtCard
             :type="stored_config.branding.style.card"
             fluid
-            :title="$store.state.family.current_family ? $store.state.family.families.filter((family) => family.id === $store.state.family.current_family)[0].text_tpv : 'Todos'"
+            :title="currentFamily ? $store.state.family.families.filter((family) => family.id === currentFamily)[0].text_tpv : 'Todos'"
             dense
             class="mt-2">
       <!-- HEADER -->
       <template v-slot:leftTitleContent>
         <CtTextField
                 v-model="search"
+                :ctType="stored_config.branding.style.form"
                 clearable
                 dark
                 flat
@@ -48,36 +25,33 @@
                 label="Buscador" />
         <v-spacer />
       </template>
-      <template v-slot:rightTitleContent v-if="$vuetify.breakpoint.mdAndUp">
-        <CtTooltip left btn btn-type="icon" btn-color="white" :btn-icon="['fas', 'times']" @click="$store.state.family.current_family = 0" v-if="$store.state.family.current_family !== 0">
+      <template v-slot:rightTitleContent>
+        <CtTooltip left btn btn-type="icon" btn-color="white" :btn-icon="['fas', 'times']" @click="$store.state.family.current_family = 0" v-if="currentFamily !== 0">
           Eliminar filtro de familia
         </CtTooltip>
         <v-spacer />
-        <v-col cols="2">
-          <CtSelect
-                  v-model="sortBy"
-                  flat
-                  dark
-                  solo-inverted
-                  hide-details
-                  :items="keys"
-                  item-value="value"
-                  item-text="name"
-                  label="Ordenado por" />
-        </v-col>
-        <v-btn-toggle v-model="sortDesc" mandatory dense>
-          <CtBtn :type="stored_config.branding.style.button" color="primary" :value="false">
-            <v-icon>mdi-arrow-up</v-icon>
-          </CtBtn>
-          <CtBtn :type="stored_config.branding.style.button" color="primary" :value="true">
-            <v-icon>mdi-arrow-down</v-icon>
-          </CtBtn>
-        </v-btn-toggle>
-      </template>
-      <template v-slot:rightTitleContent v-else>
-        <CtTooltip left btn btn-type="icon" btn-color="white" :btn-icon="['fas', 'times']" @click="$store.state.family.current_family = 0" v-if="$store.state.family.current_family !== 0">
-          Eliminar filtro de familia
-        </CtTooltip>
+
+        <span class="mr-4 white--text" v-if="$vuetify.breakpoint.mdAndUp">
+          Página {{ page }} de {{ numberOfPages }}
+        </span>
+        <v-btn
+                fab
+                small
+                color="secondary"
+                class="mr-1"
+                @click="formerPage"
+        >
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+        <v-btn
+                fab
+                small
+                color="secondary"
+                class="ml-1"
+                @click="nextPage"
+        >
+          <v-icon>mdi-chevron-right</v-icon>
+        </v-btn>
       </template>
 
       <!-- LIST -->
@@ -91,6 +65,11 @@
                 :sort-desc="sortDesc"
                 hide-default-footer
         >
+          <template v-slot:no-data>
+            <v-col cols="12" class="text-center">
+              <span class="primary--text body-2">No hay productos</span>
+            </v-col>
+          </template>
           <template v-slot:default="props">
             <v-row>
               <v-col
@@ -105,20 +84,20 @@
                 <v-card>
                   <v-row dense class="pt-4">
                     <v-spacer />
-                    <v-avatar v-if="item.img" :height="$vuetify.breakpoint.smAndDown? 50 : '7vh'">
+                    <v-avatar v-if="item.img" :width="$vuetify.breakpoint.smAndDown? 50 : '7vh'" :height="$vuetify.breakpoint.smAndDown? 50 : '7vh'">
                       <v-img
                               :src="require('../../assets/product/barRestaurant/' + item.img)"
                               class="my-3"
                       />
                     </v-avatar>
-                    <v-avatar v-else color="secondary" :height="$vuetify.breakpoint.smAndDown? 50 : '7vh'">
+                    <v-avatar v-else color="secondary" :width="$vuetify.breakpoint.smAndDown? 50 : '7vh'" :height="$vuetify.breakpoint.smAndDown? 50 : '7vh'">
                       <span class="white--text headline" v-html="item.text_tpv ? item.text_tpv.charAt(0).toUpperCase() + item.text_tpv.charAt(1) : 'Ar'" />
                     </v-avatar>
                     <v-spacer />
                   </v-row>
                   <v-row dense class="pb-4">
                     <v-spacer />
-                    <span class="body-2 text-uppercase product-text-tpv pb-4" v-html="item.text_tpv" />
+                    <span class="body-2 text-uppercase product-text-tpv pb-4 primary--text" v-html="item.text_tpv" />
                     <v-spacer />
                   </v-row>
                 </v-card>
@@ -143,16 +122,12 @@ export default {
       sortDesc: false,
       page: 1,
       sortBy: 'text_tpv',
-      keys: [
-        { name: 'Nombre', value: 'text_tpv' },
-        { name: 'Precio', value: 'pvp' },
-      ],
     }
   },
 
   computed: {
     products () {
-      if (this.$store.state.family.current_family) {
+      if (this.currentFamily) {
         return this.$store.state.product.products.filter((product) => product.id_taxonomy === this.$store.state.family.current_family)
       }
 
@@ -161,6 +136,10 @@ export default {
 
     stored_config () {
       return this.$store.state.global.config
+    },
+
+    currentFamily () {
+      return this.$store.state.family.current_family
     },
 
     numberOfPages () {
@@ -179,6 +158,12 @@ export default {
         return newValue
       },
     },
+  },
+
+  watch: {
+    currentFamily() {
+      this.page = 1
+    }
   },
 
   mounted() {

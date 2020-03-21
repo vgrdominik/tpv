@@ -679,30 +679,36 @@ export default {
         // Set global config to local (Transformer input)
         // config_initialized should be false
         fetchConfig (config) {
-            Object.entries(config.tax_identification).forEach(([key, element]) => this.model.tax_identification[key] = element )
-            Object.entries(config.branding.color_palette).forEach(([key, element]) => this.model.branding.color_palette[key] = element )
-            Object.entries(config.branding.style).forEach(([key, element]) => this.model.branding.style[key] = element )
-            this.model.customers = config.customers
-            this.model.turns = config.turns
-            Object.entries(config.layout_tpv).forEach(([key, element]) => this.model.layout_tpv[key] = element )
-            Object.entries(config.config_tpv.action).forEach(([key, element]) => this.model.config_tpv.action.values[key].value = element )
-            Object.entries(config.config_tpv.ticket).forEach(([key, element]) => this.model.config_tpv.ticket.values[key].value = element )
-            Object.entries(config.config_tpv.ticket_opened).forEach(([key, element]) => this.model.config_tpv.ticket_opened.values[key].value = element )
-            Object.entries(config.config_tpv.ticket_opened_customer).forEach(([key, element]) => this.model.config_tpv.ticket_opened_customer.values[key].value = element )
-            Object.entries(config.config_tpv.ticket_line).forEach(([key, element]) => this.model.config_tpv.ticket_line.values[key].value = element )
-            Object.entries(config.config_tpv.family).forEach(([key, element]) => this.model.config_tpv.family.values[key].value = element )
-            Object.entries(config.config_tpv.feature).forEach(([key, element]) => this.model.config_tpv.feature.values[key].value = element )
-            Object.entries(config.config_tpv.quantities).forEach(([key, element]) => this.model.config_tpv.quantities.values[key].value = element )
-            Object.entries(config.config_tpv.search).forEach(([key, element]) => this.model.config_tpv.search.values[key].value = element )
-            Object.entries(config.config_tpv.product).forEach(([key, element]) => this.model.config_tpv.product.values[key].value = element )
-            Object.entries(config.config_tpv.barcode).forEach(([key, element]) => this.model.config_tpv.barcode.values[key].value = element )
-            Object.entries(config.config_tpv.dining_room).forEach(([key, element]) => this.model.config_tpv.dining_room.values[key].value = element )
-            Object.entries(config.config_turns).forEach(([key, element]) => this.model.config_turns.values[key].value = element )
-            Object.entries(config.smtp).forEach(([key, element]) => this.model.smtp.values[key].value = element )
-            this.model.data_dir = config.data_dir
-            this.model.import_dir = config.import_dir
-            Object.entries(config.import.domain.product.fields_columns).forEach(([key, element]) => this.model.import.domain.product.fields_columns[key] = element )
-            Object.entries(config.import.domain.family.fields_columns).forEach(([key, element]) => this.model.import.domain.family.fields_columns[key] = element )
+            // Turn initialized to false to no override model data.
+            this.$store.state.global.config.initialized = false
+            // Execute at next tick to populate initialized
+            this.$nextTick(() => {
+                Object.entries(config.tax_identification).forEach(([key, element]) => this.model.tax_identification[key] = element)
+                Object.entries(config.branding.color_palette).forEach(([key, element]) => this.model.branding.color_palette[key] = element)
+                Object.entries(config.branding.style).forEach(([key, element]) => this.model.branding.style[key] = element)
+                this.model.customers = config.customers
+                this.model.turns = config.turns
+                Object.entries(config.layout_tpv).forEach(([key, element]) => this.model.layout_tpv[key] = element)
+                Object.entries(config.config_tpv.action).forEach(([key, element]) => this.model.config_tpv.action.values[key].value = element)
+                Object.entries(config.config_tpv.ticket).forEach(([key, element]) => this.model.config_tpv.ticket.values[key].value = element)
+                Object.entries(config.config_tpv.ticket_opened).forEach(([key, element]) => this.model.config_tpv.ticket_opened.values[key].value = element)
+                Object.entries(config.config_tpv.ticket_opened_customer).forEach(([key, element]) => this.model.config_tpv.ticket_opened_customer.values[key].value = element)
+                Object.entries(config.config_tpv.ticket_line).forEach(([key, element]) => this.model.config_tpv.ticket_line.values[key].value = element)
+                Object.entries(config.config_tpv.family).forEach(([key, element]) => this.model.config_tpv.family.values[key].value = element)
+                Object.entries(config.config_tpv.feature).forEach(([key, element]) => this.model.config_tpv.feature.values[key].value = element)
+                Object.entries(config.config_tpv.quantities).forEach(([key, element]) => this.model.config_tpv.quantities.values[key].value = element)
+                Object.entries(config.config_tpv.search).forEach(([key, element]) => this.model.config_tpv.search.values[key].value = element)
+                Object.entries(config.config_tpv.product).forEach(([key, element]) => this.model.config_tpv.product.values[key].value = element)
+                Object.entries(config.config_tpv.barcode).forEach(([key, element]) => this.model.config_tpv.barcode.values[key].value = element)
+                Object.entries(config.config_tpv.dining_room).forEach(([key, element]) => this.model.config_tpv.dining_room.values[key].value = element)
+                Object.entries(config.config_turns).forEach(([key, element]) => this.model.config_turns.values[key].value = element)
+                Object.entries(config.smtp).forEach(([key, element]) => this.model.smtp.values[key].value = element)
+                this.model.data_dir = config.data_dir
+                this.model.import_dir = config.import_dir
+                Object.entries(config.import.domain.product.fields_columns).forEach(([key, element]) => this.model.import.domain.product.fields_columns[key] = element)
+                Object.entries(config.import.domain.family.fields_columns).forEach(([key, element]) => this.model.import.domain.family.fields_columns[key] = element)
+                this.$store.state.global.config.initialized = true
+            })
         },
 
         ...mapActions('global', [

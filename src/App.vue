@@ -61,6 +61,18 @@
             </v-list-item-content>
           </v-list-item>
         </template>
+
+        <!-- Exit -->
+        <v-list-item link>
+          <v-list-item-action @click="exit()">
+            <CtIcon :icon="['fas', 'sign-out-alt']" class="primary--text" />
+          </v-list-item-action>
+          <v-list-item-content @click="exit()">
+            <v-list-item-title class="primary--text">
+              Salir
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
@@ -317,6 +329,9 @@ export default {
   },
 
   methods: {
+    exit() {
+      remote.getCurrentWindow().close()
+    },
     afterLogout(){
       this.setToken('')
       this.removeUser()
