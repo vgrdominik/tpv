@@ -1,20 +1,22 @@
 <template>
   <!-- LIST -->
   <v-row class="ct-card-content-unit-list pt-0 pb-0">
+    <v-spacer />
     <v-col
             v-for="number in numbers"
             :key="number"
             cols="12"
             sm="3"
-            md="2"
+            md="1"
             lg="1"
             class="text-center"
             @click="currentNumber = number"
     >
-      <v-card class="pa-4 mt-4" :elevation="currentNumber === number ? 5 : 1" style="cursor: pointer">
-        <span v-html="number" :class="{ 'primary--text': currentNumber === number, 'secondary--text': currentNumber !== number, 'display-1': true }" />
+      <v-card class="pa-2" :elevation="currentNumber === number ? 5 : 1" style="cursor: pointer">
+        <span v-html="number" :class="{ 'primary--text': currentNumber === number, 'secondary--text': currentNumber !== number, 'body-2': true }" />
       </v-card>
     </v-col>
+    <v-spacer />
   </v-row>
 </template>
 

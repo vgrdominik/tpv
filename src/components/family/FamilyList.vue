@@ -27,7 +27,7 @@
                       @click="$store.state.family.current_family === item.id ? $store.state.family.current_family = 0 : $store.state.family.current_family = item.id">
                 <v-row class="pt-4">
                   <v-spacer />
-                  <v-avatar v-if="item.img" width="80" height="80">
+                  <v-avatar v-if="item.img" width="5vh" height="5vh">
                     <v-img
                             :src="require('../../assets/family/barRestaurant/' + item.img)"
                             class="my-3"
@@ -46,7 +46,7 @@
         </template>
       </v-data-iterator>
     </v-col>
-    <v-col cols="12" sm="3" md="3" lg="2" class="mt-10">
+    <v-col cols="12" sm="3" md="3" lg="2" :class="{ 'mt-10': $vuetify.breakpoint.mdAndUp }">
       <v-row dense>
         <v-spacer v-if="$vuetify.breakpoint.smAndDown" />
         <v-btn
@@ -100,11 +100,16 @@ export default {
       return this.$store.state.global.config
     },
 
+    familiesPerPageFiltered: {
+      get() {
+        return this.$vuetify.breakpoint.smAndDown ? this.familiesPerPage - 3 : this.$vuetify.breakpoint.lgAndUp ? this.familiesPerPage : this.familiesPerPage - 2
+      },
+      set(newValue) {
+        return newValue
+      },
+    },
     numberOfPages () {
       return Math.ceil(this.families.length / this.familiesPerPageFiltered)
-    },
-    familiesPerPageFiltered () {
-      return this.$vuetify.breakpoint.smAndDown ? this.familiesPerPage - 3 : this.$vuetify.breakpoint.lgAndUp ? this.familiesPerPage : this.familiesPerPage - 2
     },
   },
 

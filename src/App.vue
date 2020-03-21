@@ -69,10 +69,11 @@
             app
             dark
             color="primary"
+            height="42"
     >
-      <CtBtn type="icon" :icon="['fas', 'chevron-left']" @click="$router.go(-1)" class="mr-3" />
+      <CtBtn type="icon" :icon="['fas', 'chevron-left']" small @click="$router.go(-1)" class="mr-3" />
 
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon small @click.stop="drawer = !drawer" />
       <v-toolbar-title
               style="width: 300px"
               class="ml-0 pl-4"
@@ -95,9 +96,9 @@
           Registro gratuito
         </CtBtn>
       </template>
-      <CtBtn type="icon" :icon="['fas', 'bell']" to="/notificaciones" />
+      <CtBtn type="icon" :icon="['fas', 'bell']" small to="/notificaciones" />
     </v-app-bar>
-    <v-content id="maincontent">
+    <v-content id="maincontent" class="pt-8">
       <router-view v-if="! isContainerNeeded" />
       <v-container
               class="fill-height"
@@ -121,9 +122,9 @@
       <v-icon>mdi-cached</v-icon>
     </CtBtn>
 
-    <v-footer padless fixed>
-      <CtCard type="empty" flat tile width="100%" class="primary text-center">
-        <v-card-text>
+    <v-footer padless fixed v-if="$router.currentRoute.path !== '/'">
+      <CtCard type="empty" fluid flat tile width="100%" class="primary text-center">
+        <v-card-text class="pa-0">
           <v-row dense>
             <v-col cols="12" sm="4" v-if="$vuetify.breakpoint.smAndUp">
               <CtBtn v-for="footerItem in footerItems" :key="footerItem.title" type="icon" target="_blank" :title="footerItem.title" :href="footerItem.href" :icon="footerItem.icon" class="mx-4 white--text" />
@@ -143,7 +144,7 @@
 </template>
 
 <script>
-import { ipcRenderer } from 'electron'
+import { ipcRenderer, remote } from 'electron'
 import { mapMutations, mapActions } from 'vuex'
 import _ from "underscore"
 
@@ -186,11 +187,6 @@ export default {
         href: 'https://www.instagram.com/iamvalentigamez/',
         icon: ['fab', 'instagram'],
         title: 'Perfil de Instagram',
-      },
-      {
-        href: 'https://www.linkedin.com/in/valent%C3%AD-g%C3%A0mez-rojas-5919b073/',
-        icon: ['fab', 'linkedin'],
-        title: 'Perfil laboral en Linkedin',
       },
       {
         href: 'https://www.youtube.com/vgrdominik',
@@ -300,7 +296,18 @@ export default {
         this.setTickets(contentTransformed)
       }
     }
+
     ipcRenderer.on('get_content', this.get_content_main_event)
+
+    // In development mode
+    document.addEventListener("keydown", function (e) {
+      if (e.which === 123) {
+        remote.getCurrentWindow().toggleDevTools();
+      } else if (e.which === 116) {
+        location.reload();
+      }
+    })
+    // End in development mode
   },
 
   beforeDestroy() {
@@ -390,7 +397,7 @@ export default {
   #maincontent{
     position: fixed;
     top: 0px; /*Set top value to HeightOfTopFrameDiv*/
-    bottom: 90px; /*Set bottom value to HeightOfBottomFrameDiv*/
+    bottom: 50px; /*Set bottom value to HeightOfBottomFrameDiv*/
     overflow: hidden;
     width: 100%;
   }

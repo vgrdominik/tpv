@@ -16,7 +16,7 @@
   </v-btn>
   <v-btn v-else-if="type === 'icon'" icon v-on="$listeners" v-bind="$attrs">
     <slot name="icon">
-      <font-awesome-icon :icon="icon"/>
+      <font-awesome-icon :icon="icon" />
     </slot>
     <slot />
   </v-btn>

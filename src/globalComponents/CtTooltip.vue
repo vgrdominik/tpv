@@ -1,7 +1,7 @@
 <template>
   <v-tooltip v-if="btn" v-on="$listeners" v-bind="$attrs">
     <template v-slot:activator="{ on }">
-      <CtBtn :type="btnType" :color="btnColor" :icon="btnIcon" v-on="on">{{ btnText }}</CtBtn>
+      <CtBtn :type="btnType" :color="btnColor" :icon="btnIcon" v-on="on" @click="$listeners.click()">{{ btnText }}</CtBtn>
     </template>
     <slot />
   </v-tooltip>

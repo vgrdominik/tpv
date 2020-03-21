@@ -60,6 +60,6 @@ export default {
   .ct-card-content {
     padding: 0 0 0 0 !important;
     overflow: auto;
-    max-height: 73vh;
+    max-height: 72vh;
   }
 </style>

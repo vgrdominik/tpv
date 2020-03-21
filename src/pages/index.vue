@@ -20,12 +20,6 @@
               <FamilyList />
             </v-expansion-panel-content>
           </v-expansion-panel>
-          <v-expansion-panel>
-            <v-expansion-panel-header class="primary--text pt-0 pb-0">Unidades</v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <UnitList class="pb-12" />
-            </v-expansion-panel-content>
-          </v-expansion-panel>
         </v-expansion-panels>
         <ProductList />
       </v-col>
@@ -37,10 +31,9 @@
 import { mapActions } from 'vuex'
 import FamilyList from "../components/family/FamilyList";
 import ProductList from "../components/product/ProductList";
-import UnitList from "../components/product/UnitList";
 
 export default {
-  components: {UnitList, FamilyList, ProductList},
+  components: {FamilyList, ProductList},
   data() {
     return {
       tickets: {
@@ -60,6 +53,7 @@ export default {
     if (this.$vuetify.breakpoint.smAndDown) {
       this.panel = false
     }
+    document.getElementById('maincontent').style.bottom = '0'
     this.setIsContainerNeeded(false)
   },
 
