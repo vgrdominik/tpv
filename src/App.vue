@@ -255,10 +255,8 @@ export default {
 
       ipcRenderer.send('get_content', 'product', this.stored_config.import.type)
       ipcRenderer.send('get_content', 'family', this.stored_config.import.type)
-      // ipcRenderer.send('get_content', 'ticket', this.stored_config.import.type) TODO
+      ipcRenderer.send('get_content', 'ticket', this.stored_config.import.type)
     }
-    ipcRenderer.on('get_config', this.get_config_main_event)
-    ipcRenderer.send('get_config')
 
     // Get and transform content from domain file to import
     this.get_content_main_event = (event, domain, content) => {
@@ -266,35 +264,8 @@ export default {
       let contentTransformed = []
 
       for (let i = 0; i < content.length; i++) {
-        // Convert columns to fields
-        let rowContentTransformed = content[i].map((contentToTransform) => {
-          let contentTransformed = {}
-
-          // contentToTransform[z] is { column: 'example', content: 'example' } ====> column = Column/Field of type, csv by default
-          // (_.invert(this.stored_config.import.domain[domain].fields_columns))[contentToTransform.column] ====> get key (domain field) from column content (domain column in type, csv by default) ====> gets domain field
-          let domainField = (_.invert(this.stored_config.import.domain[domain].fields_columns))[contentToTransform.column]
-          if (domainField === undefined) {
-            // To columns not defined in global config
-            contentTransformed.control = null
-            return contentTransformed
-          }
-          contentTransformed[domainField] = contentToTransform.content
-
-          return contentTransformed
-        })
-
-        // Convert array to unique object
-        let normalizedContentTransformed = {}
-        for (let z = 0; z < rowContentTransformed.length; z++) {
-          let contentKey = Object.keys(rowContentTransformed[z])[0]
-          // To columns defined in global config
-          if (contentKey !== 'control') {
-            // Insert content to normalized object with domain key field
-            normalizedContentTransformed[contentKey] = rowContentTransformed[z][contentKey]
-          }
-        }
-
-        contentTransformed.push(normalizedContentTransformed)
+        let contentTransformedElement = this.domainRowTransformerToAppStructure(domain, content[i])
+        contentTransformed.push(contentTransformedElement)
       }
 
       // Set transformed content to use globally
@@ -305,11 +276,29 @@ export default {
         this.setFamilies(contentTransformed)
       }
       if (domain === 'ticket') {
+        contentTransformed = this.domainRowTicketTransformerToAppStructure(contentTransformed)
         this.setTickets(contentTransformed)
+        ipcRenderer.send('get_content', 'ticket_line', this.stored_config.import.type)
+      }
+      if (domain === 'ticket_line') {
+        contentTransformed = this.domainRowTicketLineTransformerToAppStructure(contentTransformed)
+        this.setTicketsLines(contentTransformed)
+        ipcRenderer.send('get_content', 'ticket_complement', this.stored_config.import.type)
+      }
+      if (domain === 'ticket_complement') {
+        contentTransformed = this.domainRowTicketComplementTransformerToAppStructure(contentTransformed)
+        this.setTicketsLinesComplements(contentTransformed)
+        ipcRenderer.send('get_content', 'ticket_receipt', this.stored_config.import.type)
+      }
+      if (domain === 'ticket_receipt') {
+        contentTransformed = this.domainRowReceiptTransformerToAppStructure(contentTransformed)
+        this.setTicketsReceipts(contentTransformed)
       }
     }
 
+    ipcRenderer.on('get_config', this.get_config_main_event)
     ipcRenderer.on('get_content', this.get_content_main_event)
+    ipcRenderer.send('get_config')
 
     // In development mode
     document.addEventListener("keydown", function (e) {
@@ -347,8 +336,147 @@ export default {
     synchronization () {
       ipcRenderer.send('get_content', 'product', this.stored_config.import.type)
       ipcRenderer.send('get_content', 'family', this.stored_config.import.type)
-      // ipcRenderer.send('get_content', 'ticket', this.stored_config.import.type) TODO
+      ipcRenderer.send('get_content', 'ticket', this.stored_config.import.type)
     },
+
+
+    // START Import methods
+
+    domainRowTransformerToAppStructure(domain, contentRow) {
+      // Convert columns to fields
+      let rowContentTransformed = contentRow.map((contentToTransform) => {
+        let contentTransformed = {}
+
+        // contentToTransform[z] is { column: 'example', content: 'example' } ====> column = Column/Field of type, csv by default
+        // (_.invert(this.stored_config.import.domain[domain].fields_columns))[contentToTransform.column] ====> get key (domain field) from column content (domain column in type, csv by default) ====> gets domain field
+        let domainField = (_.invert(this.stored_config.import.domain[domain].fields_columns))[contentToTransform.column]
+        if (domainField === undefined) {
+          // To columns not defined in global config
+          contentTransformed.control = null
+          return contentTransformed
+        }
+        contentTransformed[domainField] = contentToTransform.content
+
+        return contentTransformed
+      })
+
+      // Convert array to unique object
+      let normalizedContentTransformed = {}
+      for (let z = 0; z < rowContentTransformed.length; z++) {
+        let contentKey = Object.keys(rowContentTransformed[z])[0]
+        // To columns defined in global config
+        if (contentKey !== 'control') {
+          // Insert content to normalized object with domain key field
+          normalizedContentTransformed[contentKey] = rowContentTransformed[z][contentKey]
+        }
+      }
+
+      return normalizedContentTransformed
+    },
+
+    domainRowTicketTransformerToAppStructure(contentPreTransformed) {
+      let contentTransformed = []
+
+      for (let i = 0; i < contentPreTransformed.length; i++) {
+
+
+        // State TODO
+
+        // Dates transformer
+        if (contentPreTransformed[i].create_date) {
+          contentPreTransformed[i].create_date = new Date(contentPreTransformed[i].create_date)
+        } else {
+          contentPreTransformed[i].create_date = new Date()
+        }
+        if (contentPreTransformed[i].update_date) {
+          contentPreTransformed[i].update_date = new Date(contentPreTransformed[i].update_date)
+        } else {
+          contentPreTransformed[i].update_date = new Date()
+        }
+
+        contentTransformed.push(contentPreTransformed[i])
+      }
+
+      return contentTransformed
+    },
+
+    domainRowTicketLineTransformerToAppStructure(contentPreTransformed) {
+      let contentTransformed = []
+
+      for (let i = 0; i < contentPreTransformed.length; i++) {
+        // Dates transformer
+        if (contentPreTransformed[i].create_date) {
+          contentPreTransformed[i].create_date = new Date(contentPreTransformed[i].create_date)
+        } else {
+          contentPreTransformed[i].create_date = new Date()
+        }
+        if (contentPreTransformed[i].update_date) {
+          contentPreTransformed[i].update_date = new Date(contentPreTransformed[i].update_date)
+        } else {
+          contentPreTransformed[i].update_date = new Date()
+        }
+
+        contentTransformed.push(contentPreTransformed[i])
+      }
+
+      return contentTransformed
+    },
+
+    domainRowTicketComplementTransformerToAppStructure(contentPreTransformed) {
+      let contentTransformed = []
+
+      for (let i = 0; i < contentPreTransformed.length; i++) {
+        // Dates transformer
+        if (contentPreTransformed[i].create_date) {
+          contentPreTransformed[i].create_date = new Date(contentPreTransformed[i].create_date)
+        } else {
+          contentPreTransformed[i].create_date = new Date()
+        }
+        if (contentPreTransformed[i].update_date) {
+          contentPreTransformed[i].update_date = new Date(contentPreTransformed[i].update_date)
+        } else {
+          contentPreTransformed[i].update_date = new Date()
+        }
+
+        contentTransformed.push(contentPreTransformed[i])
+      }
+
+      return contentTransformed
+    },
+
+    domainRowReceiptTransformerToAppStructure(contentPreTransformed) {
+      let contentTransformed = []
+
+      for (let i = 0; i < contentPreTransformed.length; i++) {
+        // Dates transformer
+        if (contentPreTransformed[i].paid_date) {
+          contentPreTransformed[i].paid_date = new Date(contentPreTransformed[i].paid_date)
+        } else {
+          contentPreTransformed[i].paid_date = null
+        }
+        if (contentPreTransformed[i].expiration_date) {
+          contentPreTransformed[i].expiration_date = new Date(contentPreTransformed[i].expiration_date)
+        } else {
+          contentPreTransformed[i].expiration_date = null
+        }
+        if (contentPreTransformed[i].create_date) {
+          contentPreTransformed[i].create_date = new Date(contentPreTransformed[i].create_date)
+        } else {
+          contentPreTransformed[i].create_date = new Date()
+        }
+        if (contentPreTransformed[i].update_date) {
+          contentPreTransformed[i].update_date = new Date(contentPreTransformed[i].update_date)
+        } else {
+          contentPreTransformed[i].update_date = new Date()
+        }
+
+        contentTransformed.push(contentPreTransformed[i])
+      }
+
+      return contentTransformed
+    },
+
+    // END Import methods
 
     ...mapActions({
       setToken: 'user/setToken',
@@ -359,16 +487,19 @@ export default {
       'setConfigComplete',
     ]),
 
+    ...mapActions('ticket', [
+      'setTickets',
+      'setTicketsLines',
+      'setTicketsLinesComplements',
+      'setTicketsReceipts',
+    ]),
+
     ...mapActions('product', [
       'setProducts',
     ]),
 
     ...mapActions('family', [
       'setFamilies',
-    ]),
-
-    ...mapActions('ticket', [
-      'setTickets',
     ]),
 
     ...mapMutations({

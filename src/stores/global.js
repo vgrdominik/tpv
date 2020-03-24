@@ -285,9 +285,281 @@ export const state = () => ({
             text_tpv: 'descripcio',
           },
         },
+
+        ticket: {
+
+          fields: [
+            {name: "id", type: 'int'},
+            {name: "id_customer", type: 'int'},
+            {name: "id_user", type: 'int'},
+            {name: "id_terminal", type: 'int'},
+            {name: "id_turn", type: 'int'},
+
+            // Payment parameters
+            {name: "number", type: 'int'},
+            {name: "irpf", type: 'float'},
+            {name: "method_payment", type: 'string'},
+            {name: "discount_prompt_payment", type: 'float'},
+            {name: "discount_customer", type: 'float'},
+            {name: "total", type: 'float'},
+
+            // Number of customers related with ticket
+            {name: "diners", type: 'int'},
+
+            // pending, paid_check, paid
+            {name: "state", type: 'string'},
+
+            {name: "create_date", type: 'Date'},
+            {name: "update_date", type: 'Date'},
+          ],
+
+          columns: [
+            'id',
+            'client',
+            'fecha',
+            'numero_document',
+            'irpf',
+            'forma_pagament',
+            'total',
+            'descompte_pp',
+            'descompte_client',
+            'estat',
+            'usuari',
+            'comensales',
+            'hora',
+            'id_terminal',
+            'id_turno',
+          ],
+
+          fields_columns: {
+            id: 'id',
+            id_customer: 'client',
+            id_user: 'usuari',
+            id_terminal: 'id_terminal',
+            id_turn: 'id_turno',
+
+            // Payment parameters
+            number: 'numero_document',
+            irpf: 'irpf',
+            method_payment: 'forma_pagament',
+            discount_prompt_payment: 'descompte_pp',
+            discount_customer: 'descompte_client',
+            total: 'total',
+
+            // Number of customers related with ticket
+            diners: 'comensales',
+
+            // pending, paid_check, paid
+            state: 'estat',
+
+            create_date: 'fecha',
+            update_date: null,
+          },
+        },
+
+        ticket_line: {
+          fields: [
+            {name: "id_ticket", type: 'int'},
+            {name: "id_line", type: 'int'},
+            {name: "id_attribute", type: 'int'},
+            {name: "id_user", type: 'int'},
+
+            // Used to determine with fields and how show
+            {name: "type", type: 'string'},
+
+            {name: "description", type: 'string'},
+            {name: "quantity", type: 'float'},
+            {name: "serial_number", type: 'string'}, // Technological identifier
+            {name: "lot", type: 'string'}, // Nutrition identifier
+            {name: "expiration", type: 'string'}, // It's a informative date
+            {name: "cost", type: 'float'},
+            {name: "price", type: 'float'},
+            {name: "iva", type: 'float'},
+            {name: "surcharge", type: 'float'},
+            {name: "discount", type: 'float'},
+
+            {name: "reference", type: 'string'},
+            {name: "reference_customer", type: 'string'},
+
+            {name: "create_date", type: 'Date'},
+            {name: "update_date", type: 'Date'},
+          ],
+
+          columns: [
+            'id_document',
+            'descripcio_article',
+            'grup',
+            'element',
+            'quantitat',
+            'numero_serie',
+            'lot',
+            'caducitat',
+            'preu',
+            'descompte',
+            'tipo_article',
+            'preu_fixe',
+            'referencia_article',
+            'referencia_client',
+            'formato',
+            'iva',
+            'ordre_entrada',
+            'recarrec',
+            'fecha',
+            'usuari',
+            'venedor',
+            'compta',
+          ],
+
+          fields_columns: {
+            id_ticket: 'id_document',
+
+            id_line: null,
+            id_attribute: null,
+            id_user: 'usuari',
+
+            // Used to determine with fields and how show
+            type: 'tipo_article',
+
+            description: 'descripcio_article',
+            quantity: 'quantitat',
+            serial_number: 'numero_serie', // Technological identifier
+            lot: 'lot', // Nutrition identifier
+            expiration: 'caducitat', // It's a informative date
+            cost: 'preu_fixe',
+            price: 'preu',
+            iva: 'iva',
+            surcharge: 'recarrec',
+            discount: 'descompte',
+
+            reference: 'referencia_article',
+            reference_customer: 'referencia_client',
+
+            create_date: 'fecha',
+            update_date: null,
+          },
+        },
+
+        ticket_complement: {
+          fields: [
+            {name: "id_ticket_line", type: 'int'},
+
+            {name: "id_complement", type: 'int'},
+
+            // Same structure as ticket_line
+            {name: "description", type: 'string'},
+            {name: "quantity", type: 'float'},
+            {name: "serial_number", type: 'string'}, // Technological identifier
+            {name: "lot", type: 'string'}, // Nutrition identifier
+            {name: "expiration", type: 'string'}, // It's a informative date
+            {name: "cost", type: 'float'},
+            {name: "price", type: 'float'},
+            {name: "iva", type: 'float'},
+            {name: "surcharge", type: 'float'},
+            {name: "discount", type: 'float'},
+
+            {name: "reference", type: 'string'},
+            {name: "reference_customer", type: 'string'},
+
+            {name: "create_date", type: 'Date'},
+            {name: "update_date", type: 'Date'},
+          ],
+
+          columns: [
+            'id',
+            'id_linea',
+            'quantitat',
+            'complemento',
+            'iva',
+            'import',
+          ],
+
+          fields_columns: {
+            id_ticket_line: 'id_linea',
+
+            id_complement: 'id',
+
+            // Same structure as ticket_line
+            description: 'complemento',
+            quantity: 'quantitat',
+            serial_number: null, // Technological identifier
+            lot: null, // Nutrition identifier
+            expiration: null, // It's a informative date
+            cost: null,
+            price: 'import',
+            iva: 'iva',
+            surcharge: null,
+            discount: null,
+
+            reference: null,
+            reference_customer: null,
+
+            create_date: 'fecha',
+            update_date: null,
+          },
+        },
+
+        ticket_receipt: {
+          fields: [
+            {name: "id_ticket", type: 'int'},
+
+            // receipt
+            {name: "id", type: 'int'},
+            {name: "id_invoice", type: 'int'},
+            {name: "id_user", type: 'int'},
+            {name: "id_income_account", type: 'int'},
+
+            {name: "number", type: 'int'},
+            {name: "collection_method", type: 'string'}, // cash, card, transfer, paypal, bizum, other
+            {name: "paid", type: 'float'}, // Float/Boolean
+            {name: "total", type: 'float'},
+
+            {name: "paid_date", type: 'Date'},
+            {name: "expiration_date", type: 'Date'},
+            {name: "create_date", type: 'Date'},
+            {name: "update_date", type: 'Date'},
+          ],
+
+          columns: [
+            'codi',
+            'codi_factura',
+            'empresa',
+            'import',
+            'fecha',
+            'venciment',
+            'client',
+            'cobrat',
+            'fecha_cobro',
+            'codi_compte_ingres',
+            'modalitat_cobro',
+            'numero_efecte',
+            'usuari',
+            'tancat',
+            'caixa',
+            'id_torn',
+          ],
+
+          fields_columns: {
+            id_ticket: 'codi_factura',
+
+            id: 'codi',
+            id_invoice: 'codi_factura',
+            id_user: 'usuari',
+            id_income_account: 'codi_compte_ingres',
+
+            number: 'numero_efecte',
+            collection_method: 'modalitat_cobro', // cash, card, transfer, paypal, bizum, other
+            paid: 'cobrat', // Float/Boolean
+            total: 'import',
+
+            paid_date: 'fecha_cobro',
+            expiration_date: 'venciment',
+            create_date: 'fecha',
+            update_date: null,
+          },
+        },
       },
     },
-  }
+  },
 })
 
 export const actions = {

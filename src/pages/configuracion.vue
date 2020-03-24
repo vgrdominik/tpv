@@ -539,6 +539,286 @@ export default {
                                 text_tpv: 'descripcio',
                             },
                         },
+
+
+                        ticket: {
+                            title: 'Tíquets',
+
+                            fields: [
+                                {label: 'Código', description: 'Identificador único', name: "id", type: 'int'},
+                                {label: 'Código cliente', description: 'Identificador de cliente', name: "id_customer", type: 'int'},
+                                {label: 'Código usuario', description: 'Identificador de usuario', name: "id_user", type: 'int'},
+                                {label: 'Código terminal', description: 'Identificador de terminal', name: "id_terminal", type: 'int'},
+                                {label: 'Código turno', description: 'Identificador de turno', name: "id_turn", type: 'int'},
+
+                                // Payment parameters
+                                {label: 'Número', description: 'Número de documento', name: "number", type: 'int'},
+                                {label: 'IRPF', description: 'Impuesto sobre la renda de personas físicas', name: "irpf", type: 'float'},
+                                {label: 'Método de pago', description: 'Método de pago usado', name: "method_payment", type: 'string'},
+                                {label: 'Decuento pronto pago', description: 'Descuento por pronto pago', name: "discount_prompt_payment", type: 'float'},
+                                {label: 'Descuento cliente', description: 'Descuento de cliente', name: "discount_customer", type: 'float'},
+                                {label: 'Total', description: 'Importe total', name: "total", type: 'float'},
+
+                                // Number of customers related with ticket
+                                {label: 'Comensales', description: 'Clientes atendidos', name: "diners", type: 'int'},
+
+                                // pending, paid_check, paid
+                                {label: 'Estado', description: 'pending (null/0), paid_check (2) o paid(1)', name: "state", type: 'string'},
+
+                                {label: 'Fecha creación', description: 'Fecha de la primera edición', name: "create_date", type: 'Date'},
+                                {label: 'Fecha modificación', description: 'Fecha de la última modificación', name: "update_date", type: 'Date'},
+                            ],
+
+                            columns: [
+                                'id',
+                                'client',
+                                'fecha',
+                                'numero_document',
+                                'irpf',
+                                'forma_pagament',
+                                'total',
+                                'descompte_pp',
+                                'descompte_client',
+                                'estat',
+                                'usuari',
+                                'comensales',
+                                'hora',
+                                'id_terminal',
+                                'id_turno',
+                            ],
+
+                            fields_columns: {
+                                id: 'id',
+                                id_customer: 'client',
+                                id_user: 'usuari',
+                                id_terminal: 'id_terminal',
+                                id_turn: 'id_turno',
+
+                                // Payment parameters
+                                number: 'numero_document',
+                                irpf: 'irpf',
+                                method_payment: 'forma_pagament',
+                                discount_prompt_payment: 'descompte_pp',
+                                discount_customer: 'descompte_client',
+                                total: 'total',
+
+                                // Number of customers related with ticket
+                                diners: 'comensales',
+
+                                // pending, paid_check, paid
+                                state: 'estat',
+
+                                create_date: 'fecha',
+                                update_date: null,
+                            },
+                        },
+
+                        ticket_line: {
+                            title: 'Líneas del tíquet',
+
+                            fields: [
+                                {label: 'Código tíquet', description: 'Identificador único del tíquet', name: "id_ticket", type: 'int'},
+                                {label: 'Código línea', description: 'Identificador único de la línea', name: "id_line", type: 'int'},
+                                {label: 'Código atributo', description: 'Identificador único del atributo asociado', name: "id_attribute", type: 'int'},
+                                {label: 'Código usuario', description: 'Identificador único del usuario', name: "id_user", type: 'int'},
+
+                                // Used to determine with fields and how show
+                                {label: 'Tipo', description: 'Tipo de producto', name: "type", type: 'string'},
+
+                                {label: 'Descripción', description: '', name: "description", type: 'string'},
+                                {label: 'Cantidad', description: '', name: "quantity", type: 'float'},
+                                {label: 'Número de série', description: '', name: "serial_number", type: 'string'}, // Technological identifier
+                                {label: 'Lote', description: '', name: "lot", type: 'string'}, // Nutrition identifier
+                                {label: 'Caducidad', description: '', name: "expiration", type: 'string'}, // It's a informative date
+                                {label: 'Coste', description: '', name: "cost", type: 'float'},
+                                {label: 'Precio', description: 'Precio total de la línea', name: "price", type: 'float'},
+                                {label: 'IVA', description: '', name: "iva", type: 'float'},
+                                {label: 'Recargo', description: '', name: "surcharge", type: 'float'},
+                                {label: 'Descuento', description: '', name: "discount", type: 'float'},
+
+                                {label: 'Referencia propia', description: 'Referencia interna', name: "reference", type: 'string'},
+                                {label: 'Referencia para el cliente', description: '', name: "reference_customer", type: 'string'},
+
+                                {label: 'Fecha creación', description: 'Fecha de la primera edición', name: "create_date", type: 'Date'},
+                                {label: 'Fecha modificación', description: 'Fecha de la última modificación', name: "update_date", type: 'Date'},
+                            ],
+
+                            columns: [
+                                'id_document',
+                                'descripcio_article',
+                                'grup',
+                                'element',
+                                'quantitat',
+                                'numero_serie',
+                                'lot',
+                                'caducitat',
+                                'preu',
+                                'descompte',
+                                'tipo_article',
+                                'preu_fixe',
+                                'referencia_article',
+                                'referencia_client',
+                                'formato',
+                                'iva',
+                                'ordre_entrada',
+                                'recarrec',
+                                'fecha',
+                                'usuari',
+                                'venedor',
+                                'compta',
+                            ],
+
+                            fields_columns: {
+                                id_ticket: 'id_document',
+
+                                id_line: null,
+                                id_attribute: null,
+                                id_user: 'usuari',
+
+                                // Used to determine with fields and how show
+                                type: 'tipo_article',
+
+                                description: 'descripcio_article',
+                                quantity: 'quantitat',
+                                serial_number: 'numero_serie', // Technological identifier
+                                lot: 'lot', // Nutrition identifier
+                                expiration: 'caducitat', // It's a informative date
+                                cost: 'preu_fixe',
+                                price: 'preu',
+                                iva: 'iva',
+                                surcharge: 'recarrec',
+                                discount: 'descompte',
+
+                                reference: 'referencia_article',
+                                reference_customer: 'referencia_client',
+
+                                create_date: 'fecha',
+                                update_date: null,
+                            },
+                        },
+
+                        ticket_complement: {
+                            title: 'Complementos de las líneas del tíquet',
+
+                            fields: [
+                                {label: 'Código línea del tíquet', description: 'Identificador único de la línea del tíquet', name: "id_ticket_line", type: 'int'},
+
+                                {label: 'Código complemento', description: 'Identificador único del complemento', name: "id_complement", type: 'int'},
+
+                                // Same structure as ticket_line
+                                {label: 'Descripción', description: '', name: "description", type: 'string'},
+                                {label: 'Cantidad', description: '', name: "quantity", type: 'float'},
+                                {label: 'Número de série', description: '', name: "serial_number", type: 'string'}, // Technological identifier
+                                {label: 'Lote', description: '', name: "lot", type: 'string'}, // Nutrition identifier
+                                {label: 'Caducidad', description: '', name: "expiration", type: 'string'}, // It's a informative date
+                                {label: 'Coste', description: '', name: "cost", type: 'float'},
+                                {label: 'Precio', description: 'Precio total del complemento', name: "price", type: 'float'},
+                                {label: 'IVA', description: '', name: "iva", type: 'float'},
+                                {label: 'Recargo', description: '', name: "surcharge", type: 'float'},
+                                {label: 'Descuento', description: '', name: "discount", type: 'float'},
+
+                                {label: 'Referencia propia', description: 'Referencia interna', name: "reference", type: 'string'},
+                                {label: 'Referencia para el cliente', description: '', name: "reference_customer", type: 'string'},
+
+                                {label: 'Fecha de creación', description: 'Fecha de la primera edición', name: "create_date", type: 'Date'},
+                                {label: 'Fecha de modificación', description: 'Fecha de la última modificación', name: "update_date", type: 'Date'},
+                            ],
+
+                            columns: [
+                                'id',
+                                'id_linea',
+                                'quantitat',
+                                'complemento',
+                                'iva',
+                                'import',
+                            ],
+
+                            fields_columns: {
+                                id_ticket_line: 'id_linea',
+
+                                id_complement: 'id',
+
+                                // Same structure as ticket_line
+                                description: 'complemento',
+                                quantity: 'quantitat',
+                                serial_number: null, // Technological identifier
+                                lot: null, // Nutrition identifier
+                                expiration: null, // It's a informative date
+                                cost: null,
+                                price: 'import',
+                                iva: 'iva',
+                                surcharge: null,
+                                discount: null,
+
+                                reference: null,
+                                reference_customer: null,
+
+                                create_date: 'fecha',
+                                update_date: null,
+                            },
+                        },
+
+                        ticket_receipt: {
+                            title: 'Recibo del tíquet',
+
+                            fields: [
+                                {label: 'Código tíquet', description: '', name: "id_ticket", type: 'int'},
+
+                                // receipt
+                                {label: 'Código', description: 'Identificador único del recibo', name: "id", type: 'int'},
+                                {label: 'Código factura', description: 'Identificador único de la factura', name: "id_invoice", type: 'int'},
+                                {label: 'Código usuario', description: 'Identificador único del usuario', name: "id_user", type: 'int'},
+                                {label: 'Código cuenta de ingreso', description: 'Identificador único de la cuenta de ingreso', name: "id_income_account", type: 'int'},
+
+                                {label: 'Número', description: 'Número de recibo', name: "number", type: 'int'},
+                                {label: 'Método de pago', description: 'Método de pago usado', name: "collection_method", type: 'string'}, // cash, card, transfer, paypal, bizum, other
+                                {label: 'Pagado', description: 'Importe pagado', name: "paid", type: 'float'}, // Float/Boolean
+                                {label: 'Total', description: 'Importe total del documento', name: "total", type: 'float'},
+
+                                {label: 'Fecha de pago', description: 'Fecha de pago', name: "paid_date", type: 'Date'},
+                                {label: 'Fecha de expiración', description: 'Fecha de expiración del pago', name: "expiration_date", type: 'Date'},
+                                {label: 'Fecha de creación', description: 'Fecha de la primera edición', name: "create_date", type: 'Date'},
+                                {label: 'Fecha de modificación', description: 'Fecha de la última modificación', name: "update_date", type: 'Date'},
+                            ],
+
+                            columns: [
+                                'codi',
+                                'codi_factura',
+                                'empresa',
+                                'import',
+                                'fecha',
+                                'venciment',
+                                'client',
+                                'cobrat',
+                                'fecha_cobro',
+                                'codi_compte_ingres',
+                                'modalitat_cobro',
+                                'numero_efecte',
+                                'usuari',
+                                'tancat',
+                                'caixa',
+                                'id_torn',
+                            ],
+
+                            fields_columns: {
+                                id_ticket: 'codi_factura',
+
+                                id: 'codi',
+                                id_invoice: 'codi_factura',
+                                id_user: 'usuari',
+                                id_income_account: 'codi_compte_ingres',
+
+                                number: 'numero_efecte',
+                                collection_method: 'modalitat_cobro', // cash, card, transfer, paypal, bizum, other
+                                paid: 'cobrat', // Float/Boolean
+                                total: 'import',
+
+                                paid_date: 'fecha_cobro',
+                                expiration_date: 'venciment',
+                                create_date: 'fecha',
+                                update_date: null,
+                            },
+                        },
                     },
                 },
             },
@@ -626,6 +906,10 @@ export default {
                 this.setConfig({ path: 'import_dir', value: this.model.import_dir })
                 Object.entries(this.model.import.domain.product.fields_columns).forEach(([key, element]) => this.setConfig({ path: 'import>domain>product>fields_columns>'+key, value:  element }))
                 Object.entries(this.model.import.domain.family.fields_columns).forEach(([key, element]) => this.setConfig({ path: 'import>domain>family>fields_columns>'+key, value:  element }))
+                Object.entries(this.model.import.domain.ticket.fields_columns).forEach(([key, element]) => this.setConfig({ path: 'import>domain>ticket>fields_columns>'+key, value:  element }))
+                Object.entries(this.model.import.domain.ticket_line.fields_columns).forEach(([key, element]) => this.setConfig({ path: 'import>domain>ticket_line>fields_columns>'+key, value:  element }))
+                Object.entries(this.model.import.domain.ticket_complement.fields_columns).forEach(([key, element]) => this.setConfig({ path: 'import>domain>ticket_complement>fields_columns>'+key, value:  element }))
+                Object.entries(this.model.import.domain.ticket_receipt.fields_columns).forEach(([key, element]) => this.setConfig({ path: 'import>domain>ticket_receipt>fields_columns>'+key, value:  element }))
 
                 // Set event to save config to file
                 this.$nextTick(() => {
@@ -707,6 +991,10 @@ export default {
                 this.model.import_dir = config.import_dir
                 Object.entries(config.import.domain.product.fields_columns).forEach(([key, element]) => this.model.import.domain.product.fields_columns[key] = element)
                 Object.entries(config.import.domain.family.fields_columns).forEach(([key, element]) => this.model.import.domain.family.fields_columns[key] = element)
+                Object.entries(config.import.domain.ticket.fields_columns).forEach(([key, element]) => this.model.import.domain.ticket.fields_columns[key] = element)
+                Object.entries(config.import.domain.ticket_line.fields_columns).forEach(([key, element]) => this.model.import.domain.ticket_line.fields_columns[key] = element)
+                Object.entries(config.import.domain.ticket_complement.fields_columns).forEach(([key, element]) => this.model.import.domain.ticket_complement.fields_columns[key] = element)
+                Object.entries(config.import.domain.ticket_receipt.fields_columns).forEach(([key, element]) => this.model.import.domain.ticket_receipt.fields_columns[key] = element)
                 this.$store.state.global.config.initialized = true
             })
         },
