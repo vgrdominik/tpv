@@ -2,15 +2,8 @@
   <v-container fluid id="main-content">
     <v-row dense>
       <v-col cols="12" md="3">
-        <CtCard :type="stored_config.branding.style.card" :title="tickets.title" dense class="fill-height">
-          <v-card-text>
-            <v-row dense>
-              <v-col cols="12">
-                Tests
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </CtCard>
+        <ActionList />
+        <TicketList />
       </v-col>
       <v-col cols="12" md="9">
         <v-expansion-panels v-model="panel" accordion>
@@ -31,14 +24,13 @@
 import { mapActions } from 'vuex'
 import FamilyList from "../components/family/FamilyList";
 import ProductList from "../components/product/ProductList";
+import ActionList from "../components/ticket/ActionList";
+import TicketList from "../components/ticket/TicketList";
 
 export default {
-  components: {FamilyList, ProductList},
+  components: {TicketList, ActionList, FamilyList, ProductList},
   data() {
     return {
-      tickets: {
-        title: 'Tíquets',
-      },
       panel: 0,
     }
   },

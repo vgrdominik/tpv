@@ -55,7 +55,7 @@ export default {
 }
 </script>
 <style>
-  .ct-card-content-family-list {
-    max-height: 59vh;
+  .ct-card-content-unit-list {
+    max-height: 5vh;
   }
 </style>
