@@ -79,24 +79,26 @@ export const state = () => ({
       ],
 
       // CSV Sample: codi,codi_factura,empresa,import,fecha,venciment,client,cobrat,fecha_cobro,codi_compte_ingres,modalitat_cobro,numero_efecte,usuari,tancat,caixa,id_torn
-      receipt: {
-        id_ticket: null,
+      receipt: [
+        {
+          id_ticket: null,
 
-        id: null,
-        id_invoice: null,
-        id_user: null,
-        id_income_account: null,
+          id: null,
+          id_invoice: null,
+          id_user: null,
+          id_income_account: null,
 
-        number: null,
-        collection_method: null, // cash, card, transfer, paypal, bizum, other
-        paid: null, // Float/Boolean
-        total: null,
+          number: null,
+          collection_method: null, // cash, card, transfer, paypal, bizum, other
+          paid: null, // Float/Boolean
+          total: null,
 
-        paid_date: new Date('now'),
-        expiration_date: new Date('now'),
-        create_date: new Date('now'),
-        update_date: new Date('now'),
-      },
+          paid_date: new Date('now'),
+          expiration_date: new Date('now'),
+          create_date: new Date('now'),
+          update_date: new Date('now'),
+        }
+      ],
 
       create_date: new Date('now'),
       update_date: new Date('now'),
@@ -198,12 +200,13 @@ export const actions = {
     for (let i = 0; i < state.getters.tickets.length; i++) {
       // Save temporal ticket to modify
       let assignedTicketWithReceipt = state.getters.tickets[i]
+      assignedTicketWithReceipt.receipt = []
 
       // Loop all receipts
       for (let z = 0; z < payload.length; z++) {
         if (assignedTicketWithReceipt.id === payload[z].id_ticket) {
           // Reassign ticket receipt
-          assignedTicketWithReceipt.receipt = payload[z]
+          assignedTicketWithReceipt.receipt.push(payload[z])
         }
       }
 

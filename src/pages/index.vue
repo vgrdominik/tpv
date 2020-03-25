@@ -3,7 +3,8 @@
     <v-row dense>
       <v-col cols="12" md="3">
         <ActionList />
-        <TicketList />
+        <TicketList v-if="current_ticket === 0" />
+        <Ticket v-else />
       </v-col>
       <v-col cols="12" md="9">
         <v-expansion-panels v-model="panel" accordion>
@@ -26,9 +27,10 @@ import FamilyList from "../components/family/FamilyList";
 import ProductList from "../components/product/ProductList";
 import ActionList from "../components/ticket/ActionList";
 import TicketList from "../components/ticket/TicketList";
+import Ticket from "../components/ticket/Ticket";
 
 export default {
-  components: {TicketList, ActionList, FamilyList, ProductList},
+  components: {Ticket, TicketList, ActionList, FamilyList, ProductList},
   data() {
     return {
       panel: 0,
@@ -38,7 +40,10 @@ export default {
   computed: {
     stored_config () {
       return this.$store.state.global.config
-    }
+    },
+    current_ticket () {
+      return this.$store.state.ticket.current_ticket
+    },
   },
 
   mounted() {

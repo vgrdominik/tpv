@@ -321,6 +321,7 @@ export default {
     exit() {
       remote.getCurrentWindow().close()
     },
+
     afterLogout(){
       this.setToken('')
       this.removeUser()
@@ -404,6 +405,16 @@ export default {
       let contentTransformed = []
 
       for (let i = 0; i < contentPreTransformed.length; i++) {
+        if (contentPreTransformed[i].quantity && typeof contentPreTransformed[i].quantity === 'string') {
+          contentPreTransformed[i].quantity = parseFloat(contentPreTransformed[i].quantity.replace(',', '.'))
+        } else {
+          contentPreTransformed[i].quantity = 0
+        }
+        if (contentPreTransformed[i].iva && typeof contentPreTransformed[i].iva === 'string') {
+          contentPreTransformed[i].iva = parseFloat(contentPreTransformed[i].iva.replace(',', '.'))
+        } else {
+          contentPreTransformed[i].iva = 0
+        }
         // Dates transformer
         if (contentPreTransformed[i].create_date) {
           contentPreTransformed[i].create_date = new Date(contentPreTransformed[i].create_date)
