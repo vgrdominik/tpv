@@ -6,6 +6,7 @@ import { state as globalState, actions as globalActions, mutations as globalMuta
 import { state as productState, actions as productActions, mutations as productMutations } from '../stores/product'
 import { state as familyState, actions as familyActions, mutations as familyMutations } from '../stores/family'
 import { state as ticketState, actions as ticketActions, getters as ticketGetters, mutations as ticketMutations } from '../stores/ticket'
+import { state as customerState, actions as customerActions, getters as customerGetters, mutations as customerMutations } from '../stores/customer'
 
 Vue.use(Vuex)
 
@@ -47,6 +48,13 @@ export default new Vuex.Store({
             actions: ticketActions,
             getters: ticketGetters,
             mutations: ticketMutations,
+        },
+        customer: {
+            namespaced: true,
+            state: customerState,
+            actions: customerActions,
+            getters: customerGetters,
+            mutations: customerMutations,
         },
     },
 })

@@ -175,7 +175,6 @@ export default {
     get_content_main_event: null,
     // END CONTENT
 
-
     dialog: false,
     drawer: false,
     stateColor: 'primary', // primary = synchronized, secondary = not_synchronized, error = synchronized_error
@@ -253,9 +252,7 @@ export default {
       this.$vuetify.theme.themes.light.info = configData.branding.color_palette.info
       this.setConfig({ path: 'initialized', value: true })
 
-      ipcRenderer.send('get_content', 'product', this.stored_config.import.type)
-      ipcRenderer.send('get_content', 'family', this.stored_config.import.type)
-      ipcRenderer.send('get_content', 'ticket', this.stored_config.import.type)
+      this.synchronization()
     }
 
     // Get and transform content from domain file to import
@@ -293,6 +290,14 @@ export default {
       if (domain === 'ticket_receipt') {
         contentTransformed = this.domainRowReceiptTransformerToAppStructure(contentTransformed)
         this.setTicketsReceipts(contentTransformed)
+      }
+      if (domain === 'customer') {
+        contentTransformed = this.domainRowCustomerTransformerToAppStructure(contentTransformed)
+        this.setCustomers(contentTransformed)
+        ipcRenderer.send('get_content', 'customer_search', this.stored_config.import.type)
+      }
+      if (domain === 'customer_search') {
+        this.setCustomersSearch(contentTransformed)
       }
     }
 
@@ -338,6 +343,7 @@ export default {
       ipcRenderer.send('get_content', 'product', this.stored_config.import.type)
       ipcRenderer.send('get_content', 'family', this.stored_config.import.type)
       ipcRenderer.send('get_content', 'ticket', this.stored_config.import.type)
+      ipcRenderer.send('get_content', 'customer', this.stored_config.import.type)
     },
 
 
@@ -487,6 +493,38 @@ export default {
       return contentTransformed
     },
 
+    domainRowCustomerTransformerToAppStructure(contentPreTransformed) {
+      let contentTransformed = []
+
+      for (let i = 0; i < contentPreTransformed.length; i++) {
+        // Dates transformer
+        if (contentPreTransformed[i].create_date) {
+          contentPreTransformed[i].create_date = new Date(contentPreTransformed[i].create_date)
+        } else {
+          contentPreTransformed[i].create_date = null
+        }
+        if (contentPreTransformed[i].birthday_date) {
+          contentPreTransformed[i].birthday_date = new Date(contentPreTransformed[i].birthday_date)
+        } else {
+          contentPreTransformed[i].birthday_date = null
+        }
+        if (contentPreTransformed[i].drop_date) {
+          contentPreTransformed[i].drop_date = new Date(contentPreTransformed[i].drop_date)
+        } else {
+          contentPreTransformed[i].drop_date = new Date()
+        }
+        if (contentPreTransformed[i].update_date) {
+          contentPreTransformed[i].update_date = new Date(contentPreTransformed[i].update_date)
+        } else {
+          contentPreTransformed[i].update_date = new Date()
+        }
+
+        contentTransformed.push(contentPreTransformed[i])
+      }
+
+      return contentTransformed
+    },
+
     // END Import methods
 
     ...mapActions({
@@ -503,6 +541,11 @@ export default {
       'setTicketsLines',
       'setTicketsLinesComplements',
       'setTicketsReceipts',
+    ]),
+
+    ...mapActions('customer', [
+      'setCustomers',
+      'setCustomersSearch',
     ]),
 
     ...mapActions('product', [

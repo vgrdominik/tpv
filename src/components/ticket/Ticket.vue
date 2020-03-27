@@ -14,7 +14,7 @@
       <!-- LIST -->
       <v-card-text class="pr-0 pl-0">
         <v-row class="pt-0 pb-2">
-          <!-- CUSTOMER TYPES TO INIT NEW TICKET -->
+          <!-- TICKET ACTIONS -->
           <v-col
                   v-for="action in actions"
                   :key="action.label"
@@ -35,7 +35,7 @@
             Cliente:
           </v-col>
           <v-col cols="4" class="text-center pt-0 pb-0" @click="updateCustomer()">
-            <CtBtn :type="stored_config.branding.style.button" block :color="stored_config.branding.color_palette.primary">
+            <CtBtn :type="stored_config.branding.style.button" block :color="stored_config.branding.color_palette.primary" @click="updateCustomer()">
               {{ current_ticket.id_customer }}
             </CtBtn>
           </v-col>
@@ -211,6 +211,14 @@ export default {
     current_ticket_line () {
       return this.current_ticket.lines.filter(ticketLine => ticketLine.id_line === this.currentTicketLineToQuantityModify)[0]
     },
+    current_customer () {
+      let current_customer = this.$store.state.customer.customers.filter(customer => customer.id === this.current_ticket.id_customer)
+      if (! current_customer.length) {
+        return null
+      }
+
+      return current_customer[0]
+    },
 
     numberOfPages () {
       return Math.ceil(this.current_ticket.lines.length / this.ticketLinesPerPage)
@@ -306,7 +314,7 @@ export default {
 
     // Update customer action
     updateCustomer() {
-      console.log('update customer')
+      console.log(this.current_customer)
     },
 
     // Tickets header

@@ -1,0 +1,54 @@
+codi,empresa,nombre,nombre_comercial,direccion,codigo_postal,poblacion,tel_1,tel_2,fax,mobil,categoria_sms,categoria_email,email,dni,persona_contacto,observaciones,forma_pago,banco,entidad,agencia,dc,cuenta,dia_pago1,dia_pago2,descompte_pp,descompte_client,codi_comptable,alertar,provincia,mostrar,comensales,tarifa,iva,taula,menjador,taula_plena,recarrec,irpf,descompte_arti,descompte_comp,procedencia,client_origen,sexe,naixament,identificaio,venedor,inactiu,compta_cobrament,data_alta,data_baixa,targeta_ss,seguretat_social,import_pensio,periodicitat,punts,nivell_comisio
+1,1,Vendes Comptat,Vendes Comptat,,,,,,,-0,-0,1,,,,,1,,,,,,0,0,0,0,868,0,,0,1,1,0,tamburet_barra_buit.png,1,tamburet_barra_ple.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,1,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+2,1,Taula 1,Taula 1,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,4,1,0,taula_rectangular_4_buida.png,1,taula_rectangular_4_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+3,1,Rodona 1,Rodona 1,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,4,1,0,taula_rodona_buida.png,1,taula_rodona_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+4,1,Barra 1,Barra 1,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,1,1,0,tamburet_buit.png,4,tamburet_barra_ple.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+5,1,Barra 2,Barra 2,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,1,1,0,tamburet_barra_buit.png,1,tamburet_barra_ple.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+6,1,Barra 3,Barra 3,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,1,1,0,tamburet_barra_buit.png,1,tamburet_barra_ple.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+7,1,Barra 4,Barra 4,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,1,1,0,tamburet_barra_buit.png,1,tamburet_barra_ple.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+8,1,Barra 5,Barra 5,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,1,1,0,tamburet_barra_buit.png,1,tamburet_barra_ple.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+9,1,Taula 2,Taula 2,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,4,1,0,taula_rectangular_4_buida.png,1,taula_rectangular_4_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+10,1,Taula 3,Taula 3,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,4,1,0,taula_rectangular_4_buida.png,1,taula_rectangular_4_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+11,1,Taula 4,Taula 4,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,4,1,0,taula_rectangular_4_buida.png,1,taula_rectangular_4_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+12,1,Rodona 2,Rodona 2,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,4,1,0,taula_rodona_buida.png,1,taula_rodona_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+13,1,Rodona 3,Rodona 3,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,4,1,0,taula_rodona_buida.png,1,taula_rodona_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+14,1,Petita 1,Petita 1,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,2,1,0,taula_2_buida.png,1,taula_2_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+15,1,Petita 2,Petita 2,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,2,1,0,taula_2_buida_lateral.png,1,taula_2_plena_lateral.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+16,1,Petita 3,Petita 3,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,2,1,0,taula_2_buida_lateral.png,1,taula_2_plena_lateral.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+17,1,Barra 6,Barra 6,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,1,1,0,tamburet_barra_buit.png,1,tamburet_barra_ple.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+18,1,Barra 7,Barra 7,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,1,1,0,tamburet_barra_buit.png,1,tamburet_barra_ple.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+19,1,Barra 8,Barra 8,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,1,1,0,tamburet_barra_buit.png,1,tamburet_barra_ple.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+20,1,Barra 9,Barra 9,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,1,1,0,tamburet_barra_buit.png,1,tamburet_barra_ple.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+21,1,Barra 10,Barra 10,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,1,1,0,tamburet_barra_costat_buit.png,1,tamburet_barra_costat_ple.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,,0,0,1,2000-01-01,2000-01-01,,,0,0,0,1
+25,1,Taula 5,Taula 5,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,4,1,0,taula6.png,1,taula6_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,C73,0,0,1,2013-12-12,2000-01-01,,,0,0,0,1
+26,1,Taula 6,Taula 6,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,4,1,0,taula6.png,1,taula6_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,C74,0,0,1,2013-12-12,2000-01-01,,,0,0,0,1
+27,1,Taula 7,Taula 7,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,4,1,0,taula6.png,1,taula6_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,C75,0,0,1,2013-12-12,2000-01-01,,,0,0,0,1
+28,1,Taula 8,Taula 8,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,4,1,0,taula6.png,1,taula6_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,C76,0,0,1,2013-12-12,2000-01-01,,,0,0,0,1
+29,1,Taula 9,Taula 9,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,4,1,0,taula6.png,1,taula6_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,C77,0,0,1,2013-12-12,2000-01-01,,,0,0,0,1
+30,1,Rodona 4,Rodona 4,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,5,1,0,taula_rodona_buida.png,1,taula_rodona_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,R4,0,0,1,2013-12-12,2000-01-01,,,0,0,0,1
+31,1,Rodona 5,Rodona 5,,,,,,,-0,1,1,,,,,1,,,,,,0,0,0,0,868,0,,1,5,1,0,taula_rodona_buida.png,1,taula_rodona_plena.png,0,0,0,0,Sense dades de procedència,0,0,2000-01-01,R5,0,0,1,2013-12-12,2000-01-01,,,0,0,0,1
+45,1,Carmen,Carmen,,,,,,,,0,0,jjj@gmail.com,39000005A,,Client VIP,1,,,,,,,,10,0,3647,0,,0,,1,0,,0,,1,0,0,0,Per recomanació del client,49,1,0000-00-00,CL1,0,0,1,0000-00-00,0000-00-00,,,0,0,1,0
+46,1,Demo 1,Demo 1,,,,,,,,0,0,,,,,1,,,,,,5,0,0,50,3654,0,,0,0,1,0,,0,,0,0,0,0,,0,0,,CL2,0,0,1,0000-00-00,0000-00-00,,,0,0,0,0
+48,1,Annabel Apellido,Annabel Apellido,,8240,,,,,,0,0,,,,,2,,,,,,,,0,0,3648,0,,0,0,1,0,,0,,0,0,0,0,,0,0,0000-00-00,,0,0,1,0000-00-00,0000-00-00,,,0,0,0,0
+49,1,Javier Apellido,Javier Apellido,,,,,,,,0,0,,,,,1,,,,,,0,0,0,0,3651,0,,0,0,1,0,,0,,0,0,0,0,,0,0,0000-00-00,,0,0,1,0000-00-00,0000-00-00,,,0,0,0,0
+50,1,Josefina,Josefina,,,,,,,,0,0,,,,,1,,,,,,0,0,0,0,0,0,,0,0,1,0,,0,,0,0,0,0,,0,0,0000-00-00,,0,0,1,0000-00-00,0000-00-00,,,0,0,0,0
+51,1,Antoni Gámez Rojas,Antoni Gámez Rijas,C/ Francesc Moragas,8242,Manresa,660000000,,,,0,0,jjj2@gmail.com,39000004A,,,1,,,,,,,,0,0,0,0,Barcelona,0,0,1,0,,0,,0,0,0,0,,0,0,0000-00-00,2509809870,0,0,1,0000-00-00,0000-00-00,,,0,0,0,0
+52,1,Antonio,Antonio,,,,,,,,0,0,,39000003A,,,1,,,,,,,,0,0,0,0,,0,0,1,0,,0,,0,0,0,0,,0,0,0000-00-00,Antonio,0,0,1,0000-00-00,0000-00-00,,,0,0,1,0
+53,1,Cristina,Cristina,Test,8242,Manresa,660000001,,,,0,0,jjj3@gmail.com,39000002A,Cristina,,1,,,,,,,,0,0,0,0,Barcelona,0,0,1,0,,0,,0,0,0,0,,0,0,0000-00-00,12017,0,0,1,0000-00-00,0000-00-00,,,0,0,0,0
+54,1,Pere,test,Test,8260,Súria,938700000,660000003,660000004,660000005,0,0,jjj4@gmail.com,39000001A,Pere,pol·len,1,,,,,,,,22,22,0,0,Barcelona,0,0,1,10,,0,,1,0,10,22,E-mail,0,0,0000-00-00,3590,0,0,1,2022-05-17,0000-00-00,,,0,0,0,0
+55,1,Valentí Gàmez Rojas,Valentí Gàmez Rojas,C/ Lleida 1-3 1 3,8242,Manresa,660000002,,,,0,0,jjj5@gmail.com,39000000A,,Les meves observacions,1,,,,,,,,0,0,868,0,Barcelona,0,,1,,,,,,0,0,0,Tienda virtual,,0,,,0,0,1,2017-08-04,0000-00-00,,,0,0,0,0
+56,1,Josep Cognoms,,,,,,,,,0,0,mail@mail.com,11111111X,,,,,,,,,,,0,0,,0,,0,,,,,,,,0,0,0,,,0,1965-04-18,12,0,0,1,2017-11-15,0000-00-00,,,0,0,0,0
+57,1,Anna Cognoms,65899,,,,,,,666 666 666,0,0,mail@mail.com,11111111A,,,2,,,,,,,,0,0,3656,0,,0,,,,,,,,0,0,0,,,1,0000-00-00,1358,0,0,2,2017-11-15,0000-00-00,,,0,0,0,0
+58,1,Nom Cognoms,25798,,,,,,,444 444 444,0,0,mail1@mail1.com,22222222A,,,,,,,,,,,0,0,,0,,0,,,,,,,,0,0,0,,,1,1995-08-12,8965,0,0,1,2017-11-15,0000-00-00,,,0,0,0,0
+59,1,Juan Juan,A256,,,,,,,333 333 333,0,0,mail@mail.com,66666666X,,,,,,,,,,,0,0,,0,,0,,,,,,,,0,0,0,,,0,1983-09-04,56978764,0,0,1,2017-11-15,0000-00-00,,,0,0,0,0
+60,1,Nom Nom ...,F54654,,8260,,,,,999 999 999,0,0,mail4@mail4.com,99 999 999-X,,,,,,,,,,,0,0,,0,,0,,,,,,,,0,0,0,,,1,1955-02-12,5464654,0,0,1,2017-11-15,0000-00-00,,,0,0,0,0
+61,1,Juanna Primer,G5558,,8260,,,,,888 888 888,0,0,mail5@mail5.com,88 888 888-X,,,,,,,,,,,0,0,,0,,0,,,,,,,,0,0,0,,,1,1987-06-08,865436,0,0,1,2017-11-15,0000-00-00,,,0,0,0,0
+62,1,Roser Roser,A222668,,8260,,,,,111 222 333,0,0,mail6@mail6.com,01234567Z,,,,,,,,,,,0,0,,0,,0,,,,,,,,0,0,0,,,1,0000-00-00,23551,0,0,1,2017-11-17,0000-00-00,,,0,0,0,0
+63,1,Nom i cognoms,XZ33,,8260,,,,,111222,0,0,mail7@mail7.com,00111222-J,,,,,,,,,,,0,0,,0,,0,,,,,,,,0,0,0,,,1,1965-04-03,00codi_barres,0,0,1,2017-11-17,0000-00-00,,,0,0,0,0
+68,1,Prova client,Test2,,8240,,,,,111111111,0,0,mail8@mail8.com,11111111-M,,,,,,,,,,,0,0,,0,,0,,,,,,,,0,0,0,,,0,1989-04-02,1313213,0,0,1,2017-11-17,0000-00-00,,,0,0,0,0
+71,1,Judith Cognom,test,,8240,,,,,666 666 666,0,0,mail@mail.es,J-00111222,,,,,,,,,,,0,0,,0,,0,,,,,,,,0,0,0,,,1,1965-04-03,1234567890,0,0,1,2017-11-17,0000-00-00,,,0,0,0,0
+72,1,Nom del client,Soci111,,8242,,,,,111222,0,0,meil9@mail9.com,01234567A,,,,,,,,,,,0,0,,0,,0,,,,,,,,0,0,0,,,1,1994-03-25,00codi_barres,0,0,1,2017-11-20,0000-00-00,,,0,0,0,0
+73,1,Albert Client,125,,8242,,,,,1,0,0,1@mail.com,1,,,2,,,,,,,,0,0,3655,0,,0,,,,,,,,0,0,0,,,0,0000-00-00,56987233,0,0,2,2017-11-20,0000-00-00,,,0,0,0,0
+74,1,Susana Estuarte,336,,8240,,,,,555555555,0,0,susana@mail.com,11111111-Z,,,,,,,,,,,0,0,,0,,0,,1,,,,,,0,0,0,,,1,1995-03-25,985234,0,0,1,2017-11-20,0000-00-00,,,0,0,0,0
+75,1,Elisenda,Test3,,8242,,,,,666666666,0,0,mail@mail.com,33333333-3,,,1,,,,,,,,0,0,868,0,,0,1,1,0,,0,,0,0,0,0,,0,1,1984-02-25,XLC-000212544,0,0,1,2017-12-15,0000-00-00,,,0,0,0,0
+80,1,Xavier,Xavier,,,,,,,,0,0,,,,,1,,,,,,,,0,0,3671,0,,0,0,1,0,,0,,0,0,0,0,,0,0,0000-00-00,80,0,0,1,2020-02-07,0000-00-00,,,0,0,0,0
