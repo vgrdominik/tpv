@@ -42,6 +42,9 @@
           <v-col cols="4" class="text-center pt-0 pb-0">
             <CtBtn type="icon" :icon="['fas', 'edit']" color="primary" @click="updateCustomer()" />
           </v-col>
+          <CtDialog v-model="currentCustomerToTemporaryModify" maxWidth="500" :type="stored_config.branding.style.card" fluid :title="'Modificar datos del cliente ' + current_customer.corporation_name" dense v-if="currentCustomerToTemporaryModify">
+            <Customer v-model="current_customer" />
+          </CtDialog>
         </v-row>
 
         <v-divider />
@@ -160,10 +163,12 @@
 <script type="application/javascript">
 import price from '../../mixins/price'
 import CtTextField from "../../globalComponents/CtTextField";
+import CtDialog from "../../globalComponents/CtDialog";
+import Customer from "../customer/Customer";
 
 export default {
   name: "Ticket",
-  components: {CtTextField},
+  components: {Customer, CtDialog, CtTextField},
   mixins: [price],
 
   data: () => {
@@ -196,6 +201,8 @@ export default {
       allTicketLinesChecked: false,
       ticketLinesChecked: {},
 
+      currentCustomerToTemporaryModify: 0,
+
       currentTicketLineToQuantityModify: 0,
       quantityModify: 0,
     }
@@ -211,13 +218,18 @@ export default {
     current_ticket_line () {
       return this.current_ticket.lines.filter(ticketLine => ticketLine.id_line === this.currentTicketLineToQuantityModify)[0]
     },
-    current_customer () {
-      let current_customer = this.$store.state.customer.customers.filter(customer => customer.id === this.current_ticket.id_customer)
-      if (! current_customer.length) {
-        return null
-      }
+    current_customer: {
+      get() {
+        let current_customer = this.$store.state.customer.customers.filter(customer => customer.id === this.current_ticket.id_customer)
+        if (!current_customer.length) {
+          return null
+        }
 
-      return current_customer[0]
+        return current_customer[0]
+      },
+      set(newValue) {
+        return newValue
+      },
     },
 
     numberOfPages () {
@@ -315,6 +327,7 @@ export default {
     // Update customer action
     updateCustomer() {
       console.log(this.current_customer)
+      this.currentCustomerToTemporaryModify = this.current_customer.id
     },
 
     // Tickets header

@@ -855,10 +855,10 @@ export default {
                                 {label: 'Móvil', description: '', name: "mobile", type: 'string'},
                                 {label: 'Email', description: '', name: "email", type: 'string'},
 
-                                {label: 'Notificaciones', description: 'Notificaciones habilitadas', name: "notifications_enabled", type: 'int'},
-                                {label: 'Notificaciones básicas', description: 'Notificaciones básicas habilitadas', name: "notifications_basic_enabled", type: 'int'},
-                                {label: 'Notificaciones publicidad', description: 'Notificaciones publicidad habilitadas', name: "notifications_publicity_enabled", type: 'int'},
-                                {label: 'Otras notificaciones', description: 'Otras notificaciones habilitadas', name: "notifications_others_enabled", type: 'int'},
+                                {label: 'Notificaciones', description: 'Notificaciones habilitadas', name: "notifications_enabled", type: 'boolean'},
+                                {label: 'Notificaciones básicas', description: 'Notificaciones básicas habilitadas', name: "notifications_basic_enabled", type: 'boolean'},
+                                {label: 'Notificaciones publicidad', description: 'Notificaciones publicidad habilitadas', name: "notifications_publicity_enabled", type: 'boolean'},
+                                {label: 'Otras notificaciones', description: 'Otras notificaciones habilitadas', name: "notifications_others_enabled", type: 'boolean'},
 
                                 {label: 'Categoría SMS', description: 'Nombre de la categoría de sms que recibe el cliente', name: "taxonomy_sms", type: 'int'},
                                 {label: 'Categoría email', description: 'Nombre de la categoría de email que recibe el cliente', name: "taxonomy_email", type: 'int'},
