@@ -2,7 +2,7 @@
   <div>
     <!-- Config TPV -->
     <v-row dense>
-      <v-col cols="12" sm="8" class="body-2 justify-center">
+      <v-col cols="12" class="body-2 justify-center">
         <CtBtn :type="stored_config.branding.style.button" color="secondary" @click="show_advanced = ! show_advanced">Ficha del cliente</CtBtn> (Click para mostrar/ocultar)
       </v-col>
     </v-row>
@@ -13,21 +13,21 @@
         <div class="title">Ficha de cliente</div>
         Los datos modificados en esta ficha son permanentes.
       </v-row>
-      <v-row dense v-for="customer_fields in stored_config.import.domain.customer.fields" :key="'customerField' + customer_fields.label">
-        <v-spacer />
-        <v-col cols="12" lg="3">
+      <v-row dense v-for="customer_field in stored_config.import.domain.customer.fields" :key="'customerField' + customer_field.label">
+        <v-col cols="12" lg="6">
           <v-row dense>
             <v-spacer v-if="$vuetify.breakpoint.mdAndDown" />
-            <CtTextField v-model="config.value" :ctType="stored_config.branding.style.form" class="ma-4" :label="config.label" type="number" v-if="config.type === 'number'" />
-            <CtSelect v-model="config.value" :ctType="stored_config.branding.style.form" class="ma-4" :items="config.options" :label="config.label" v-else-if="config.type === 'select'" />
-            <v-switch v-model="config.value" class="ma-4" :label="config.label" v-else />
+            <CtTextField v-model="customer[customer_field.name]" :ctType="stored_config.branding.style.form" class="ma-4" :label="customer_field.label" v-if="customer_field.type === 'string'" />
+            <CtTextField v-model="customer[customer_field.name]" :ctType="stored_config.branding.style.form" class="ma-4" :label="customer_field.label" type="number" v-else-if="customer_field.type === 'number' || customer_field.type === 'integer' || customer_field.type === 'int' || customer_field.type === 'float'" />
+            <CtSelect v-model="customer[customer_field.name]" :ctType="stored_config.branding.style.form" class="ma-4" :items="customer_field.options" :label="customer_field.label" v-else-if="customer_field.type === 'select'" />
+            <v-switch v-model="customer[customer_field.name]" class="ma-4" :label="customer_field.label" v-else />
             <v-spacer v-if="$vuetify.breakpoint.mdAndDown" />
           </v-row>
         </v-col>
         <v-col cols="12" lg="6" :class="{ 'body-2': true, 'mt-6': $vuetify.breakpoint.smAndUp }">
           <v-row dense>
             <v-spacer v-if="$vuetify.breakpoint.mdAndDown" />
-            {{ config.description }}
+            {{ customer_field.description }}
             <v-spacer v-if="$vuetify.breakpoint.mdAndDown" />
           </v-row>
         </v-col>
@@ -40,7 +40,7 @@
 export default {
   name: "Customer",
   props: {
-    'model': {
+    'customer': {
       type: Object,
       required: true,
     },

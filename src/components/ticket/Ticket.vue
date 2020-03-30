@@ -43,7 +43,7 @@
             <CtBtn type="icon" :icon="['fas', 'edit']" color="primary" @click="updateCustomer()" />
           </v-col>
           <CtDialog v-model="currentCustomerToTemporaryModify" maxWidth="500" :type="stored_config.branding.style.card" fluid :title="'Modificar datos del cliente ' + current_customer.corporation_name" dense v-if="currentCustomerToTemporaryModify">
-            <Customer v-model="current_customer" />
+            <Customer :customer="current_customer" />
           </CtDialog>
         </v-row>
 
@@ -326,7 +326,7 @@ export default {
 
     // Update customer action
     updateCustomer() {
-      console.log(this.current_customer)
+      // console.log(this.stored_config.import.domain.customer.fields)
       this.currentCustomerToTemporaryModify = this.current_customer.id
     },
 
