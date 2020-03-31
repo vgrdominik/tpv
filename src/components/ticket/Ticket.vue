@@ -42,7 +42,7 @@
           <v-col cols="4" class="text-center pt-0 pb-0">
             <CtBtn type="icon" :icon="['fas', 'edit']" color="primary" @click="updateCustomer()" />
           </v-col>
-          <CtDialog v-model="currentCustomerToTemporaryModify" maxWidth="500" :type="stored_config.branding.style.card" fluid :title="'Modificar datos del cliente ' + current_customer.corporation_name" dense v-if="currentCustomerToTemporaryModify">
+          <CtDialog v-model="currentCustomerToTemporaryModify" maxWidth="700" :type="stored_config.branding.style.card" fluid :title="'Modificar datos del cliente ' + current_customer.corporation_name" dense v-if="currentCustomerToTemporaryModify">
             <Customer :customer="current_customer" />
           </CtDialog>
         </v-row>
@@ -86,7 +86,7 @@
                   <th v-for="header in headers" :key="'header-' + header.value" :class="header.class" :width="header.width">
                     <span v-html="header.text" v-if="header.text" />
                     <span v-else>
-                      <CtBtn type="icon" :icon="['fas', 'paper-plane']" color="primary" v-if="header.value === 'id_line'" @click="sendCheckedTicketLines()" />
+                      <CtBtn type="icon" :icon="['fas', 'paper-plane']" color="primary" v-if="header.value === 'id_ticket_line'" @click="sendCheckedTicketLines()" />
                       <v-checkbox v-model="allTicketLinesChecked" class="pa-0" height="0" v-else />
                     </span>
                   </th>
@@ -96,10 +96,10 @@
             <template v-slot:item="{ item }">
               <tr>
                 <td>
-                  <v-checkbox v-model="ticketLinesChecked['ticketLine' + item.id_line]" class="pa-0" height="0" v-if="item.id_line" />
+                  <v-checkbox v-model="ticketLinesChecked['ticketLine' + item.id_ticket_line]" class="pa-0" height="0" v-if="item.id_ticket_line" />
                 </td>
                 <td class="pr-0 pl-0 text-center">
-                  <v-btn icon color="primary" @click="currentTicketLineToQuantityModify = item.id_line">
+                  <v-btn icon color="primary" @click="currentTicketLineToQuantityModify = item.id_ticket_line">
                     <span v-html="item.quantity.toString()" />
                   </v-btn>
                 </td>
@@ -190,7 +190,7 @@ export default {
         { text: 'Descr.', class: 'pr-0 pl-0 text-center', sortable: false, value: 'description', width: 'auto' },
         { text: 'Precio', class: 'text--warning pr-0 pl-0 text-center', sortable: false, value: 'price', width: 'auto' },
         { text: 'Total', class: 'pl-0 pr-0 text-center', sortable: false, value: 'price*quantity', width: 'auto' },
-        { text: '', class: 'pr-0 pl-0 text-center', sortable: false, value: 'id_line', width: 1 },
+        { text: '', class: 'pr-0 pl-0 text-center', sortable: false, value: 'id_ticket_line', width: 1 },
       ],
 
       sortDesc: true,
@@ -216,7 +216,7 @@ export default {
       return this.$store.state.ticket.tickets.filter(ticket => ticket.id === this.$store.state.ticket.current_ticket)[0]
     },
     current_ticket_line () {
-      return this.current_ticket.lines.filter(ticketLine => ticketLine.id_line === this.currentTicketLineToQuantityModify)[0]
+      return this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line === this.currentTicketLineToQuantityModify)[0]
     },
     current_customer: {
       get() {
@@ -270,12 +270,13 @@ export default {
       }
 
       for(let i = 0; i < this.current_ticket.lines.length; i++) {
-        this.ticketLinesChecked['ticketLine' + this.current_ticket.lines[i].id_line] = checkTo
+        this.ticketLinesChecked['ticketLine' + this.current_ticket.lines[i].id_ticket_line] = checkTo
       }
     },
 
     currentTicketLineToQuantityModify(newValue) {
-      let current_ticket_line = this.current_ticket.lines.filter(ticketLine => ticketLine.id_line === newValue)[0]
+      console.log(this.current_ticket)
+      let current_ticket_line = this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line === newValue)[0]
       if (current_ticket_line) {
         this.quantityModify = current_ticket_line.quantity
       }
@@ -286,7 +287,7 @@ export default {
         this.quantityModify = parseFloat(this.quantityModify)
       }
       if(newValue !== oldValue && oldValue) {
-        let current_ticket_line = this.current_ticket.lines.filter(ticketLine => ticketLine.id_line === this.currentTicketLineToQuantityModify)[0]
+        let current_ticket_line = this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line === this.currentTicketLineToQuantityModify)[0]
         if (current_ticket_line) {
           current_ticket_line.quantity = this.quantityModify
           this.$forceUpdate()
@@ -347,7 +348,7 @@ export default {
       return this.price(this.totalWithIva(ticketLine.price, ticketLine.iva) * ticketLine.quantity)
     },
     lineRemove(ticketLineToRemove) {
-      this.current_ticket.lines = this.current_ticket.lines.filter(ticketLine => ticketLine.id_line !== ticketLineToRemove.id_line)
+      this.current_ticket.lines = this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line !== ticketLineToRemove.id_ticket_line)
       this.$forceUpdate()
     },
     lineQuantitySubtract() {

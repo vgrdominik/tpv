@@ -238,7 +238,7 @@ export default {
 
   mounted() {
     //console.log(this.stored_config)
-    // console.log(JSON.stringify(this.stored_config))
+    //console.log(JSON.stringify(this.stored_config))
     // Get current config
     this.get_config_main_event = (event, configData) => {
       this.setConfig({ path: 'initialized', value: false })
@@ -390,12 +390,12 @@ export default {
         // State TODO
 
         // Dates transformer
-        if (contentPreTransformed[i].create_date) {
+        if (contentPreTransformed[i].create_date && contentPreTransformed[i].create_date !== '0000-00-00') {
           contentPreTransformed[i].create_date = new Date(contentPreTransformed[i].create_date)
         } else {
           contentPreTransformed[i].create_date = new Date()
         }
-        if (contentPreTransformed[i].update_date) {
+        if (contentPreTransformed[i].update_date && contentPreTransformed[i].update_date !== '0000-00-00') {
           contentPreTransformed[i].update_date = new Date(contentPreTransformed[i].update_date)
         } else {
           contentPreTransformed[i].update_date = new Date()
@@ -422,12 +422,12 @@ export default {
           contentPreTransformed[i].iva = 0
         }
         // Dates transformer
-        if (contentPreTransformed[i].create_date) {
+        if (contentPreTransformed[i].create_date && contentPreTransformed[i].create_date !== '0000-00-00') {
           contentPreTransformed[i].create_date = new Date(contentPreTransformed[i].create_date)
         } else {
           contentPreTransformed[i].create_date = new Date()
         }
-        if (contentPreTransformed[i].update_date) {
+        if (contentPreTransformed[i].update_date && contentPreTransformed[i].update_date !== '0000-00-00') {
           contentPreTransformed[i].update_date = new Date(contentPreTransformed[i].update_date)
         } else {
           contentPreTransformed[i].update_date = new Date()
@@ -444,12 +444,12 @@ export default {
 
       for (let i = 0; i < contentPreTransformed.length; i++) {
         // Dates transformer
-        if (contentPreTransformed[i].create_date) {
+        if (contentPreTransformed[i].create_date && contentPreTransformed[i].create_date !== '0000-00-00') {
           contentPreTransformed[i].create_date = new Date(contentPreTransformed[i].create_date)
         } else {
           contentPreTransformed[i].create_date = new Date()
         }
-        if (contentPreTransformed[i].update_date) {
+        if (contentPreTransformed[i].update_date && contentPreTransformed[i].update_date !== '0000-00-00') {
           contentPreTransformed[i].update_date = new Date(contentPreTransformed[i].update_date)
         } else {
           contentPreTransformed[i].update_date = new Date()
@@ -466,22 +466,22 @@ export default {
 
       for (let i = 0; i < contentPreTransformed.length; i++) {
         // Dates transformer
-        if (contentPreTransformed[i].paid_date) {
+        if (contentPreTransformed[i].paid_date && contentPreTransformed[i].paid_date !== '0000-00-00') {
           contentPreTransformed[i].paid_date = new Date(contentPreTransformed[i].paid_date)
         } else {
           contentPreTransformed[i].paid_date = null
         }
-        if (contentPreTransformed[i].expiration_date) {
+        if (contentPreTransformed[i].expiration_date && contentPreTransformed[i].expiration_date !== '0000-00-00') {
           contentPreTransformed[i].expiration_date = new Date(contentPreTransformed[i].expiration_date)
         } else {
           contentPreTransformed[i].expiration_date = null
         }
-        if (contentPreTransformed[i].create_date) {
+        if (contentPreTransformed[i].create_date && contentPreTransformed[i].create_date !== '0000-00-00') {
           contentPreTransformed[i].create_date = new Date(contentPreTransformed[i].create_date)
         } else {
           contentPreTransformed[i].create_date = new Date()
         }
-        if (contentPreTransformed[i].update_date) {
+        if (contentPreTransformed[i].update_date && contentPreTransformed[i].update_date !== '0000-00-00') {
           contentPreTransformed[i].update_date = new Date(contentPreTransformed[i].update_date)
         } else {
           contentPreTransformed[i].update_date = new Date()
@@ -498,22 +498,22 @@ export default {
 
       for (let i = 0; i < contentPreTransformed.length; i++) {
         // Dates transformer
-        if (contentPreTransformed[i].create_date) {
+        if (contentPreTransformed[i].create_date && contentPreTransformed[i].create_date !== '0000-00-00') {
           contentPreTransformed[i].create_date = new Date(contentPreTransformed[i].create_date)
         } else {
-          contentPreTransformed[i].create_date = null
+          contentPreTransformed[i].create_date = new Date()
         }
-        if (contentPreTransformed[i].birthday_date) {
+        if (contentPreTransformed[i].birthday_date && contentPreTransformed[i].birthday_date !== '0000-00-00') {
           contentPreTransformed[i].birthday_date = new Date(contentPreTransformed[i].birthday_date)
         } else {
           contentPreTransformed[i].birthday_date = null
         }
-        if (contentPreTransformed[i].drop_date) {
+        if (contentPreTransformed[i].drop_date && contentPreTransformed[i].drop_date !== '0000-00-00') {
           contentPreTransformed[i].drop_date = new Date(contentPreTransformed[i].drop_date)
         } else {
-          contentPreTransformed[i].drop_date = new Date()
+          contentPreTransformed[i].drop_date = null
         }
-        if (contentPreTransformed[i].update_date) {
+        if (contentPreTransformed[i].update_date && contentPreTransformed[i].update_date !== '0000-00-00') {
           contentPreTransformed[i].update_date = new Date(contentPreTransformed[i].update_date)
         } else {
           contentPreTransformed[i].update_date = new Date()

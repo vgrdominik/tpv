@@ -81,7 +81,7 @@
                       lg="2"
                       class="pt-3 pb-0"
               >
-                <v-card>
+                <v-card @click="addProductToTicker(item)" style="cursor: pointer">
                   <v-row dense class="pt-4">
                     <v-spacer />
                     <v-avatar v-if="item.img" :width="$vuetify.breakpoint.smAndDown? 50 : '7vh'" :height="$vuetify.breakpoint.smAndDown? 50 : '7vh'">
@@ -112,6 +112,7 @@
 
 <script type="application/javascript">
 import UnitList from "./UnitList";
+import {mapActions} from "vuex";
 export default {
   name: "ProductList",
   components: {UnitList},
@@ -136,6 +137,14 @@ export default {
 
     stored_config () {
       return this.$store.state.global.config
+    },
+
+    current_ticket () {
+      if (this.$store.state.ticket.current_ticket === 0) {
+        return null
+      }
+
+      return this.$store.state.ticket.tickets.filter(ticket => ticket.id === this.$store.state.ticket.current_ticket)[0]
     },
 
     currentFamily () {
@@ -184,6 +193,74 @@ export default {
     updateproductsPerPage (number) {
       this.productsPerPage = number
     },
+
+    addProductToTicker(product) {
+      if (! this.current_ticket) {
+        this.$store.state.ticket.current_ticket = this.$store.state.ticket.tickets.filter(ticket => ticket.name.toLowerCase() === 'ventas contado' || ticket.name.toLowerCase() === 'vendes comptat')[0].id
+      }
+      if (! this.current_ticket) {
+        this.$store.state.ticket.current_ticket = this.$store.state.ticket.tickets.filter(ticket => ticket.id === 1 || ticket.id === '1')[0].id
+      }
+      if (! this.current_ticket) {
+        return false
+      }
+
+      this.current_ticket.lines.push({
+        id_ticket_line: parseInt(this.current_ticket.lines[this.current_ticket.lines.length].id_ticket_line) + 1,
+        id_attribute: null,
+        id_user: null,
+
+        // Used to determine with fields and how show
+        type: null,
+
+        description: product.text_tpv,
+        quantity: this.$store.state.product.units,
+        serial_number: null, // Technological identifier
+        lot: null, // Nutrition identifier
+        expiration: null, // It's a informative date
+        cost: product.cost,
+        price: product.total,
+        iva: product.iva,
+        surcharge: null,
+        discount: null,
+
+        reference: product.reference,
+        reference_customer: null,
+
+        // CSV Sample: id,id_linea (ordre_entrada de Tiquets2),quantitat,complemento,iva,import
+        ticket_complements: [
+          {
+            id_ticket_line: null,
+
+            id_complement: null,
+
+            // Same structure as ticket_line
+            description: null,
+            quantity: null,
+            serial_number: null, // Technological identifier
+            lot: null, // Nutrition identifier
+            expiration: null, // It's a informative date
+            cost: null,
+            price: null,
+            iva: null,
+            surcharge: null,
+            discount: null,
+
+            reference: null,
+            reference_customer: null,
+          }
+        ],
+
+        create_date: new Date('now'),
+        update_date: new Date('now'),
+      })
+
+      this.setUnits(1)
+    },
+
+    ...mapActions('product', [
+      'setUnits',
+    ]),
   },
 }
 </script>

@@ -618,7 +618,7 @@ export default {
 
                             fields: [
                                 {label: 'Código tíquet', description: 'Identificador único del tíquet', name: "id_ticket", type: 'int'},
-                                {label: 'Código línea', description: 'Identificador único de la línea', name: "id_line", type: 'int'},
+                                {label: 'Código línea', description: 'Identificador único de la línea', name: "id_ticket_line", type: 'int'},
                                 {label: 'Código atributo', description: 'Identificador único del atributo asociado', name: "id_attribute", type: 'int'},
                                 {label: 'Código usuario', description: 'Identificador único del usuario', name: "id_user", type: 'int'},
 
@@ -671,7 +671,7 @@ export default {
                             fields_columns: {
                                 id_ticket: 'id_document',
 
-                                id_line: null,
+                                id_ticket_line: 'ordre_entrada',
                                 id_attribute: null,
                                 id_user: 'usuari',
 

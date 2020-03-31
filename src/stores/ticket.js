@@ -28,7 +28,7 @@ export const state = () => ({
       // CSV sample: id_document,descripcio_article,grup,element,quantitat,numero_serie,lot,caducitat,preu,descompte,tipo_article,preu_fixe,referencia_article,referencia_client,formato,iva,ordre_entrada,recarrec,fecha,usuari,venedor,compta
       lines: [
         {
-          id_line: null,
+          id_ticket_line: null,
           id_attribute: null,
           id_user: null,
 
@@ -171,7 +171,7 @@ export const actions = {
 
         // Loop all components
         for (let z = 0; z < payload.length; z++) {
-          if (assignedTicketLineWithComplements.id_line === payload[z].id_ticket_line) {
+          if (assignedTicketLineWithComplements.id_ticket_line === payload[z].id_ticket_line) {
             // Push complement
             assignedTicketLineWithComplements.complements.push(payload[z])
           }

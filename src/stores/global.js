@@ -1,5 +1,6 @@
 export const state = () => ({
   is_container_needed: '',
+  date_format: new Intl.DateTimeFormat('en', { year: 'numeric', month: '2-digit', day: '2-digit' }),
   config: {
     initialized: false,
 
@@ -360,7 +361,7 @@ export const state = () => ({
         ticket_line: {
           fields: [
             {name: "id_ticket", type: 'int'},
-            {name: "id_line", type: 'int'},
+            {name: "id_ticket_line", type: 'int'},
             {name: "id_attribute", type: 'int'},
             {name: "id_user", type: 'int'},
 
@@ -413,7 +414,7 @@ export const state = () => ({
           fields_columns: {
             id_ticket: 'id_document',
 
-            id_line: null,
+            id_ticket_line: 'ordre_entrada',
             id_attribute: null,
             id_user: 'usuari',
 
