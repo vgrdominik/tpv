@@ -17,7 +17,7 @@ export default {
             return this.price(this.totalTicketWithIva(ticket))
         },
         totalWithIva(price, iva) {
-            return parseFloat(price.replace(',', '.')) + parseFloat(price.replace(',', '.')) * (iva / 100)
+            return parseFloat(price.toString().replace(',', '.')) + parseFloat(price.toString().replace(',', '.')) * (iva / 100)
         },
         totalPriceWithIva(price, iva) {
             return this.price(this.totalWithIva(price, iva))

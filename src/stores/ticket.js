@@ -115,6 +115,10 @@ export const actions = {
     state.commit('updateTicketValue', payload)
   },
 
+  addTicket(state, payload) {
+    state.commit('addTicket', payload)
+  },
+
   setTicketsLines(state, payload) {
     // Save ticket collection to assign
     let assignedTicketsWithLines = []
@@ -225,6 +229,10 @@ export const getters = {
 }
 
 export const mutations = {
+  addTicket (state, ticket) {
+    state.tickets.push(ticket)
+  },
+
   updateTickets (state, tickets) {
     state.tickets = tickets
   },

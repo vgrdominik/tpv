@@ -111,11 +111,13 @@
 </template>
 
 <script type="application/javascript">
-import UnitList from "./UnitList";
-import {mapActions} from "vuex";
+import UnitList from "./UnitList"
+import {mapActions} from "vuex"
+import price from '../../mixins/price'
 export default {
   name: "ProductList",
   components: {UnitList},
+  mixins: [price],
   data: () => {
     return {
       search: '',
@@ -147,6 +149,23 @@ export default {
       return this.$store.state.ticket.tickets.filter(ticket => ticket.id === this.$store.state.ticket.current_ticket)[0]
     },
 
+    current_customer: {
+      get() {
+        if (! this.current_ticket) {
+          return null
+        }
+        let current_customer = this.$store.state.customer.customers.filter(customer => customer.id === this.current_ticket.id_customer)
+        if (!current_customer.length) {
+          return null
+        }
+
+        return current_customer[0]
+      },
+      set(newValue) {
+        return newValue
+      },
+    },
+
     currentFamily () {
       return this.$store.state.family.current_family
     },
@@ -172,7 +191,7 @@ export default {
   watch: {
     currentFamily() {
       this.page = 1
-    }
+    },
   },
 
   mounted() {
@@ -195,68 +214,115 @@ export default {
     },
 
     addProductToTicker(product) {
-      if (! this.current_ticket) {
-        this.$store.state.ticket.current_ticket = this.$store.state.ticket.tickets.filter(ticket => ticket.name.toLowerCase() === 'ventas contado' || ticket.name.toLowerCase() === 'vendes comptat')[0].id
+      // Define current customer
+      let current_customer = this.current_customer
+
+      if (! current_customer) {
+        current_customer = this.$store.state.customer.customers.filter(customer => customer.name.toLowerCase() === 'ventas contado' || customer.name.toLowerCase() === 'vendes comptat')[0]
       }
-      if (! this.current_ticket) {
-        this.$store.state.ticket.current_ticket = this.$store.state.ticket.tickets.filter(ticket => ticket.id === 1 || ticket.id === '1')[0].id
+      if (! current_customer) {
+        current_customer = this.$store.state.customer.customers.filter(customer => customer.id === 1 || customer.id === '1')[0]
       }
-      if (! this.current_ticket) {
+      if (! current_customer) {
         return false
       }
 
-      this.current_ticket.lines.push({
-        id_ticket_line: parseInt(this.current_ticket.lines[this.current_ticket.lines.length].id_ticket_line) + 1,
-        id_attribute: null,
-        id_user: null,
+      // Set new ticket if have not current selected
+      let currentTicketId = 0
+      if (! this.current_ticket) {
+        let lastTicket = this.$store.state.ticket.tickets[this.$store.state.ticket.tickets.length - 1]
+        currentTicketId = parseInt(lastTicket.id) + 1
+        this.$store.state.ticket.current_ticket = currentTicketId
+        this.addTicket({
+          id: currentTicketId,
+          id_customer: current_customer.id,
+          id_user: null,
+          id_terminal: null,
+          id_turn: null,
 
-        // Used to determine with fields and how show
-        type: null,
+          // Payment parameters
+          number: currentTicketId, // TODO
+          irpf: current_customer.irpf,
+          method_payment: current_customer.payment_method,
+          discount_prompt_payment: current_customer.discount_prompt_payment,
+          discount_customer: current_customer.discount_document,
+          total: 0,
 
-        description: product.text_tpv,
-        quantity: this.$store.state.product.units,
-        serial_number: null, // Technological identifier
-        lot: null, // Nutrition identifier
-        expiration: null, // It's a informative date
-        cost: product.cost,
-        price: product.total,
-        iva: product.iva,
-        surcharge: null,
-        discount: null,
+          // Number of customers related with ticket
+          diners: current_customer.diners,
 
-        reference: product.reference,
-        reference_customer: null,
+          // pending, paid_check, paid
+          state: 'pending',
 
-        // CSV Sample: id,id_linea (ordre_entrada de Tiquets2),quantitat,complemento,iva,import
-        ticket_complements: [
-          {
-            id_ticket_line: null,
+          // CSV sample: id_document,descripcio_article,grup,element,quantitat,numero_serie,lot,caducitat,preu,descompte,tipo_article,preu_fixe,referencia_article,referencia_client,formato,iva,ordre_entrada,recarrec,fecha,usuari,venedor,compta
+          lines: [],
 
-            id_complement: null,
+          // CSV Sample: codi,codi_factura,empresa,import,fecha,venciment,client,cobrat,fecha_cobro,codi_compte_ingres,modalitat_cobro,numero_efecte,usuari,tancat,caixa,id_torn
+          receipt: [],
 
-            // Same structure as ticket_line
-            description: null,
-            quantity: null,
-            serial_number: null, // Technological identifier
-            lot: null, // Nutrition identifier
-            expiration: null, // It's a informative date
-            cost: null,
-            price: null,
-            iva: null,
-            surcharge: null,
-            discount: null,
+          create_date: new Date('now'),
+          update_date: new Date('now'),
+        })
+      } else {
+        // Reset pipe to others components when current ticket it's set
+        currentTicketId = this.current_ticket.id
+        this.$store.state.ticket.current_ticket = 0
+      }
 
-            reference: null,
-            reference_customer: null,
-          }
-        ],
+      this.$nextTick(() => {
+        // It's reset pipe to update all components with current ticket dependency
+        this.$store.state.ticket.current_ticket = currentTicketId
+        if (! this.current_ticket) {
+          return false
+        }
 
-        create_date: new Date('now'),
-        update_date: new Date('now'),
+        let currentTicketLineId = 1
+        if (this.current_ticket.lines[this.current_ticket.lines.length - 1]) {
+          currentTicketLineId = parseInt(this.current_ticket.lines[this.current_ticket.lines.length - 1].id_ticket_line) + 1
+        }
+
+        // Set new current ticket line
+        this.current_ticket.lines.push({
+          id_ticket_line: currentTicketLineId,
+          id_attribute: null,
+          id_user: null,
+
+          // Used to determine with fields and how show
+          type: null,
+
+          description: product.text_tpv,
+          quantity: this.$store.state.product.units,
+          serial_number: null, // Technological identifier
+          lot: null, // Nutrition identifier
+          expiration: null, // It's a informative date
+          cost: product.cost,
+          price: product.total,
+          iva: product.iva,
+          surcharge: null,
+          discount: current_customer.discount_product,
+
+          reference: product.reference,
+          reference_customer: null,
+
+          ticket_complements: [], // TODO
+
+          create_date: new Date('now'),
+          update_date: new Date('now'),
+        })
+
+        // Set current ticket total
+        this.current_ticket.total = this.totalTicketWithIva(this.current_ticket)
+
+        // Set current units to one
+        this.setUnits(1)
+
+        console.log(this.current_ticket)
       })
-
-      this.setUnits(1)
     },
+
+    ...mapActions('ticket', [
+      'addTicket',
+    ]),
 
     ...mapActions('product', [
       'setUnits',

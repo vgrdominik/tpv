@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="$store.state.ticket.current_ticket">
     <!-- LIST -->
     <CtCard :type="stored_config.branding.style.card" fluid :title="'Tíquet ' + $store.state.ticket.current_ticket" dense>
       <template v-slot:leftTitleContent>
@@ -162,13 +162,12 @@
 
 <script type="application/javascript">
 import price from '../../mixins/price'
-import CtTextField from "../../globalComponents/CtTextField";
-import CtDialog from "../../globalComponents/CtDialog";
-import Customer from "../customer/Customer";
+import Customer from "../customer/Customer"
+import {mapActions} from "vuex"
 
 export default {
   name: "Ticket",
-  components: {Customer, CtDialog, CtTextField},
+  components: {Customer},
   mixins: [price],
 
   data: () => {
@@ -293,6 +292,15 @@ export default {
           this.$forceUpdate()
         }
       }
+    },
+
+    '$store.state.ticket.current_ticket': {
+      deep: true,
+      handler(newValue, oldValue) {
+        if(newValue && oldValue && newValue.total !== oldValue.total) {
+          this.$forceUpdate()
+        }
+      }
     }
   },
 
@@ -349,7 +357,21 @@ export default {
     },
     lineRemove(ticketLineToRemove) {
       this.current_ticket.lines = this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line !== ticketLineToRemove.id_ticket_line)
-      this.$forceUpdate()
+
+      this.current_ticket.total = this.totalTicketWithIva(this.current_ticket)
+
+      let currentTicketTotal = this.current_ticket.total
+      let currentTicketId = this.$store.state.ticket.current_ticket
+      this.$store.state.ticket.current_ticket = 0
+
+      // Set current ticket total
+      this.$nextTick(() => {
+        if (currentTicketTotal <= 0) {
+          this.setTickets(this.$store.state.ticket.tickets.filter(ticket => ticket.id !== currentTicketId))
+        } else {
+          this.$store.state.ticket.current_ticket = currentTicketId
+        }
+      })
     },
     lineQuantitySubtract() {
       this.quantityModify = this.quantityModify - 1.00
@@ -365,6 +387,10 @@ export default {
     formerPage () {
       if (this.page - 1 >= 1) this.page -= 1
     },
+
+    ...mapActions('ticket', [
+      'setTickets',
+    ]),
   },
 }
 </script>

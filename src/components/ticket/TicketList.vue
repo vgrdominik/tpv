@@ -191,6 +191,15 @@ export default {
       for(let i = 0; i < this.tickets.length; i++) {
         this.ticketsChecked['ticket' + this.tickets[i].id] = checkTo
       }
+    },
+
+    '$store.state.ticket.current_ticket': {
+      deep: true,
+      handler(newValue, oldValue) {
+        if(newValue && oldValue && newValue.total !== oldValue.total) {
+          this.$forceUpdate()
+        }
+      }
     }
   },
 
@@ -233,7 +242,7 @@ export default {
 
       for (let i = 0; i < ticket.receipt.length; i++) {
         if (ticket.receipt[i].total) {
-          totalPaid += parseFloat(ticket.receipt[i].total.replace(',', '.'))
+          totalPaid += parseFloat(ticket.receipt[i].total.toString().replace(',', '.'))
         }
       }
       return totalPaid
@@ -249,7 +258,7 @@ export default {
         return 0
       }
 
-      let totalPending = parseFloat(ticket.total.replace(',', '.')) - this.paidWithoutFormatting(ticket)
+      let totalPending = parseFloat(ticket.total.toString().replace(',', '.')) - this.paidWithoutFormatting(ticket)
       if (! totalPending) {
         return 0
       }
