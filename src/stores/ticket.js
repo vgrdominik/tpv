@@ -22,7 +22,7 @@ export const state = () => ({
       // Number of customers related with ticket
       diners: null,
 
-      // pending, paid_check, paid
+      // pending (0), paid_check(2), paid (1)
       state: null,
 
       // CSV sample: id_document,descripcio_article,grup,element,quantitat,numero_serie,lot,caducitat,preu,descompte,tipo_article,preu_fixe,referencia_article,referencia_client,formato,iva,ordre_entrada,recarrec,fecha,usuari,venedor,compta

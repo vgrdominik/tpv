@@ -101,15 +101,26 @@
         <v-spacer />
       </v-row>
     </template>
+
+    <CtDialog v-model="customerToCreateTicket" maxWidth="500" :type="stored_config.branding.style.card" fluid :title="'Elegir cliente para crear un nuevo tíquet'" dense>
+      <v-row dense>
+        <v-spacer />
+        <v-col cols="10">
+          <CtSelect v-model="customerToCreateTicket" :items="$store.state.customer.customers_search" item-text="name" item-value="id_customer" class="ma-4" label="Cliente" />
+        </v-col>
+        <v-spacer />
+      </v-row>
+    </CtDialog>
   </CtCard>
 </template>
 
 <script type="application/javascript">
 import price from '../../mixins/price'
+import ticket from '../../mixins/ticket'
 export default {
   name: "TicketList",
 
-  mixins: [price],
+  mixins: [price, ticket],
 
   data: () => {
     return {
@@ -137,6 +148,8 @@ export default {
       page: 1,
       sortBy: 'id',
       showListMobile: false,
+
+      customerToCreateTicket: 0,
 
       allTicketsChecked: false,
       ticketsChecked: {},
@@ -193,6 +206,12 @@ export default {
       }
     },
 
+    customerToCreateTicket(newValue, oldValue) {
+      if (oldValue && typeof newValue !== 'boolean') {
+        this.executeCustomerType('customer', newValue)
+      }
+    },
+
     '$store.state.ticket.current_ticket': {
       deep: true,
       handler(newValue, oldValue) {
@@ -222,14 +241,22 @@ export default {
 
   methods: {
     // Add ticket actions
-    executeCustomerType(action) {
-      this[action]()
+    executeCustomerType(action, parameter = null) {
+      if (! parameter) {
+        this[action]()
+      } else {
+        this[action](parameter)
+      }
     },
     cashSales() {
-      console.log('cash sales: test')
+      this.addProductToTicket()
     },
     customers() {
-      console.log('customers: test')
+      this.customerToCreateTicket = 1
+    },
+    customer(customerId) {
+      console.log(customerId)
+      this.addProductToTicket(null, customerId)
     },
 
     // Ticket list

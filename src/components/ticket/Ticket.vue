@@ -99,14 +99,15 @@
                   <v-checkbox v-model="ticketLinesChecked['ticketLine' + item.id_ticket_line]" class="pa-0" height="0" v-if="item.id_ticket_line" />
                 </td>
                 <td class="pr-0 pl-0 text-center">
-                  <v-btn icon color="primary" @click="currentTicketLineToQuantityModify = item.id_ticket_line">
+                  <v-btn icon color="primary" @click="currentTicketLineToQuantityModify = item.id_ticket_line" v-if="! current_ticket.state">
                     <span v-html="item.quantity.toString()" />
                   </v-btn>
+                  <span v-html="item.quantity.toString()" v-else />
                 </td>
                 <td v-html="item.description" class="pr-0 pl-0 text-center" />
                 <td v-html="item.price ? linePrice(item) : '-'" class="pr-0 pl-0 text-center" />
                 <td v-html="item.price && item.quantity ? lineTotal(item) : '-'" class="pr-0 pl-0 text-center" />
-                <td class="pl-0 pr-0 text-center">
+                <td class="pl-0 pr-0 text-center" v-if="! current_ticket.state">
                   <CtBtn type="icon" :icon="['fas', 'times']" color="error" @click="lineRemove(item)" />
                 </td>
               </tr>
@@ -162,13 +163,13 @@
 
 <script type="application/javascript">
 import price from '../../mixins/price'
+import ticket from '../../mixins/ticket'
 import Customer from "../customer/Customer"
-import {mapActions} from "vuex"
 
 export default {
   name: "Ticket",
   components: {Customer},
-  mixins: [price],
+  mixins: [price, ticket],
 
   data: () => {
     return {
@@ -201,34 +202,12 @@ export default {
       ticketLinesChecked: {},
 
       currentCustomerToTemporaryModify: 0,
-
-      currentTicketLineToQuantityModify: 0,
-      quantityModify: 0,
     }
   },
 
   computed: {
     stored_config () {
       return this.$store.state.global.config
-    },
-    current_ticket () {
-      return this.$store.state.ticket.tickets.filter(ticket => ticket.id === this.$store.state.ticket.current_ticket)[0]
-    },
-    current_ticket_line () {
-      return this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line === this.currentTicketLineToQuantityModify)[0]
-    },
-    current_customer: {
-      get() {
-        let current_customer = this.$store.state.customer.customers.filter(customer => customer.id === this.current_ticket.id_customer)
-        if (!current_customer.length) {
-          return null
-        }
-
-        return current_customer[0]
-      },
-      set(newValue) {
-        return newValue
-      },
     },
 
     numberOfPages () {
@@ -240,7 +219,7 @@ export default {
     },
     ticketLinesPerPage: {
       get() {
-        return (this.$vuetify.breakpoint.smAndDown ? 6 : this.$vuetify.breakpoint.lgAndUp ? 10 : 5) + this.ticketLinesAddedToResolution
+        return (this.$vuetify.breakpoint.smAndDown ? 5 : this.$vuetify.breakpoint.lgAndUp ? 7 : 4) + this.ticketLinesAddedToResolution
       },
       set(newValue) {
         return newValue
@@ -330,7 +309,7 @@ export default {
       console.log('pay: test')
     },
     payDirect() {
-      console.log('pay direct: test')
+      this.payDirectTicket()
     },
 
     // Update customer action
@@ -387,10 +366,6 @@ export default {
     formerPage () {
       if (this.page - 1 >= 1) this.page -= 1
     },
-
-    ...mapActions('ticket', [
-      'setTickets',
-    ]),
   },
 }
 </script>

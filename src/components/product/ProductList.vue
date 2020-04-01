@@ -81,7 +81,7 @@
                       lg="2"
                       class="pt-3 pb-0"
               >
-                <v-card @click="addProductToTicker(item)" style="cursor: pointer">
+                <v-card @click="addProductToTicket(item)" style="cursor: pointer">
                   <v-row dense class="pt-4">
                     <v-spacer />
                     <v-avatar v-if="item.img" :width="$vuetify.breakpoint.smAndDown? 50 : '7vh'" :height="$vuetify.breakpoint.smAndDown? 50 : '7vh'">
@@ -112,12 +112,13 @@
 
 <script type="application/javascript">
 import UnitList from "./UnitList"
-import {mapActions} from "vuex"
 import price from '../../mixins/price'
+import ticket from '../../mixins/ticket'
+
 export default {
   name: "ProductList",
   components: {UnitList},
-  mixins: [price],
+  mixins: [price, ticket],
   data: () => {
     return {
       search: '',
@@ -139,31 +140,6 @@ export default {
 
     stored_config () {
       return this.$store.state.global.config
-    },
-
-    current_ticket () {
-      if (this.$store.state.ticket.current_ticket === 0) {
-        return null
-      }
-
-      return this.$store.state.ticket.tickets.filter(ticket => ticket.id === this.$store.state.ticket.current_ticket)[0]
-    },
-
-    current_customer: {
-      get() {
-        if (! this.current_ticket) {
-          return null
-        }
-        let current_customer = this.$store.state.customer.customers.filter(customer => customer.id === this.current_ticket.id_customer)
-        if (!current_customer.length) {
-          return null
-        }
-
-        return current_customer[0]
-      },
-      set(newValue) {
-        return newValue
-      },
     },
 
     currentFamily () {
@@ -212,121 +188,6 @@ export default {
     updateproductsPerPage (number) {
       this.productsPerPage = number
     },
-
-    addProductToTicker(product) {
-      // Define current customer
-      let current_customer = this.current_customer
-
-      if (! current_customer) {
-        current_customer = this.$store.state.customer.customers.filter(customer => customer.name.toLowerCase() === 'ventas contado' || customer.name.toLowerCase() === 'vendes comptat')[0]
-      }
-      if (! current_customer) {
-        current_customer = this.$store.state.customer.customers.filter(customer => customer.id === 1 || customer.id === '1')[0]
-      }
-      if (! current_customer) {
-        return false
-      }
-
-      // Set new ticket if have not current selected
-      let currentTicketId = 0
-      if (! this.current_ticket) {
-        let lastTicket = this.$store.state.ticket.tickets[this.$store.state.ticket.tickets.length - 1]
-        currentTicketId = parseInt(lastTicket.id) + 1
-        this.$store.state.ticket.current_ticket = currentTicketId
-        this.addTicket({
-          id: currentTicketId,
-          id_customer: current_customer.id,
-          id_user: null,
-          id_terminal: null,
-          id_turn: null,
-
-          // Payment parameters
-          number: currentTicketId, // TODO
-          irpf: current_customer.irpf,
-          method_payment: current_customer.payment_method,
-          discount_prompt_payment: current_customer.discount_prompt_payment,
-          discount_customer: current_customer.discount_document,
-          total: 0,
-
-          // Number of customers related with ticket
-          diners: current_customer.diners,
-
-          // pending, paid_check, paid
-          state: 'pending',
-
-          // CSV sample: id_document,descripcio_article,grup,element,quantitat,numero_serie,lot,caducitat,preu,descompte,tipo_article,preu_fixe,referencia_article,referencia_client,formato,iva,ordre_entrada,recarrec,fecha,usuari,venedor,compta
-          lines: [],
-
-          // CSV Sample: codi,codi_factura,empresa,import,fecha,venciment,client,cobrat,fecha_cobro,codi_compte_ingres,modalitat_cobro,numero_efecte,usuari,tancat,caixa,id_torn
-          receipt: [],
-
-          create_date: new Date('now'),
-          update_date: new Date('now'),
-        })
-      } else {
-        // Reset pipe to others components when current ticket it's set
-        currentTicketId = this.current_ticket.id
-        this.$store.state.ticket.current_ticket = 0
-      }
-
-      this.$nextTick(() => {
-        // It's reset pipe to update all components with current ticket dependency
-        this.$store.state.ticket.current_ticket = currentTicketId
-        if (! this.current_ticket) {
-          return false
-        }
-
-        let currentTicketLineId = 1
-        if (this.current_ticket.lines[this.current_ticket.lines.length - 1]) {
-          currentTicketLineId = parseInt(this.current_ticket.lines[this.current_ticket.lines.length - 1].id_ticket_line) + 1
-        }
-
-        // Set new current ticket line
-        this.current_ticket.lines.push({
-          id_ticket_line: currentTicketLineId,
-          id_attribute: null,
-          id_user: null,
-
-          // Used to determine with fields and how show
-          type: null,
-
-          description: product.text_tpv,
-          quantity: this.$store.state.product.units,
-          serial_number: null, // Technological identifier
-          lot: null, // Nutrition identifier
-          expiration: null, // It's a informative date
-          cost: product.cost,
-          price: product.total,
-          iva: product.iva,
-          surcharge: null,
-          discount: current_customer.discount_product,
-
-          reference: product.reference,
-          reference_customer: null,
-
-          ticket_complements: [], // TODO
-
-          create_date: new Date('now'),
-          update_date: new Date('now'),
-        })
-
-        // Set current ticket total
-        this.current_ticket.total = this.totalTicketWithIva(this.current_ticket)
-
-        // Set current units to one
-        this.setUnits(1)
-
-        console.log(this.current_ticket)
-      })
-    },
-
-    ...mapActions('ticket', [
-      'addTicket',
-    ]),
-
-    ...mapActions('product', [
-      'setUnits',
-    ]),
   },
 }
 </script>
