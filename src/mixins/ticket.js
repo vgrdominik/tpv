@@ -5,10 +5,12 @@ export default {
         return {
             currentTicketLineToQuantityModify: 0,
             quantityModify: 0,
+            productToShow: null,
         }
     },
 
     computed: {
+
         current_ticket () {
             if (this.$store.state.ticket.current_ticket === 0) {
                 return null
@@ -40,6 +42,15 @@ export default {
     },
 
     methods: {
+        addOrShowProductToTicket(product = null, customerId = null) {
+            if (product.complement_show && product.complement_show !== "0") {
+                this.productToShow = product
+                return true
+            }
+
+            this.addProductToTicket(product, customerId)
+        },
+
         addProductToTicket(product = null, customerId = null) {
             // Define current customer
             let current_customer = this.current_customer
@@ -142,8 +153,6 @@ export default {
 
                 // Set current units to one
                 this.setUnits(1)
-
-                console.log(this.current_ticket)
             })
         },
 

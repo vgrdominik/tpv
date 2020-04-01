@@ -81,7 +81,7 @@
                       lg="2"
                       class="pt-3 pb-0"
               >
-                <v-card @click="addProductToTicket(item)" style="cursor: pointer">
+                <v-card @click="addOrShowProductToTicket(item)" style="cursor: pointer">
                   <v-row dense class="pt-4">
                     <v-spacer />
                     <v-avatar v-if="item.img" :width="$vuetify.breakpoint.smAndDown? 50 : '7vh'" :height="$vuetify.breakpoint.smAndDown? 50 : '7vh'">
@@ -107,6 +107,9 @@
         </v-data-iterator>
       </v-card-text>
     </CtCard>
+    <CtDialog v-model="productToShow" maxWidth="374" :type="stored_config.branding.style.card" fluid dense v-if="productToShow">
+      <Product :product="productToShow" />
+    </CtDialog>
   </v-content>
 </template>
 
@@ -114,10 +117,11 @@
 import UnitList from "./UnitList"
 import price from '../../mixins/price'
 import ticket from '../../mixins/ticket'
+import Product from "./Product"
 
 export default {
   name: "ProductList",
-  components: {UnitList},
+  components: {Product, UnitList},
   mixins: [price, ticket],
   data: () => {
     return {

@@ -238,7 +238,7 @@ export default {
 
   mounted() {
     //console.log(this.stored_config)
-    //console.log(JSON.stringify(this.stored_config))
+    // console.log(JSON.stringify(this.stored_config))
     // Get current config
     this.get_config_main_event = (event, configData) => {
       this.setConfig({ path: 'initialized', value: false })

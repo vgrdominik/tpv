@@ -210,6 +210,14 @@ export const state = () => ({
               type: 'string',
             },
             {
+              name: 'complement_unique',
+              type: 'boolean',
+            },
+            {
+              name: 'complement_show',
+              type: 'boolean',
+            },
+            {
               name: 'img',
               type: 'string',
             },
@@ -229,6 +237,8 @@ export const state = () => ({
             'Base',
             'PVP',
             'Referencia',
+            'Complemento unico',
+            'Mostrar complementos',
             'Imagen',
             'Texto boton TPV',
           ],
@@ -243,6 +253,8 @@ export const state = () => ({
             base: 'Base',
             total: 'PVP',
             reference: 'Referencia',
+            complement_unique: 'Complemento unico',
+            complement_show: 'Mostrar complementos',
             img: 'Imagen',
             text_tpv: 'Texto boton TPV',
           },

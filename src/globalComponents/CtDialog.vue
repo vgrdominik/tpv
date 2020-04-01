@@ -4,7 +4,7 @@
       <slot name="activator" v-on="on" />
     </template>
     <v-card v-if="type !== 'empty'" :shaped="type === 'shaped'">
-      <v-toolbar flat :dense="dense" :color="titleColor">
+      <v-toolbar flat :dense="dense" :color="titleColor" v-if="title">
         <slot name="leftTitleContent" />
 
         <v-spacer />

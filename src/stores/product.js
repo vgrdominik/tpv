@@ -13,6 +13,8 @@ export const state = () => ({
       base: null,
       total: null,
       reference: null,
+      complement_unique: null,
+      complement_show: null,
       img: null,
       text_tpv: null,
     },
