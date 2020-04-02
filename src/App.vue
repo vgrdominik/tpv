@@ -267,6 +267,7 @@ export default {
 
       // Set transformed content to use globally
       if (domain === 'product') {
+        contentTransformed = this.domainRowProductTransformerToAppStructure(contentTransformed)
         this.setProducts(contentTransformed)
       }
       if (domain === 'family') {
@@ -305,6 +306,8 @@ export default {
     ipcRenderer.on('get_content', this.get_content_main_event)
     ipcRenderer.send('get_config')
 
+    setTimeout(() => this.update_time_to_sync(), 1000)
+
     // In development mode
     document.addEventListener("keydown", function (e) {
       if (e.which === 123) {
@@ -323,6 +326,17 @@ export default {
   },
 
   methods: {
+    update_time_to_sync() {
+      if (this.$store.state.global.time_to_sync <= 0) {
+        // this.synchronization() TODO
+        this.setTimeToSync(this.$store.state.global.default_time_to_sync)
+      } else {
+        this.setTimeToSync(this.$store.state.global.time_to_sync - 1000)
+      }
+
+      setTimeout(() => this.update_time_to_sync(), 1000)
+    },
+
     exit() {
       remote.getCurrentWindow().close()
     },
@@ -379,6 +393,20 @@ export default {
       }
 
       return normalizedContentTransformed
+    },
+
+    domainRowProductTransformerToAppStructure(contentPreTransformed) {
+      let contentTransformed = []
+
+      for (let i = 0; i < contentPreTransformed.length; i++) {
+        if (contentPreTransformed[i].complement_ids_available) {
+          contentPreTransformed[i].complement_ids_available = contentPreTransformed[i].complement_ids_available.split(',')
+        }
+
+        contentTransformed.push(contentPreTransformed[i])
+      }
+
+      return contentTransformed
     },
 
     domainRowTicketTransformerToAppStructure(contentPreTransformed) {
@@ -534,6 +562,7 @@ export default {
     ...mapActions('global', [
       'setConfig',
       'setConfigComplete',
+      'setTimeToSync',
     ]),
 
     ...mapActions('ticket', [

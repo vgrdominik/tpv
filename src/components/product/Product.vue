@@ -1,71 +1,79 @@
 <template>
   <!-- PRODUCT CARD -->
-  <v-card
-          :loading="loading"
-          class="mx-auto my-12"
-          max-width="374"
+  <v-row
+          dense
+          v-if="! loading"
+          class="mx-auto my-1"
   >
-    <v-img
-            height="250"
-            :src="require('../../assets/product/barRestaurant/' + product.img)"
-    ></v-img>
-
-    <v-card-title v-html="product.name" />
-
-    <v-card-text>
-      <v-row
-              align="center"
-              class="mx-0"
-      >
-        <v-rating
-                :value="4.5"
-                color="amber"
-                dense
-                half-increments
-                readonly
-                size="14"
-        ></v-rating>
-
-        <div class="grey--text ml-4">4.5 (413)</div>
+    <v-col cols="4">
+      <v-img
+        v-if="productImg"
+        :src="productImg"
+        @error="productImg = $global_utilities.default_img()"
+        width="100"
+        height="100" />
+    </v-col>
+    <v-col cols="8">
+      <v-row dense>
+        <v-col cols="6">
+          <v-rating
+            :value="4.5"
+            color="amber"
+            dense
+            half-increments
+            readonly
+            size="14" />
+        </v-col>
+        <v-col cols="6">
+          <div class="grey--text ml-4">4.5 (413)</div>
+        </v-col>
+        <v-col cols="12">
+          <div class="my-4 subtitle-1">
+            {{ totalPriceWithIva(product.total, product.iva) }} • Referencia: {{ product.reference }}
+          </div>
+        </v-col>
       </v-row>
+    </v-col>
 
-      <div class="my-4 subtitle-1">
-        {{ price(product.total) }} • Italian, Cafe
-      </div>
-
-      <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+    <v-card-text v-if="product.name">
+      <div v-html="product.name" />
     </v-card-text>
 
-    <v-divider class="mx-4"></v-divider>
+    <v-col cols="12">
+      <v-divider class="mx-4" />
+    </v-col>
 
-    <v-card-title>Tonight's availability</v-card-title>
+    <v-col cols="12" v-if="selectionComplements">
+      <v-row
+              dense
+              v-for="(productComplements, group) in current_product_to_show_complements_by_group"
+              :key="'group' + group">
 
-    <v-card-text>
-      <v-chip-group
-              v-model="selection"
-              active-class="deep-purple accent-4 white--text"
-              column
-      >
-        <v-chip>5:30PM</v-chip>
+        <v-card-title v-html="group" />
 
-        <v-chip>7:30PM</v-chip>
+        <v-card-text>
+          <v-chip-group
+                  v-model="selectionComplements[group]"
+                  active-class="primary accent-4 white--text"
+                  column
+          >
+            <v-chip
+                    v-for="productComplement in productComplements"
+                    :key="'complement' + productComplement"
+                    v-html="productComplement.complement_text_tpv + ((productComplement.complement_price) ? ' - ' + totalPriceWithIva(productComplement.complement_price, productComplement.iva) : '')" />
+          </v-chip-group>
+        </v-card-text>
+      </v-row>
+    </v-col>
 
-        <v-chip>8:00PM</v-chip>
-
-        <v-chip>9:00PM</v-chip>
-      </v-chip-group>
-    </v-card-text>
-
-    <v-card-actions>
-      <v-btn
-              color="deep-purple lighten-2"
-              text
-              @click="addProductToTicket(product)"
-      >
-        Añadir
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+    <v-btn
+            color="deep-purple lighten-2"
+            text
+            @click="addProductToTicket(product, null, selectionComplements)"
+    >
+      Añadir
+    </v-btn>
+  </v-row>
 </template>
 
 <script type="application/javascript">
@@ -86,7 +94,8 @@ export default {
   data: () => {
     return {
       loading: false,
-      selection: null,
+      selectionComplements: {},
+      productImg: null,
     }
   },
 
@@ -96,13 +105,10 @@ export default {
     },
   },
 
-  watch: {
-  },
-
   mounted() {
-  },
+    this.current_product_to_show_complements_groups.forEach(group => this.selectionComplements[group] = null)
 
-  methods: {
+    this.productImg = this.$global_utilities.require_img_product(this.product.img)
   },
 }
 </script>

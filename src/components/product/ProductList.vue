@@ -86,7 +86,8 @@
                     <v-spacer />
                     <v-avatar v-if="item.img" :width="$vuetify.breakpoint.smAndDown? 50 : '7vh'" :height="$vuetify.breakpoint.smAndDown? 50 : '7vh'">
                       <v-img
-                              :src="require('../../assets/product/barRestaurant/' + item.img)"
+                              :src="productImg['product' + item.id]"
+                              v-on:error="productImg['product' + item.id] = $global_utilities.default_img()"
                               class="my-3"
                       />
                     </v-avatar>
@@ -107,8 +108,8 @@
         </v-data-iterator>
       </v-card-text>
     </CtCard>
-    <CtDialog v-model="productToShow" maxWidth="374" :type="stored_config.branding.style.card" fluid dense v-if="productToShow">
-      <Product :product="productToShow" />
+    <CtDialog v-model="current_product_to_show" maxWidth="374" :type="stored_config.branding.style.card" :title="current_product_to_show.text_tpv" fluid dense v-if="current_product_to_show" @click:outside="$store.state.product.product_to_show = null">
+      <Product :product="current_product_to_show" />
     </CtDialog>
   </v-content>
 </template>
@@ -130,6 +131,7 @@ export default {
       sortDesc: false,
       page: 1,
       sortBy: 'text_tpv',
+      productImg: {},
     }
   },
 
@@ -171,6 +173,11 @@ export default {
   watch: {
     currentFamily() {
       this.page = 1
+    },
+    products(newValue) {
+      if (newValue && newValue.length > 0) {
+        newValue.forEach(product => this.productImg['product' + product.id] = this.$global_utilities.require_img_product(product.img))
+      }
     },
   },
 

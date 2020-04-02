@@ -111,6 +111,25 @@
                   <CtBtn type="icon" :icon="['fas', 'times']" color="error" @click="lineRemove(item)" />
                 </td>
               </tr>
+              <template v-if="item.ticket_complements">
+                <tr v-for="ticketComplement in item.ticket_complements" :key="'ticketComplement' + ticketComplement.id_complement">
+                  <td>
+                    <v-checkbox v-model="ticketLinesChecked['ticketLine' + ticketComplement.id_ticket_line + '-' + ticketComplement.id_complement]" class="pa-0" height="0" v-if="item.id_ticket_line && ticketComplement.id_complement" />
+                  </td>
+                  <td class="pr-0 pl-0 text-center">
+                    <v-btn icon color="primary" @click="currentTicketLineToQuantityModify = item.id_ticket_line + '-' + ticketComplement.id_complement" v-if="! current_ticket.state">
+                      <span v-html="ticketComplement.quantity.toString()" />
+                    </v-btn>
+                    <span v-html="ticketComplement.quantity.toString()" v-else />
+                  </td>
+                  <td v-html="'- ' + ticketComplement.description" class="pr-0 pl-0 text-center" />
+                  <td v-html="ticketComplement.price ? linePrice(ticketComplement) : '-'" class="pr-0 pl-0 text-center" />
+                  <td v-html="ticketComplement.price && ticketComplement.quantity ? lineTotal(ticketComplement) : '-'" class="pr-0 pl-0 text-center" />
+                  <td class="pl-0 pr-0 text-center" v-if="! current_ticket.state">
+                    <CtBtn type="icon" :icon="['fas', 'times']" color="error" @click="lineRemove(ticketComplement)" />
+                  </td>
+                </tr>
+              </template>
             </template>
           </v-data-table>
           <CtDialog v-model="currentTicketLineToQuantityModify" maxWidth="500" :type="stored_config.branding.style.card" fluid :title="'Modificar cantidad de ' + current_ticket_line.description" dense v-if="currentTicketLineToQuantityModify">
@@ -249,14 +268,31 @@ export default {
 
       for(let i = 0; i < this.current_ticket.lines.length; i++) {
         this.ticketLinesChecked['ticketLine' + this.current_ticket.lines[i].id_ticket_line] = checkTo
+        if (this.current_ticket.lines[i].ticket_complements) {
+          this.current_ticket.lines[i].ticket_complements.forEach(ticketComplement => {
+            this.ticketLinesChecked['ticketLine' + this.current_ticket.lines[i].id_ticket_line + '-' + ticketComplement.id_complement] = checkTo
+          })
+        }
       }
     },
 
     currentTicketLineToQuantityModify(newValue) {
-      console.log(this.current_ticket)
-      let current_ticket_line = this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line === newValue)[0]
-      if (current_ticket_line) {
-        this.quantityModify = current_ticket_line.quantity
+      let ticketLineOrTicketLineComplement = newValue.toString().split('-')
+      if (ticketLineOrTicketLineComplement.length === 1) {
+        // It's a product
+        let current_ticket_line = this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line === newValue)[0]
+        if (current_ticket_line) {
+          this.quantityModify = current_ticket_line.quantity
+        }
+      } else {
+        // It's a complement
+        let current_ticket_line = this.current_ticket.lines.filter(ticketLine => parseInt(ticketLine.id_ticket_line) === parseInt(ticketLineOrTicketLineComplement[0]))[0]
+        if (current_ticket_line) {
+          let current_ticket_line_complement = current_ticket_line.ticket_complements.filter(ticketLineComplement => parseInt(ticketLineComplement.id_complement) === parseInt(ticketLineOrTicketLineComplement[1]))[0]
+          if (current_ticket_line_complement) {
+            this.quantityModify = current_ticket_line_complement.quantity
+          }
+        }
       }
     },
 
@@ -265,10 +301,24 @@ export default {
         this.quantityModify = parseFloat(this.quantityModify)
       }
       if(newValue !== oldValue && oldValue) {
-        let current_ticket_line = this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line === this.currentTicketLineToQuantityModify)[0]
-        if (current_ticket_line) {
-          current_ticket_line.quantity = this.quantityModify
-          this.$forceUpdate()
+        let ticketLineOrTicketLineComplement = this.currentTicketLineToQuantityModify.toString().split('-')
+        if (ticketLineOrTicketLineComplement.length === 1) {
+          // It's a product
+          let current_ticket_line = this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line === this.currentTicketLineToQuantityModify)[0]
+          if (current_ticket_line) {
+            current_ticket_line.quantity = this.quantityModify
+            this.$forceUpdate()
+          }
+        } else {
+          // It's a complement
+          let current_ticket_line = this.current_ticket.lines.filter(ticketLine => parseInt(ticketLine.id_ticket_line) === parseInt(ticketLineOrTicketLineComplement[0]))[0]
+          if (current_ticket_line) {
+            let current_ticket_line_complement = current_ticket_line.ticket_complements.filter(ticketLineComplement => parseInt(ticketLineComplement.id_complement) === parseInt(ticketLineOrTicketLineComplement[1]))[0]
+            if (current_ticket_line_complement) {
+              current_ticket_line_complement.quantity = this.quantityModify
+              this.$forceUpdate()
+            }
+          }
         }
       }
     },
@@ -334,8 +384,14 @@ export default {
     lineTotal(ticketLine) {
       return this.price(this.totalWithIva(ticketLine.price, ticketLine.iva) * ticketLine.quantity)
     },
-    lineRemove(ticketLineToRemove) {
-      this.current_ticket.lines = this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line !== ticketLineToRemove.id_ticket_line)
+    lineRemove(ticketLineOrComplementToRemove) {
+      if (ticketLineOrComplementToRemove.id_complement === undefined) {
+        // It's a product
+        this.current_ticket.lines = this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line !== ticketLineOrComplementToRemove.id_ticket_line)
+      } else {
+        // It's a complement
+        this.current_ticket.lines.filter(ticket_line => ticket_line.id_ticket_line === ticketLineOrComplementToRemove.id_ticket_line)[0].ticket_complements = this.current_ticket.lines.filter(ticket_line => ticket_line.id_ticket_line === ticketLineOrComplementToRemove.id_ticket_line)[0].ticket_complements.filter(ticket_complement => ticket_complement.id_complement !== ticketLineOrComplementToRemove.id_complement)
+      }
 
       this.current_ticket.total = this.totalTicketWithIva(this.current_ticket)
 

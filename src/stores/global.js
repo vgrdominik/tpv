@@ -1,6 +1,11 @@
 export const state = () => ({
   is_container_needed: '',
   date_format: new Intl.DateTimeFormat('en', { year: 'numeric', month: '2-digit', day: '2-digit' }),
+
+  // miliseconds
+  time_to_sync: 8000,
+  default_time_to_sync: 8000,
+
   config: {
     initialized: false,
 
@@ -218,6 +223,30 @@ export const state = () => ({
               type: 'boolean',
             },
             {
+              name: 'complement_ids_available',
+              type: 'string',
+            },
+            {
+              name: 'complement_price',
+              type: 'float',
+            },
+            {
+              name: 'complement_text_tpv',
+              type: 'string',
+            },
+            {
+              name: 'complement_taxonomy',
+              type: 'string',
+            },
+            {
+              name: 'complement_enabled',
+              type: 'boolean',
+            },
+            {
+              name: 'enabled',
+              type: 'boolean',
+            },
+            {
               name: 'img',
               type: 'string',
             },
@@ -254,7 +283,12 @@ export const state = () => ({
             total: 'PVP',
             reference: 'Referencia',
             complement_unique: 'Complemento unico',
-            complement_show: 'Mostrar complementos',
+            complement_ids_available: null,
+            complement_price: null,
+            complement_text_tpv: null,
+            complement_taxonomy: null,
+            complement_enabled: null,
+            enabled: null,
             img: 'Imagen',
             text_tpv: 'Texto boton TPV',
           },
@@ -871,6 +905,9 @@ export const actions = {
   setConfigComplete(state, payload) {
     state.commit('updateConfigComplete', payload)
   },
+  setTimeToSync(state, payload) {
+    state.commit('updateTimeToSync', payload)
+  },
 }
 
 export const mutations = {
@@ -879,6 +916,9 @@ export const mutations = {
   },
   updateConfigComplete (state, config) {
     state.config = config
+  },
+  updateTimeToSync (state, time_to_sync) {
+    state.time_to_sync = time_to_sync
   },
 
   updateConfigValue (state, { path, value }) {

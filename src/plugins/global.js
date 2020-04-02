@@ -19,3 +19,15 @@ requireComponent.keys().forEach((fileName) => {
 
   Vue.component(componentName, componentConfig.default || componentConfig)
 })
+
+Vue.prototype.$global_utilities = {
+  default_img: () => {
+    return '/img/logo/logo_150_150.png'
+  },
+  require_img: (image_path) => {
+    return '/img/' + image_path
+  },
+  require_img_product: (image_path) => {
+    return `/img/product/barRestaurant/${image_path}`
+  },
+}

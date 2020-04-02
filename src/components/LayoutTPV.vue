@@ -18,7 +18,7 @@
           <v-row dense>
             <v-spacer />
             <v-img
-                    :src="require('../assets/distribution1-2x2.svg')"
+                    :src="$global_utilities.require_img('distribution1-2x2.svg')"
                     class="my-3"
                     contain
                     width="220"
@@ -40,7 +40,7 @@
           <v-row dense>
             <v-spacer />
             <v-img
-                    :src="require('../assets/distribution1-1-1.svg')"
+                    :src="$global_utilities.require_img('distribution1-1-1.svg')"
                     class="my-3"
                     contain
                     width="220"
@@ -60,7 +60,7 @@
           <v-row dense>
             <v-spacer />
             <v-img
-                    :src="require('../assets/distribution1-1x2.svg')"
+                    :src="$global_utilities.require_img('distribution1-1x2.svg')"
                     class="my-3"
                     contain
                     width="220"
@@ -80,7 +80,7 @@
           <v-row dense>
             <v-spacer />
             <v-img
-                    :src="require('../assets/distribution1-2-1.svg')"
+                    :src="$global_utilities.require_img('distribution1-2-1.svg')"
                     class="my-3"
                     contain
                     width="220"
@@ -102,7 +102,7 @@
           <v-row dense>
             <v-spacer />
             <v-img
-                    :src="require('../assets/distribution1-3-1.svg')"
+                    :src="$global_utilities.require_img('distribution1-3-1.svg')"
                     class="my-3"
                     contain
                     width="220"
@@ -122,7 +122,7 @@
           <v-row dense>
             <v-spacer />
             <v-img
-                    :src="require('../assets/distribution1-3x2.svg')"
+                    :src="$global_utilities.require_img('distribution1-3x2.svg')"
                     class="my-3"
                     contain
                     width="220"
@@ -142,7 +142,7 @@
           <v-row dense>
             <v-spacer />
             <v-img
-                    :src="require('../assets/distribution1x2-1.svg')"
+                    :src="$global_utilities.require_img('distribution1x2-1.svg')"
                     class="my-3"
                     contain
                     width="220"
@@ -164,7 +164,7 @@
           <v-row dense>
             <v-spacer />
             <v-img
-                    :src="require('../assets/distribution2x2-1.svg')"
+                    :src="$global_utilities.require_img('distribution2x2-1.svg')"
                     class="my-3"
                     contain
                     width="220"
@@ -184,7 +184,7 @@
           <v-row dense>
             <v-spacer />
             <v-img
-                    :src="require('../assets/distribution3x2-1.svg')"
+                    :src="$global_utilities.require_img('distribution3x2-1.svg')"
                     class="my-3"
                     contain
                     width="220"

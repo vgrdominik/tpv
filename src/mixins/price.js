@@ -10,6 +10,9 @@ export default {
                 if (ticket.lines[i].price) {
                     total += this.totalWithIva(ticket.lines[i].price, ticket.lines[i].iva) * ticket.lines[i].quantity
                 }
+                if (ticket.lines[i].ticket_complements && ticket.lines[i].ticket_complements.length > 0) {
+                    ticket.lines[i].ticket_complements.forEach(ticketComplement => total += this.totalWithIva(ticketComplement.price, ticket.lines[i].iva) * ticketComplement.quantity)
+                }
             }
             return total
         },

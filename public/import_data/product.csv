@@ -1,119 +1,119 @@
-Codigo,Descripcion,Coste,Incremento,Base,PVP,IVA,Referencia,Imagen,Texto boton TPV,Tamaño texto,Codigo familia,Complemento unico,Mostrar complementos,Enviar a
-4,COCA COLA,"1,72727","0,00016","1,7272727636","1,90",10,1004,Refrescos/coca_cola.png,COCA COLA,10,1,0,0,1
-6,BOCK DAMM,"1,90909",0,"1,90909","2,10",10,1006,Cervezas/bock_damm.png,BOCK DAMM,10,1,0,0,1
-8,NESTEA,"1,95455",0,"1,95455","2,15",10,1008,Refrescos/nestea.png,NESTEA,10,1,0,0,1
-14,Aigua,1,"13,63636","1,1363636","1,25",10,1014,Refrescos/viladrau.png,Aigua,12,1,0,0,1
-19,CANYA,"1,36364",0,"1,36364","1,50",10,1019,Cervezas/cana.png,CANYA,10,1,0,0,1
-20,COPA CERVESA,"1,59091","-0,00006","1,5909090455","1,75",10,1020,Cervezas/copa_cerveza.png,COPA CERVESA,10,1,0,0,1
-21,JERRA CERVESA 1/2,"2,72727",0,"2,72727","3,00",10,1021,Cervezas/jarra.png,JERRA CERVESA 1/2,10,1,0,0,1
-22,HEINEKEN,"1,5",0,"1,5","1,65",10,1022,Cervezas/heineken.png,HEINEKEN,10,1,0,0,1
-25,VOLL-DAMM,"1,90909",0,"1,90909","2,10",10,1025,Cervezas/voll_damm.png,VOLL-DAMM,10,1,0,0,1
-32,GUINEU,"3,09091",0,"3,09091","3,40",10,1032,Cervezas/guineu.png,GUINEU,10,1,0,0,1
-47,"VETERANO, SOBERANO",2,0,2,"2,20",10,2002,Licores/veterano.png,VETERANO,10,2,0,0,1
-49,MAGNO,"2,13636",0,"2,13636","2,35",10,2004,Licores/magno.png,MAGNO,10,2,0,0,1
-51,JACK DANIELS,"1,5",0,"1,5","1,65",10,2006,Licores/jack_daniels.png,JACK DANIELS,10,2,1,1,1
-52,CARDHU,"1,5",0,"1,5","1,65",10,2007,Licores/cardhu.png,CARDHU,10,2,1,1,1
-53,MACCALAN,"5,63636",0,"5,63636","6,20",10,2008,Licores/macallan.png,MACCALAN,10,2,0,0,1
-54,BEEFEATER,"2,68182",0,"2,68182","2,95",10,2009,Licores/beefeater.png,BEEFEATER,10,2,0,0,1
-55,GORDONS,"2,68182",0,"2,68182","2,95",10,2010,Licores/gordons.png,GORDONS,10,2,0,0,1
-56,HABANA,"2,68182",0,"2,68182","2,95",10,2011,Licores/havanna_club.png,HABANA,10,2,0,0,1
-60,HABANA 7,"2,77273","0,14893","2,7768594268","3,36",21,2015,Licores/havanna_club_7.png,HABANA 7,10,2,0,0,1
-61,BOMBAY SAFFHIRE,3,0,3,"3,30",10,2016,Licores/bombay.png,BOMBAY SAFFHIRE,10,2,0,0,1
-75,SMIRNOFF,"2,68182",0,"2,68182","2,95",10,2033,Licores/smirnoff.png,SMIRNOFF,10,2,0,0,1
-76,TORRES 5,"2,13636",0,"2,13636","2,35",10,2034,Licores/torres_5.png,TORRES 5,10,2,0,0,1
-77,MONO ANIS,"2,13636",0,"2,13636","2,35",10,2035,Licores/mono.png,MONO ANIS,10,2,0,0,1
-78,BAILEYS,"2,68182",0,"2,68182","2,95",10,2036,Licores/baileys.png,BAILEYS,10,2,0,0,1
-79,MARIE BRIZARD,"2,13636",0,"2,13636","2,35",10,2037,Licores/marie_brizard.png,MARIE BRIZARD,10,2,0,0,1
-80,MASCARO,"2,36364",0,"2,36364","2,60",10,2038,Licores/mascaro.png,MASCARO,10,2,0,0,1
-81,BALLANTINES,"2,68182",0,"2,68182","2,95",10,2039,Licores/ballantines.png,BALLANTINES,10,2,0,0,1
-82,PATXARAN,"1,63636",0,"1,63636","1,80",10,2040,Licores/zoco.png,PATXARAN,10,2,0,0,1
-83,WHISKY PECHE,"1,77273",0,"1,77273","1,95",10,2041,Licores/whisky_peach.png,WHISKY PECHE,10,2,0,0,1
-84,GRAN PECHER,"1,77273",0,"1,77273","1,95",10,2042,Licores/gran_pecher.png,GRAN PECHER,10,2,0,0,1
-85,GRAN POMIER,"1,77273",0,"1,77273","1,95",10,2043,Licores/gran_pomier.png,GRAN POMIER,10,2,0,0,1
-86,10321,"1,5",0,"1,5","1,65",10,2044,Licores/103.png,103bb,12,2,1,1,0
-87,TERRY,2,0,2,"2,20",10,2045,Licores/terry.png,TERRY,10,2,0,0,1
-88,PUJOL,"2,13636",0,"2,13636","2,35",10,2046,Licores/pujol.png,PUJOL,10,2,0,0,1
-89,TORRES 10,"1,5",0,"1,5","1,65",10,2047,Licores/torres_10.png,TORRES 10,10,2,0,0,1
-90,CARLOS III,"1,81818",0,"1,81818","2,00",10,2048,Licores/carlos_III.png,CARLOS III,10,2,0,0,1
-91,BACARDI,"2,68182",0,"2,68182","2,95",10,2049,Licores/bacardi.png,BACARDI,10,2,0,0,1
-94,MOSCATELL,"1,68182",0,"1,68182","1,85",10,2053,Licores/moscatel.png,MOSCATELL,10,2,0,0,1
-95,JAMESON,"2,45455",0,"2,45455","2,70",10,2054,Licores/jameson.png,JAMESON,10,2,0,0,1
-97,GLEN GRANT,"2,45455",0,"2,45455","2,70",10,2056,Licores/glen_grant.png,GLEN GRANT,10,2,0,0,1
-98,FOUR ROSES,"2,63636",0,"2,63636","2,90",10,2057,Licores/four_roses.png,FOUR ROSES,10,2,0,0,1
-99,ABSOLUT,"1,5","3,33333","1,54999995","1,70",10,2058,Licores/absolut.png,ABSOLUT,10,2,1,1,1
-100,MOSKOSKAYA,"2,27273",0,"2,27273","2,50",10,2059,Licores/moskovskaya.png,MOSKOSKAYA,10,2,0,0,1
-101,LARIOS,"2,68182",0,"2,68182","2,95",10,2060,Licores/larios.png,LARIOS,10,2,0,0,1
-102,GIRO,"2,68182",0,"2,68182","2,95",10,2061,Licores/gin_giro.png,GIRO,10,2,0,0,1
-104,CACIQUE,"2,27273",0,"2,27273","2,50",10,2063,Licores/cacique.png,CACIQUE,10,2,0,0,1
-105,PONCHE,"1,68182",0,"1,68182","1,85",10,2064,Licores/ponche_caballero.png,PONCHE,10,2,0,0,1
-106,TEQUILA,"1,68182",0,"1,68182","1,85",10,2065,Licores/jose_cuervo_tequila.png,TEQUILA,10,2,0,0,1
-107,PIPERMINT,"1,68182",0,"1,68182","1,85",10,2066,Licores/peppermint.png,PIPERMINT,10,2,0,0,1
-109,LICOR 43,"2,45455",0,"2,45455","2,70",10,2068,Licores/licor_43.png,LICOR 43,10,2,0,0,1
-123,CAFE,"1,09091","4,16658","1,1363636379","1,25",10,3001,Cafes/cafe.png,CAFE,10,3,0,0,0
-124,CAFE LLET,"1,31818","3,44842","1,3636363828","1,50",10,3002,Cafes/cafe_con_leche.png,CAFE LLET,10,3,0,1,0
-125,TALLAT,"1,13636","0,00032","1,1363636364","1,25",10,3003,Cafes/cortado.png,TALLAT,10,3,0,0,0
-126,CARAJILLO,"1,81818",0,"1,81818","2,00",10,3004,Cafes/carajillo.png,CARAJILLO,10,3,0,0,0
-129,GOT DE LLET,"0,90909",0,"0,90909","1,00",10,3007,Cafes/vaso_leche.png,GOT DE LLET,10,3,0,0,0
-132,BOMBÓ,"1,18182","-0,00015","1,1818182273","1,30",10,3010,Cafes/bombon.png,BOMBÓ,10,3,0,0,0
-134,INFUSSIO,"1,45455",0,"1,45455","1,60",10,3012,Cafes/infusion.png,INFUSSIO DIS,10,3,0,0,0
-137,FRANKFURT,"2,59091","-0,00004","2,5909089636","2,85",10,4001,Bocadillos/frankfurt.png,FRANKFURT,10,4,0,0,12
-138,BACON,"2,59091","-0,00004","2,5909089636","2,85",10,4002,Bocadillos/bacon.png,BACON,10,4,0,0,12
-139,PAIS,"2,59091","-0,00004","2,5909089636","2,85",10,4003,Bocadillos/pais.png,PAIS,10,4,0,0,12
-140,XISTORRA,"2,54545",0,"2,54545","2,80",10,4004,Bocadillos/chorizo.png,XISTORRA,10,4,0,0,12
-143,HAMBURGUESA,"2,63636",0,"2,63636","2,90",10,4007,Bocadillos/hamburguesa_redonda.png,HAMBURGUESA,10,4,0,0,12
-146,BIKINI,"2,45455",0,"2,45455","2,70",10,4010,Bocadillos/biquini.png,BIKINI,10,4,0,0,12
-147,BIKINI SALAT,"2,59091",0,"2,59091","2,85",10,4011,Bocadillos/biquini.png,BIKINI SALAT,10,4,0,0,12
-148,BIKINI SOBRASSADA,"2,45455",0,"2,45455","2,70",10,4012,Bocadillos/sobrasada.png,BIKINI SOBRASSADA,10,4,0,0,12
-150,TRUITA,"2,86364",0,"2,86364","3,15",10,4014,Bocadillos/tortilla.png,B. TRUITA,10,4,0,0,12
-154,PERNIL,"3,27273",0,"3,27273","3,60",10,4018,Bocadillos/jamon.png,B. PERNIL,10,4,0,0,12
-155,B. POLLASTRE,"3,09091","30,88231","4,045454408","4,45",10,4019,Bocadillos/pollo.png,B. POLLASTRE,10,4,0,0,12
-158,B.LLONGANISSA,"3,27273",0,"3,27273","3,60",10,4022,Bocadillos/longaniza.png,B.LLONGANISSA,10,4,0,0,12
-159,B.TONYINA,"3,27273",0,"3,27273","3,60",10,4023,Bocadillos/atun.png,B.TONYINA,10,4,0,0,12
-168,PERNIL DOLÇ,"2,95455",0,"2,95455","3,25",10,4032,Bocadillos/jamon_dulce.png,B. PERNIL DOL,10,4,0,0,12
-170,FORMATGE,"2,72727",0,"2,72727","3,00",10,4034,Bocadillos/queso.png,FORMATGE,10,4,0,0,12
-180,CALAMARS,"3,09091",0,"3,09091","3,40",10,4044,Bocadillos/calamares.png,B. CALAMARS,10,4,0,0,12
-187,LLOM,"3,09091",0,"3,09091","3,40",10,4051,Bocadillos/llom.png,B LLOM,10,4,0,0,12
-188,BOTIFARRA,"3,09091",0,"3,09091","3,40",10,4052,Bocadillos/botifarra.png,B. BOTIFARRA,10,4,0,0,12
-292,AMANIDA TROPICAL,"5,95455","2,29","6,090909195","6,70",10,9011,../imatges_bases/demo/ensalada_tropical.png,AMANIDA TROPICAL,10,9,0,0,12
-294,AMANIDA PRIMAVERA,"6,31818","2,87773","6,5000001613","7,15",10,9013,../imatges_bases/demo/ensalada_primavera.png,AMANIDA PRIMAVERA,10,9,0,0,2
-320,FLAM,"1,36364","-0,00027","1,3636363182","1,50",10,11001,Postres/flan.png,FLAM,10,11,0,0,12
-324,CREP NATA I XOCOLATA,"3,13636",0,"3,13636","3,45",10,11005,Postres/crep_nata_chocolate.png,CREP NATA I XOCOLATA,10,11,0,0,12
-326,CAFE IRLANDES,"2,95455","6,15368","3,1363635524","3,45",10,11007,Postres/cafe_irlandes.png,CAFE IRLANDES,10,11,0,0,12
-328,MAGNUM,"1,63636",0,"1,63636","1,80",10,11009,Postres/magnum.png,MAGNUM,10,11,0,0,12
-334,CORNETTO,"2,04545",0,"2,04545","2,25",10,11015,Postres/corneto.png,CORNETTO,10,11,0,0,12
-339,MENU DIARI,"9,09091","-0,00001","9,0909090909","10,00",10,12001,Menus/menu_diari.png,MENU DIARI,10,12,0,1,12
-340,MENU DISSABTE,"10,90909",0,"10,90909","12,00",10,12002,Menus/menu_fin_de_semana.png,MENU DISSABTE,10,12,0,1,12
-463,MENU GRUPS,"13,63636",0,"13,63636","15,00",10,12127,Menus/menu_grupos.png,MENU GRUPS,10,12,0,1,12
-475,BRAVES,"2,54545",0,"2,54545","2,80",10,13001,Tapas/bravas.png,BRAVES,10,13,0,0,12
-477,XIPS,"1,22727",0,"1,22727","1,35",10,13003,Tapas/chips.png,XIPS,10,13,0,0,12
-478,TAPA XISTORRA,"3,63636",0,"3,63636","4,00",10,13004,,TAPA XISTORRA,10,13,0,0,12
-479,OLIVES,"1,81818",0,"1,81818","2,00",10,13005,Tapas/olivas_1.png,OLIVES,10,13,0,0,12
-480,BERBERETXOS,"4,77273",0,"4,77273","5,25",10,13006,Tapas/berberechos.png,BERBERETXOS,10,13,0,0,12
-481,OUS REMENATS+,"3,86364",0,"3,86364","4,25",10,13007,,OUS REMENATS+,10,13,0,0,12
-484,BUNYOLS,"2,72727",0,"2,72727","3,00",10,13010,Tapas/bonuelos.png,TAPA BUNYOLS,10,13,0,0,12
-485,PATATES,"2,54545",0,"2,54545","2,80",10,13011,Tapas/patates_1.png,PATATES,10,13,0,0,12
-487,MONGETES,"3,18182",0,"3,18182","3,50",10,13013,,TAPA MONGETES,10,13,0,0,12
-489,XAMPINYONS,"3,18182",0,"3,18182","3,50",10,13015,,TAPA XAMPINYONS,10,13,0,0,12
-491,CALAMARS ROMANA,"4,54545",0,"4,54545","5,00",10,13017,Tapas/calmares_romana.png,Tapa Calamars Romana,10,13,0,0,12
-492,TAPA XIPIRONS,"5,45455",0,"5,45455","6,00",10,13018,Tapas/chipirones.png,TAPA XIPIRONS,10,13,0,0,12
-494,TAPAS VARIS,"1,5",0,"1,5","1,65",10,13020,,TAPAS VARIS,10,13,0,0,12
-618,ESTRELLA,"1,77273","-0,00015","1,7727273409","1,95",10,,Cervezas/estrella.png,ESTRELLA,10,1,0,0,1
-619,SAN MIGUEL,"1,95",0,"1,95","1,95",0,,Cervezas/sanmiguel.png,SAN MIGUEL,10,1,0,0,1
-620,CACAOLAT,"1,5",0,"1,5","1,65",10,,Cafes/cacaolat.png,CACAOLAT,10,3,0,0,0
-621,COLACAO,"1,5",0,"1,5","1,65",10,,Cafes/colacao.png,COLACAO,10,3,0,0,0
-624,103,"1,5",0,"1,5","1,65",10,,,103,10,2,0,0,0
-625,CHIVAS,"54,54545",0,"54,54545","60,00",10,,../imatges_bases/demo/Chivas.png,CHIVAS,12,2,0,0,0
-626,ENTRADA,"-7,27273",0,"-7,27273","-8,00",10,,../imatges_bases/demo/entrada_1.png,ENTRADA,10,14,0,0,0
-627,MARGE ENTRADA,"1,5",0,"1,5","1,65",10,,../imatges_bases/demo/marge_entrada.png,MARGE ENTRADA,10,14,0,0,0
-628,Consumició Anna,"1,5",0,"1,5","1,65",10,,../imatges_bases/demo/actress-1299250_960_720.png,ANNA,10,14,0,0,0
-629,Consumició Joan,"1,5",0,"1,5","1,50",0,,../imatges_bases/demo/people-33022_960_720.png,JOAN,10,14,0,0,0
-631,Barril,"1,5",0,"1,5","1,65",10,,Cervezas/jarra.png,Barril,10,1,0,0,1
-632,Wrap,1,"354,54545","4,5454545","5,00",10,,Bocadillos/vegetal.png,WRAP,10,4,0,0,12
-633,Recarrec per reciclatge envàs,"0,1",0,"0,1","0,11",10,,,Reciclatge envàs,8,1,0,0,1
-635,rosas,"1,5",0,"1,5","1,65",10,,Cavas/juve_camps.png,,8,0,0,0,0
-636,Kebab qui ti pasa,"1,5",-100,0,"0,00",10,Marroc,Bocadillos/llom.png,Kebab normal,8,4,0,0,0
-637,Hores de consultoria,0,0,0,"0,00",21,,,Hores de consultoria,8,15,1,1,0
-638,Desayuno PACK,"0,01","27172,72727","2,727272727","3,00",10,,,Desayuno PACK,8,4,0,0,0
-656,Article amb complement únic,0,0,0,"0,00",10,,,Article amb complement únic,8,2,0,0,0
-662,ENSALADA VEGETAL,"6,81818",0,"6,81818","7,50",10,,../imatges_bases/demo/amanida_tropical.jpg,ENSALADA VEGETAL,10,9,0,0,2
-663,ENSALADA MIXTA,"6,59091",0,"6,59091","7,25",10,,../imatges_bases/demo/ensalada_primavera.png,ENSALADA MIXTA,10,9,0,0,2
+Codigo,Descripcion,Coste,Incremento,Base,PVP,IVA,Referencia,Imagen,Texto boton TPV,Tamaño texto,Codigo familia,Complemento unico,Mostrar complementos,Enviar a,complement_ids_available,complement_price,complement_text_tpv,complement_taxonomy,complement_enabled
+4,COCA COLA,"1,72727","0,00016","1,7272727636","1,90",10,1004,Refrescos/coca_cola.png,COCA COLA,10,1,0,0,1,,,,,
+6,BOCK DAMM,"1,90909",0,"1,90909","2,10",10,1006,Cervezas/bock_damm.png,BOCK DAMM,10,1,0,0,1,,,,
+8,NESTEA,"1,95455",0,"1,95455","2,15",10,1008,Refrescos/nestea.png,NESTEA,10,1,0,0,1,,,,
+14,Aigua,1,"13,63636","1,1363636","1,25",10,1014,Refrescos/viladrau.png,Aigua,12,1,0,0,1,,,,
+19,CANYA,"1,36364",0,"1,36364","1,50",10,1019,Cervezas/cana.png,CANYA,10,1,0,0,1,,,,
+20,COPA CERVESA,"1,59091","-0,00006","1,5909090455","1,75",10,1020,Cervezas/copa_cerveza.png,COPA CERVESA,10,1,0,0,1,,,,
+21,JERRA CERVESA 1/2,"2,72727",0,"2,72727","3,00",10,1021,Cervezas/jarra.png,JERRA CERVESA 1/2,10,1,0,0,1,,,,
+22,HEINEKEN,"1,5",0,"1,5","1,65",10,1022,Cervezas/heineken.png,HEINEKEN,10,1,0,0,1,,,,
+25,VOLL-DAMM,"1,90909",0,"1,90909","2,10",10,1025,Cervezas/voll_damm.png,VOLL-DAMM,10,1,0,0,1,,,,
+32,GUINEU,"3,09091",0,"3,09091","3,40",10,1032,Cervezas/guineu.png,GUINEU,10,1,0,0,1,,,,
+47,"VETERANO, SOBERANO",2,0,2,"2,20",10,2002,Licores/veterano.png,VETERANO,10,2,0,0,1,,,,
+49,MAGNO,"2,13636",0,"2,13636","2,35",10,2004,Licores/magno.png,MAGNO,10,2,0,0,1,,,,
+51,JACK DANIELS,"1,5",0,"1,5","1,65",10,2006,Licores/jack_daniels.png,JACK DANIELS,10,2,1,1,1,,,,
+52,CARDHU,"1,5",0,"1,5","1,65",10,2007,Licores/cardhu.png,CARDHU,10,2,1,1,1,,,,
+53,MACCALAN,"5,63636",0,"5,63636","6,20",10,2008,Licores/macallan.png,MACCALAN,10,2,0,0,1,,,,
+54,BEEFEATER,"2,68182",0,"2,68182","2,95",10,2009,Licores/beefeater.png,BEEFEATER,10,2,0,0,1,,,,
+55,GORDONS,"2,68182",0,"2,68182","2,95",10,2010,Licores/gordons.png,GORDONS,10,2,0,0,1,,,,
+56,HABANA,"2,68182",0,"2,68182","2,95",10,2011,Licores/havanna_club.png,HABANA,10,2,0,0,1,,,,
+60,HABANA 7,"2,77273","0,14893","2,7768594268","3,36",21,2015,Licores/havanna_club_7.png,HABANA 7,10,2,0,0,1,,,,
+61,BOMBAY SAFFHIRE,3,0,3,"3,30",10,2016,Licores/bombay.png,BOMBAY SAFFHIRE,10,2,0,0,1,,,,
+75,SMIRNOFF,"2,68182",0,"2,68182","2,95",10,2033,Licores/smirnoff.png,SMIRNOFF,10,2,0,0,1,,,,
+76,TORRES 5,"2,13636",0,"2,13636","2,35",10,2034,Licores/torres_5.png,TORRES 5,10,2,0,0,1,,,,
+77,MONO ANIS,"2,13636",0,"2,13636","2,35",10,2035,Licores/mono.png,MONO ANIS,10,2,0,0,1,,,,
+78,BAILEYS,"2,68182",0,"2,68182","2,95",10,2036,Licores/baileys.png,BAILEYS,10,2,0,0,1,,,,
+79,MARIE BRIZARD,"2,13636",0,"2,13636","2,35",10,2037,Licores/marie_brizard.png,MARIE BRIZARD,10,2,0,0,1,,,,
+80,MASCARO,"2,36364",0,"2,36364","2,60",10,2038,Licores/mascaro.png,MASCARO,10,2,0,0,1,,,,
+81,BALLANTINES,"2,68182",0,"2,68182","2,95",10,2039,Licores/ballantines.png,BALLANTINES,10,2,0,0,1,,,,
+82,PATXARAN,"1,63636",0,"1,63636","1,80",10,2040,Licores/zoco.png,PATXARAN,10,2,0,0,1,,,,
+83,WHISKY PECHE,"1,77273",0,"1,77273","1,95",10,2041,Licores/whisky_peach.png,WHISKY PECHE,10,2,0,0,1,,,,
+84,GRAN PECHER,"1,77273",0,"1,77273","1,95",10,2042,Licores/gran_pecher.png,GRAN PECHER,10,2,0,0,1,,,,
+85,GRAN POMIER,"1,77273",0,"1,77273","1,95",10,2043,Licores/gran_pomier.png,GRAN POMIER,10,2,0,0,1,,,,
+86,10321,"1,5",0,"1,5","1,65",10,2044,Licores/103.png,103bb,12,2,1,1,0,,,,
+87,TERRY,2,0,2,"2,20",10,2045,Licores/terry.png,TERRY,10,2,0,0,1,,,,
+88,PUJOL,"2,13636",0,"2,13636","2,35",10,2046,Licores/pujol.png,PUJOL,10,2,0,0,1,,,,
+89,TORRES 10,"1,5",0,"1,5","1,65",10,2047,Licores/torres_10.png,TORRES 10,10,2,0,0,1,,,,
+90,CARLOS III,"1,81818",0,"1,81818","2,00",10,2048,Licores/carlos_III.png,CARLOS III,10,2,0,0,1,,,,
+91,BACARDI,"2,68182",0,"2,68182","2,95",10,2049,Licores/bacardi.png,BACARDI,10,2,0,0,1,,,,
+94,MOSCATELL,"1,68182",0,"1,68182","1,85",10,2053,Licores/moscatel.png,MOSCATELL,10,2,0,0,1,,,,
+95,JAMESON,"2,45455",0,"2,45455","2,70",10,2054,Licores/jameson.png,JAMESON,10,2,0,0,1,,,,
+97,GLEN GRANT,"2,45455",0,"2,45455","2,70",10,2056,Licores/glen_grant.png,GLEN GRANT,10,2,0,0,1,,,,
+98,FOUR ROSES,"2,63636",0,"2,63636","2,90",10,2057,Licores/four_roses.png,FOUR ROSES,10,2,0,0,1,,,,
+99,ABSOLUT,"1,5","3,33333","1,54999995","1,70",10,2058,Licores/absolut.png,ABSOLUT,10,2,1,1,1,99,"30","Botella ABSOLUT","General",1
+100,MOSKOSKAYA,"2,27273",0,"2,27273","2,50",10,2059,Licores/moskovskaya.png,MOSKOSKAYA,10,2,0,0,1,,,,
+101,LARIOS,"2,68182",0,"2,68182","2,95",10,2060,Licores/larios.png,LARIOS,10,2,0,0,1,,,,
+102,GIRO,"2,68182",0,"2,68182","2,95",10,2061,Licores/gin_giro.png,GIRO,10,2,0,0,1,,,,
+104,CACIQUE,"2,27273",0,"2,27273","2,50",10,2063,Licores/cacique.png,CACIQUE,10,2,0,0,1,,,,
+105,PONCHE,"1,68182",0,"1,68182","1,85",10,2064,Licores/ponche_caballero.png,PONCHE,10,2,0,0,1,,,,
+106,TEQUILA,"1,68182",0,"1,68182","1,85",10,2065,Licores/jose_cuervo_tequila.png,TEQUILA,10,2,0,0,1,,,,
+107,PIPERMINT,"1,68182",0,"1,68182","1,85",10,2066,Licores/peppermint.png,PIPERMINT,10,2,0,0,1,,,,
+109,LICOR 43,"2,45455",0,"2,45455","2,70",10,2068,Licores/licor_43.png,LICOR 43,10,2,0,0,1,,,,
+123,CAFE,"1,09091","4,16658","1,1363636379","1,25",10,3001,Cafes/cafe.png,CAFE,10,3,0,0,0,,,,
+124,CAFE LLET,"1,31818","3,44842","1,3636363828","1,50",10,3002,Cafes/cafe_con_leche.png,CAFE LLET,10,3,0,1,0,,,,
+125,TALLAT,"1,13636","0,00032","1,1363636364","1,25",10,3003,Cafes/cortado.png,TALLAT,10,3,0,0,0,,,,
+126,CARAJILLO,"1,81818",0,"1,81818","2,00",10,3004,Cafes/carajillo.png,CARAJILLO,10,3,0,0,0,,,,
+129,GOT DE LLET,"0,90909",0,"0,90909","1,00",10,3007,Cafes/vaso_leche.png,GOT DE LLET,10,3,0,0,0,,,,
+132,BOMBÓ,"1,18182","-0,00015","1,1818182273","1,30",10,3010,Cafes/bombon.png,BOMBÓ,10,3,0,0,0,,,,
+134,INFUSSIO,"1,45455",0,"1,45455","1,60",10,3012,Cafes/infusion.png,INFUSSIO DIS,10,3,0,0,0,,,,
+137,FRANKFURT,"2,59091","-0,00004","2,5909089636","2,85",10,4001,Bocadillos/frankfurt.png,FRANKFURT,10,4,0,0,12,,,,
+138,BACON,"2,59091","-0,00004","2,5909089636","2,85",10,4002,Bocadillos/bacon.png,BACON,10,4,0,0,12,,,,
+139,PAIS,"2,59091","-0,00004","2,5909089636","2,85",10,4003,Bocadillos/pais.png,PAIS,10,4,0,0,12,,,,
+140,XISTORRA,"2,54545",0,"2,54545","2,80",10,4004,Bocadillos/chorizo.png,XISTORRA,10,4,0,0,12,,,,
+143,HAMBURGUESA,"2,63636",0,"2,63636","2,90",10,4007,Bocadillos/hamburguesa_redonda.png,HAMBURGUESA,10,4,0,0,12,,,,
+146,BIKINI,"2,45455",0,"2,45455","2,70",10,4010,Bocadillos/biquini.png,BIKINI,10,4,0,0,12,,,,
+147,BIKINI SALAT,"2,59091",0,"2,59091","2,85",10,4011,Bocadillos/biquini.png,BIKINI SALAT,10,4,0,0,12,,,,
+148,BIKINI SOBRASSADA,"2,45455",0,"2,45455","2,70",10,4012,Bocadillos/sobrasada.png,BIKINI SOBRASSADA,10,4,0,0,12,,,,
+150,TRUITA,"2,86364",0,"2,86364","3,15",10,4014,Bocadillos/tortilla.png,B. TRUITA,10,4,0,0,12,,,,
+154,PERNIL,"3,27273",0,"3,27273","3,60",10,4018,Bocadillos/jamon.png,B. PERNIL,10,4,0,0,12,,,,
+155,B. POLLASTRE,"3,09091","30,88231","4,045454408","4,45",10,4019,Bocadillos/pollo.png,B. POLLASTRE,10,4,0,0,12,,,,
+158,B.LLONGANISSA,"3,27273",0,"3,27273","3,60",10,4022,Bocadillos/longaniza.png,B.LLONGANISSA,10,4,0,0,12,,,,
+159,B.TONYINA,"3,27273",0,"3,27273","3,60",10,4023,Bocadillos/atun.png,B.TONYINA,10,4,0,0,12,,,,
+168,PERNIL DOLÇ,"2,95455",0,"2,95455","3,25",10,4032,Bocadillos/jamon_dulce.png,B. PERNIL DOL,10,4,0,0,12,,,,
+170,FORMATGE,"2,72727",0,"2,72727","3,00",10,4034,Bocadillos/queso.png,FORMATGE,10,4,0,0,12,,,,
+180,CALAMARS,"3,09091",0,"3,09091","3,40",10,4044,Bocadillos/calamares.png,B. CALAMARS,10,4,0,0,12,,,,
+187,LLOM,"3,09091",0,"3,09091","3,40",10,4051,Bocadillos/llom.png,B LLOM,10,4,0,0,12,,,,
+188,BOTIFARRA,"3,09091",0,"3,09091","3,40",10,4052,Bocadillos/botifarra.png,B. BOTIFARRA,10,4,0,0,12,,,,
+292,AMANIDA TROPICAL,"5,95455","2,29","6,090909195","6,70",10,9011,,AMANIDA TROPICAL,10,9,0,0,12,,,,
+294,AMANIDA PRIMAVERA,"6,31818","2,87773","6,5000001613","7,15",10,9013,,AMANIDA PRIMAVERA,10,9,0,0,2,,,,
+320,FLAM,"1,36364","-0,00027","1,3636363182","1,50",10,11001,Postres/flan.png,FLAM,10,11,0,0,12,,,,
+324,CREP NATA I XOCOLATA,"3,13636",0,"3,13636","3,45",10,11005,Postres/crep_nata_chocolate.png,CREP NATA I XOCOLATA,10,11,0,0,12,,,,
+326,CAFE IRLANDES,"2,95455","6,15368","3,1363635524","3,45",10,11007,Postres/cafe_irlandes.png,CAFE IRLANDES,10,11,0,0,12,,,,
+328,MAGNUM,"1,63636",0,"1,63636","1,80",10,11009,Postres/magnum.png,MAGNUM,10,11,0,0,12,,,,
+334,CORNETTO,"2,04545",0,"2,04545","2,25",10,11015,Postres/corneto.png,CORNETTO,10,11,0,0,12,,,,
+339,MENU DIARI,"9,09091","-0,00001","9,0909090909","10,00",10,12001,Menus/menu_diari.png,MENU DIARI,10,12,0,1,12,,,,
+340,MENU DISSABTE,"10,90909",0,"10,90909","12,00",10,12002,Menus/menu_fin_de_semana.png,MENU DISSABTE,10,12,0,1,12,,,,
+463,MENU GRUPS,"13,63636",0,"13,63636","15,00",10,12127,Menus/menu_grupos.png,MENU GRUPS,10,12,0,1,12,,,,
+475,BRAVES,"2,54545",0,"2,54545","2,80",10,13001,Tapas/bravas.png,BRAVES,10,13,0,0,12,,,,
+477,XIPS,"1,22727",0,"1,22727","1,35",10,13003,Tapas/chips.png,XIPS,10,13,0,0,12,,,,
+478,TAPA XISTORRA,"3,63636",0,"3,63636","4,00",10,13004,,TAPA XISTORRA,10,13,0,0,12,,,,
+479,OLIVES,"1,81818",0,"1,81818","2,00",10,13005,Tapas/olivas_1.png,OLIVES,10,13,0,0,12,,,,
+480,BERBERETXOS,"4,77273",0,"4,77273","5,25",10,13006,Tapas/berberechos.png,BERBERETXOS,10,13,0,0,12,,,,
+481,OUS REMENATS+,"3,86364",0,"3,86364","4,25",10,13007,,OUS REMENATS+,10,13,0,0,12,,,,
+484,BUNYOLS,"2,72727",0,"2,72727","3,00",10,13010,Tapas/bonuelos.png,TAPA BUNYOLS,10,13,0,0,12,,,,
+485,PATATES,"2,54545",0,"2,54545","2,80",10,13011,Tapas/patates_1.png,PATATES,10,13,0,0,12,,,,
+487,MONGETES,"3,18182",0,"3,18182","3,50",10,13013,,TAPA MONGETES,10,13,0,0,12,,,,
+489,XAMPINYONS,"3,18182",0,"3,18182","3,50",10,13015,,TAPA XAMPINYONS,10,13,0,0,12,,,,
+491,CALAMARS ROMANA,"4,54545",0,"4,54545","5,00",10,13017,Tapas/calmares_romana.png,Tapa Calamars Romana,10,13,0,0,12,,,,
+492,TAPA XIPIRONS,"5,45455",0,"5,45455","6,00",10,13018,Tapas/chipirones.png,TAPA XIPIRONS,10,13,0,0,12,,,,
+494,TAPAS VARIS,"1,5",0,"1,5","1,65",10,13020,,TAPAS VARIS,10,13,0,0,12,,,,
+618,ESTRELLA,"1,77273","-0,00015","1,7727273409","1,95",10,,Cervezas/estrella.png,ESTRELLA,10,1,0,0,1,,,,
+619,SAN MIGUEL,"1,95",0,"1,95","1,95",0,,Cervezas/sanmiguel.png,SAN MIGUEL,10,1,0,0,1,,,,
+620,CACAOLAT,"1,5",0,"1,5","1,65",10,,Cafes/cacaolat.png,CACAOLAT,10,3,0,0,0,,,,
+621,COLACAO,"1,5",0,"1,5","1,65",10,,Cafes/colacao.png,COLACAO,10,3,0,0,0,,,,
+624,103,"1,5",0,"1,5","1,65",10,,,103,10,2,0,0,0,,,,
+625,CHIVAS,"54,54545",0,"54,54545","60,00",10,,,CHIVAS,12,2,0,0,0,,,,
+626,ENTRADA,"-7,27273",0,"-7,27273","-8,00",10,,,ENTRADA,10,14,0,0,0,,,,
+627,MARGE ENTRADA,"1,5",0,"1,5","1,65",10,,,MARGE ENTRADA,10,14,0,0,0,,,,
+628,Consumició Anna,"1,5",0,"1,5","1,65",10,,,ANNA,10,14,0,0,0,,,,
+629,Consumició Joan,"1,5",0,"1,5","1,50",0,,,JOAN,10,14,0,0,0,,,,
+631,Barril,"1,5",0,"1,5","1,65",10,,Cervezas/jarra.png,Barril,10,1,0,0,1,,,,
+632,Wrap,1,"354,54545","4,5454545","5,00",10,,Bocadillos/vegetal.png,WRAP,10,4,0,0,12,,,,
+633,Recarrec per reciclatge envàs,"0,1",0,"0,1","0,11",10,,,Reciclatge envàs,8,1,0,0,1,,,,
+635,rosas,"1,5",0,"1,5","1,65",10,,Cavas/juve_camps.png,,8,0,0,0,0,,,,
+636,Kebab qui ti pasa,"1,5",-100,0,"0,00",10,Marroc,Bocadillos/llom.png,Kebab normal,8,4,0,0,0,,,,
+637,Hores de consultoria,0,0,0,"0,00",21,,,Hores de consultoria,8,15,1,1,0,,,,
+638,Desayuno PACK,"0,01","27172,72727","2,727272727","3,00",10,,,Desayuno PACK,8,4,0,0,0,,,,
+656,Article amb complement únic,0,0,0,"0,00",10,,,Article amb complement únic,8,2,0,0,0,,,,
+662,ENSALADA VEGETAL,"6,81818",0,"6,81818","7,50",10,,,ENSALADA VEGETAL,10,9,0,0,2,,,,
+663,ENSALADA MIXTA,"6,59091",0,"6,59091","7,25",10,,,ENSALADA MIXTA,10,9,0,0,2,,,,

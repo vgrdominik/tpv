@@ -34,9 +34,9 @@
                   <v-spacer />
                   <v-avatar v-if="item.img" :width="$vuetify.breakpoint.smAndDown? 50 : '7vh'" :height="$vuetify.breakpoint.smAndDown? 50 : '7vh'">
                     <v-img
-                            :src="require('../../assets/family/barRestaurant/' + item.img)"
-                            class="my-3"
-                    />
+                      :src="familyImg['family' + item.id]"
+                      @error="familyImg['family' + item.id] = $global_utilities.default_img()"
+                      class="my-3" />
                   </v-avatar>
                   <v-avatar v-else color="secondary" :width="$vuetify.breakpoint.smAndDown? 50 : '7vh'" :height="$vuetify.breakpoint.smAndDown? 50 : '7vh'">
                     <span class="white--text headline" v-html="item.text_tpv ? item.text_tpv.charAt(0).toUpperCase() + item.text_tpv.charAt(1) : 'Ar'" />
@@ -96,6 +96,7 @@ export default {
         { name: 'Nombre', value: 'text_tpv' },
         { name: 'Precio', value: 'pvp' },
       ],
+      familyImg: {},
     }
   },
 
@@ -118,6 +119,14 @@ export default {
     },
     numberOfPages () {
       return Math.ceil(this.families.length / this.familiesPerPageFiltered)
+    },
+  },
+
+  watch: {
+    families(newValue) {
+      if (newValue && newValue.length > 0) {
+        newValue.forEach(family => this.familyImg['family' + family.id] = this.$global_utilities.require_img('family/barRestaurant/' + family.img))
+      }
     },
   },
 

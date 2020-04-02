@@ -5,11 +5,64 @@ export default {
         return {
             currentTicketLineToQuantityModify: 0,
             quantityModify: 0,
-            productToShow: null,
         }
     },
 
     computed: {
+        current_product_to_show: {
+            get() {
+                if (this.$store.state.product.product_to_show === null) {
+                    return null
+                }
+
+                return this.$store.state.product.product_to_show
+            },
+            set(newValue) {
+                return newValue
+            },
+        },
+
+        current_product_to_show_complements: {
+            get() {
+                if (this.current_product_to_show === null || this.current_product_to_show.complement_ids_available.length === 0) {
+                    return null
+                }
+
+                return this.$store.state.product.products.filter(product => this.current_product_to_show.complement_ids_available.includes(product.id))
+            },
+            set(newValue) {
+                return newValue
+            },
+        },
+
+        current_product_to_show_complements_groups: {
+            get() {
+                if (this.current_product_to_show_complements === null) {
+                    return null
+                }
+                let current_product_to_show_complements_groups = []
+                this.current_product_to_show_complements.forEach(product => (! current_product_to_show_complements_groups.includes(product.complement_taxonomy)) ? current_product_to_show_complements_groups.push(product.complement_taxonomy) : null)
+
+                return current_product_to_show_complements_groups
+            },
+            set(newValue) {
+                return newValue
+            },
+        },
+
+        current_product_to_show_complements_by_group: {
+            get() {
+                let productComplementsByGroup = {}
+                this.current_product_to_show_complements_groups.forEach(group => {
+                    productComplementsByGroup[group] = this.current_product_to_show_complements.filter(product => product.complement_taxonomy === group)
+                })
+
+                return productComplementsByGroup
+            },
+            set(newValue) {
+                return newValue
+            },
+        },
 
         current_ticket () {
             if (this.$store.state.ticket.current_ticket === 0) {
@@ -20,7 +73,20 @@ export default {
         },
 
         current_ticket_line () {
-            return this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line === this.currentTicketLineToQuantityModify)[0]
+            let ticketLineOrTicketLineComplement = this.currentTicketLineToQuantityModify.toString().split('-')
+
+            if (ticketLineOrTicketLineComplement.length === 1) {
+                // It's a product
+                return this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line === this.currentTicketLineToQuantityModify)[0]
+            } else {
+                // It's a complement
+                let current_ticket_line = this.current_ticket.lines.filter(ticketLine => parseInt(ticketLine.id_ticket_line) === parseInt(ticketLineOrTicketLineComplement[0]))[0]
+                if (current_ticket_line) {
+                    return current_ticket_line.ticket_complements.filter(ticketLineComplement => parseInt(ticketLineComplement.id_complement) === parseInt(ticketLineOrTicketLineComplement[1]))[0]
+                }
+            }
+
+            return null
         },
 
         current_customer: {
@@ -44,14 +110,14 @@ export default {
     methods: {
         addOrShowProductToTicket(product = null, customerId = null) {
             if (product.complement_show && product.complement_show !== "0") {
-                this.productToShow = product
+                this.setProductToShow(product)
                 return true
             }
 
             this.addProductToTicket(product, customerId)
         },
 
-        addProductToTicket(product = null, customerId = null) {
+        addProductToTicket(product = null, customerId = null, complementsSelection = null) {
             // Define current customer
             let current_customer = this.current_customer
 
@@ -147,12 +213,53 @@ export default {
                     create_date: new Date('now'),
                     update_date: new Date('now'),
                 })
+                // Add complements selected
+                if (complementsSelection) {
+                    Object.entries(complementsSelection).forEach(complementSelection => {
+                        // complementSelection[0] -> Complement group
+                        // complementSelection[1] -> Complement selection index
+                        if (complementSelection[1] === null) {
+                            return
+                        }
+                        let productComplement = this.current_product_to_show_complements_by_group[complementSelection[0]][complementSelection[1]]
+                        let currentTicketLine = this.current_ticket.lines[this.current_ticket.lines.length - 1]
+
+                        let currentTicketLineComplementId = 1
+                        if (currentTicketLine.ticket_complements[currentTicketLine.ticket_complements.length - 1]) {
+                            currentTicketLineComplementId = parseInt(currentTicketLine.id_complement) + 1
+                        }
+                        // Set new current ticket line with complement
+                        currentTicketLine.ticket_complements.push({
+                            id_ticket_line: currentTicketLine.id_ticket_line,
+
+                            id_complement: currentTicketLineComplementId,
+
+                            // Used to determine with fields and how show
+                            type: null,
+
+                            description: complementSelection[0] + ': ' + productComplement.complement_text_tpv,
+                            quantity: 1,
+                            serial_number: null, // Technological identifier
+                            lot: null, // Nutrition identifier
+                            expiration: null, // It's a informative date
+                            cost: productComplement.cost,
+                            price: (productComplement.complement_price) ? productComplement.complement_price : productComplement.total,
+                            iva: productComplement.iva,
+                            surcharge: null,
+                            discount: current_customer.discount_product,
+
+                            reference: productComplement.reference,
+                            reference_customer: null,
+                        })
+                    })
+                }
 
                 // Set current ticket total
                 this.current_ticket.total = this.totalTicketWithIva(this.current_ticket)
 
                 // Set current units to one
                 this.setUnits(1)
+                this.setProductToShow(null)
             })
         },
 
@@ -195,6 +302,7 @@ export default {
 
         ...mapActions('product', [
             'setUnits',
+            'setProductToShow',
         ]),
     }
 }
