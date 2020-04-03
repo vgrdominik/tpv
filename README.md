@@ -1,5 +1,11 @@
 # TPV
 
+## Prepare
+Create folder dist_electron to / and paste following folders:
+* /public/data
+* /public/img
+* /public/import_data
+
 ## Project setup
 ```
 npm install
@@ -7,17 +13,19 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run serve // To vue website
+npm run electron:serve // To executable app
 ```
 
 ### Compiles and minifies for production
 ```
-npm run build
+npm run build // To vue website
+npm run electron:build // To executable app
 ```
 
 ### Lints and fixes files
 ```
-npm run lint
+npm run lint // Not tested
 ```
 
 ### Customize configuration
