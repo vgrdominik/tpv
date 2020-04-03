@@ -1,5 +1,13 @@
 # TPV
 
+## Known bugs
+* Products with complements fails.
+* Electron builds fails.
+* When back to TPV images don't show
+
+## TODO
+* Advanced pay.
+
 ## Prepare
 Create folder dist_electron to / and paste following folders:
 * /public/data
