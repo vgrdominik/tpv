@@ -24,7 +24,7 @@ export default {
 
         current_product_to_show_complements: {
             get() {
-                if (this.current_product_to_show === null || this.current_product_to_show.complement_ids_available.length === 0) {
+                if (this.current_product_to_show === null || ! this.current_product_to_show.complement_ids_available || this.current_product_to_show.complement_ids_available.length === 0) {
                     return null
                 }
 
@@ -37,7 +37,7 @@ export default {
 
         current_product_to_show_complements_groups: {
             get() {
-                if (this.current_product_to_show_complements === null) {
+                if (! this.current_product_to_show_complements) {
                     return null
                 }
                 let current_product_to_show_complements_groups = []
@@ -52,6 +52,10 @@ export default {
 
         current_product_to_show_complements_by_group: {
             get() {
+                if (! this.current_product_to_show_complements_groups) {
+                    return
+                }
+
                 let productComplementsByGroup = {}
                 this.current_product_to_show_complements_groups.forEach(group => {
                     productComplementsByGroup[group] = this.current_product_to_show_complements.filter(product => product.complement_taxonomy === group)
@@ -75,7 +79,7 @@ export default {
         current_ticket_line () {
             let ticketLineOrTicketLineComplement = this.currentTicketLineToQuantityModify.toString().split('-')
 
-            if (ticketLineOrTicketLineComplement.length === 1) {
+            if (ticketLineOrTicketLineComplement && ticketLineOrTicketLineComplement.length === 1) {
                 // It's a product
                 return this.current_ticket.lines.filter(ticketLine => ticketLine.id_ticket_line === this.currentTicketLineToQuantityModify)[0]
             } else {
@@ -95,7 +99,7 @@ export default {
                     return null
                 }
                 let current_customer = this.$store.state.customer.customers.filter(customer => customer.id === this.current_ticket.id_customer)
-                if (!current_customer.length) {
+                if (!current_customer || !current_customer.length) {
                     return null
                 }
 
@@ -133,7 +137,7 @@ export default {
 
             // Set new ticket if have not current selected
             let currentTicketId = 0
-            if (! this.current_ticket) {
+            if (! this.current_ticket && this.$store.state.ticket.tickets) {
                 let lastTicket = this.$store.state.ticket.tickets[this.$store.state.ticket.tickets.length - 1]
                 currentTicketId = parseInt(lastTicket.id) + 1
                 this.$store.state.ticket.current_ticket = currentTicketId
@@ -176,7 +180,7 @@ export default {
             this.$nextTick(() => {
                 // It's reset pipe to update all components with current ticket dependency
                 this.$store.state.ticket.current_ticket = currentTicketId
-                if (! this.current_ticket || this.current_ticket.state || ! product) {
+                if (! this.current_ticket || this.current_ticket.state || ! product || ! this.current_ticket.lines) {
                     return false
                 }
 
@@ -218,11 +222,15 @@ export default {
                     Object.entries(complementsSelection).forEach(complementSelection => {
                         // complementSelection[0] -> Complement group
                         // complementSelection[1] -> Complement selection index
-                        if (complementSelection[1] === null) {
+                        if (complementSelection[1] === null || ! this.current_ticket || ! this.current_ticket.lines) {
                             return
                         }
                         let productComplement = this.current_product_to_show_complements_by_group[complementSelection[0]][complementSelection[1]]
                         let currentTicketLine = this.current_ticket.lines[this.current_ticket.lines.length - 1]
+
+                        if (! currentTicketLine.ticket_complements) {
+                            return
+                        }
 
                         let currentTicketLineComplementId = 1
                         if (currentTicketLine.ticket_complements[currentTicketLine.ticket_complements.length - 1]) {
@@ -264,7 +272,7 @@ export default {
         },
 
         payDirectTicket() {
-            if (this.current_ticket.state) {
+            if (this.current_ticket.state || ! this.current_ticket.receipt) {
                 return false
             }
             let currentTicketReceiptId = 1

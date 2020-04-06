@@ -106,7 +106,9 @@ export default {
   },
 
   mounted() {
-    this.current_product_to_show_complements_groups.forEach(group => this.selectionComplements[group] = null)
+    if (this.current_product_to_show_complements_groups) {
+      this.current_product_to_show_complements_groups.forEach(group => this.selectionComplements[group] = null)
+    }
 
     this.productImg = this.$global_utilities.require_img_product(this.product.img)
   },
