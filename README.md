@@ -30,6 +30,10 @@ npm run electron:serve // To executable app
 npm run build // To vue website
 npm run electron:build // To executable app
 ```
+Pate to folder dist_electron/win-unpacked/resources/ the following folders (Without this app fails):
+* /public/data
+* /public/img
+* /public/import_data
 
 ### Lints and fixes files
 ```

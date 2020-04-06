@@ -110,6 +110,7 @@ getDirectoriesPath()
 
 let convertPath = function(path) {
   let pathToReturn = path.replace('app://', app.getAppPath() + '/')
+  pathToReturn = pathToReturn.replace('app.asar/', '')
   return pathToReturn
 }
 
